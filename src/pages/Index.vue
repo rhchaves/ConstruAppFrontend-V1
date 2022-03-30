@@ -12,4 +12,6 @@
 export default {
   name: 'PageIndex',
 };
+
+// https://maps.googleapis.com/maps/api/directions/json?avoid=highways&destination=09780130&mode=driving&origin=08390322&key=AIzaSyB7sxgJ2yklNl9ghL6Lf2PgNjvagu7mrQk
 </script>
