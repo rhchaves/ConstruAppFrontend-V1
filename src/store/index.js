@@ -5,6 +5,12 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+import adminPage from '../modules/admin-page/store';
+import mainPage from '../modules/main-page/store';
+import productPage from '../modules/product-page/store';
+import registerProduct from '../modules/register-product/store';
+import registerUser from '../modules/register-user/store';
+
 /*
  * If not building with SSR mode, you can
  * directly export the Store instantiation;
@@ -17,7 +23,11 @@ Vue.use(Vuex);
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      // example
+      adminPage,
+      mainPage,
+      productPage,
+      registerProduct,
+      registerUser,
     },
 
     // enable strict mode (adds overhead!)

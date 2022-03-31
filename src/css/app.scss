@@ -1,1 +1,30 @@
 // app global css in SCSS form
+.center-screen {
+  margin: 0 auto;
+}
+
+.full-width {
+  width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
+
+@for $i from 1 through 200 {
+  .font-size-#{$i} {
+    font-size: #{$i}px;
+  }
+}
+
+.line-through {
+  text-decoration: line-through;
+}
+.zoomer-left-base-container > img {
+  max-width: 500px;
+}
+
+.router-link {
+  text-decoration: none; color: inherit;
+}
