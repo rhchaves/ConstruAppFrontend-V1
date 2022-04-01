@@ -7,7 +7,7 @@
           <q-btn
             class="q-ma-sm"
             color="black"
-            rounded
+            ounded
             no-caps
             size="lg"
             padding="sm"
@@ -73,6 +73,7 @@
             class="q-gutter-md"
           >
             <q-input
+              rounded
               outlined
               v-model="search"
               label="Digite o cep"

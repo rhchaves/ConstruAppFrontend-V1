@@ -12,7 +12,7 @@
         />
 
         <q-toolbar-title shrink class="row items-center no-wrap">
-          <img src="https://cdn.quasar.dev/img/layout-gallery/logo-google.svg">
+          <!-- <img src="https://cdn.quasar.dev/img/layout-gallery/logo-google.svg"> -->
           <span class="q-ml-sm">News</span>
         </q-toolbar-title>
 
