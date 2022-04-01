@@ -1,21 +1,19 @@
-import HttpClient from '../../../boot/HttpClient';
+import axios from 'axios';
 
-// Apenas para exemplo de requisição
-
-// //////////////////////////////////////////////////////
-const teste = async ({ commit }, payload) => {
+// //////////////////////////////////////
+const listCep = ({ commit }, payload) => {
   commit('SEARCHING', true);
 
-  await HttpClient.get('/app/menus', payload).then((response) => {
-    commit('LIST_DATA', response.data.data);
+  axios.get(`https://viacep.com.br/ws/${payload}/json`).then((response) => {
+    commit('LIST_CEP', response.data);
+    console.log(response.data);
     return response;
-  })
-    .finally(() => {
-      commit('SEARCHING', false);
-    });
+  });
+
+  commit('SEARCHING', false);
 };
-// //////////////////////////////////////////////////////
+// //////////////////////////////////////
 
 export {
-  teste,
+  listCep,
 };

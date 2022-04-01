@@ -1,7 +1,12 @@
-const LIST_DATA = (state, payload) => {
-  state.items = payload;
+const SEARCHING = (state, payload) => {
+  state.searching = payload;
+};
+
+const LIST_CEP = (state, payload) => {
+  state.cep.push(payload);
 };
 
 export {
-  LIST_DATA,
+  SEARCHING,
+  LIST_CEP,
 };
