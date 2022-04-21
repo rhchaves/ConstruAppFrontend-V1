@@ -13,9 +13,7 @@
         <q-btn
           flat
           @click="toggleLeftDrawer"
-          aria-label="Menu"
           icon="menu"
-          class="q-mr-sm"
         />
 
         <!-- Título do header -->
@@ -64,7 +62,7 @@
 
           <!-- Notificações -->
           <q-btn round dense flat color="grey-8" icon="notifications">
-            <q-badge color="red" text-color="white" floating>
+            <q-badge rounded color="red" text-color="white" floating>
               2
             </q-badge>
             <q-tooltip>Notifications</q-tooltip>
@@ -80,7 +78,6 @@
     <!-- Início da listagem dos itens no menu retrátil lateral esquerdo -->
     <q-drawer
       v-model="leftDrawerOpen"
-      show-if-above
       bordered
       class="bg-white"
       :width="280"
@@ -116,7 +113,6 @@ export default {
   data() {
     return {
       search: '',
-      showing: true,
       leftDrawerOpen: false,
       shoppingCartValue: 2,
       logado: false,
