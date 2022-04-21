@@ -1,5 +1,8 @@
 <template>
   <q-page>
+
+    <CategoriesComponent />
+
     <div class="center-screen" style=" max-width: 1400px">
 
       <section class="center-screen">
@@ -92,10 +95,16 @@
 </template>
 
 <script>
+
+import CategoriesComponent from 'src/components/CategoriesComponent.vue';
 import { mapActions } from 'vuex';
 
 export default {
   name: 'MainPage',
+
+  components: {
+    CategoriesComponent,
+  },
 
   data() {
     return {
