@@ -67,14 +67,50 @@
           style="width: 200px; height: 200px"
         >
 
+        <div class="q-pa-md">
+          <q-form
+            @submit="onSubmit"
+            class="q-gutter-md"
+          >
+            <q-input
+              outlined
+              v-model="search"
+              label="Digite o cep"
+              mask="#####-###"
+              unmasked-value
+              style="max-width: 200px"
+              :rules="[val => !! val || 'Field is required']"
+            >
+            </q-input>
+            <q-btn rounded color="black" label="Buscar" type="submit"/>
+          </q-form>
+        </div>
+
       </section>
     </div>
   </q-page>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'MainPage',
+
+  data() {
+    return {
+      search: '',
+    };
+  },
+
+  methods: {
+    ...mapActions('mainPage', ['listCep']),
+
+    onSubmit() {
+      console.log('Clicou em buscar:', this.search);
+      this.listCep(this.search);
+    },
+  },
 };
 
 </script>
