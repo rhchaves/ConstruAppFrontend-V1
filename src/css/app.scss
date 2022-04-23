@@ -28,3 +28,24 @@ h1, h2, h3, h4, h5, h6 {
 .router-link {
   text-decoration: none; color: inherit;
 }
+
+.btnAmber {
+  background-color: #FFCD26;
+  color: black;
+}
+
+.btnCancel {
+  background-color: #E28E5E;
+  color: black;
+}
+
+.categories {
+  border-radius: 0px;
+  min-width: 120px;
+  min-height: 50px;
+}
+
+.my-card {
+  width: 100%;
+  max-width: 300px;
+}

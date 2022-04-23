@@ -11,18 +11,22 @@
       <router-view />
     </q-page-container>
 
+    <FooterComponent />
+
   </q-layout>
 </template>
 
 <script>
 
 import HeaderComponent from 'src/components/HeaderComponent.vue';
+import FooterComponent from 'src/components/FooterComponent.vue';
 
 export default {
   name: 'MainLayout',
 
   components: {
     HeaderComponent,
+    FooterComponent,
   },
 
   // Local para definir as variáveis da página
