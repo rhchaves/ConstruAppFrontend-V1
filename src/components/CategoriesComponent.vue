@@ -9,6 +9,21 @@
         @click="categories(category.name)"
       />
 
+      <!-- <q-toolbar class="btnAmber">
+        <q-tabs
+          v-model="listCategories"
+          inline-label
+          shrink
+          stretch
+        >
+          <q-btn
+            class="btnAmber categories"
+            v-for="category in listCategories"
+            :key="category.name"
+            v-bind="category" />
+        </q-tabs>
+      </q-toolbar> -->
+
     </div>
 
   </div>
