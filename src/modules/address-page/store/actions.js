@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // //////////////////////////////////////
-const listCep = ({ commit }, payload) => {
+const searchCep = ({ commit }, payload) => {
   commit('SEARCHING', true);
 
   axios.get(`https://viacep.com.br/ws/${payload}/json`).then((response) => {
@@ -15,5 +15,5 @@ const listCep = ({ commit }, payload) => {
 // //////////////////////////////////////
 
 export {
-  listCep,
+  searchCep,
 };
