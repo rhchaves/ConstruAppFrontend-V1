@@ -59,6 +59,7 @@
 
 import axios from 'axios';
 // import { mapActions } from 'vuex';
+import Swal from 'sweetalert2';
 
 export default {
   name: 'AddressPage',
@@ -83,7 +84,15 @@ export default {
     // ...mapActions('addressPage', ['searchCep']),
 
     confirmAddress() {
-      console.log('Confirmou endereço:', this.address);
+      if (this.address.cep.length !== 8 || this.address.number === '') {
+        Swal.fire(
+          'Atenção!',
+          'Preencha os campos',
+          'warning',
+        );
+      } else {
+        console.log('Confirmou endereço:', this.address);
+      }
     },
 
     // função para procurar o cep informado
@@ -92,7 +101,7 @@ export default {
       // this.searchCep(this.cep);
 
       // requisição via axios
-      if (this.address.cep === 8) {
+      if (this.address.cep.length === 8) {
         axios.get(`https://viacep.com.br/ws/${this.address.cep}/json`).then((response) => {
           console.log('Pesquisou o cep:', this.address.cep);
           console.log(response.data);
@@ -115,6 +124,11 @@ export default {
       } else {
         // msgCepFill();
         console.log('Preencha o cep');
+        Swal.fire(
+          'Atenção!',
+          'Preencha o CEP corretamente',
+          'warning',
+        );
       }
     },
   },
