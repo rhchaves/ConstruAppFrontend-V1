@@ -2,7 +2,6 @@
   <q-page>
 
     <CategoriesComponent />
-    <AddressPage />
 
     <div class="center-screen" style=" max-width: 1400px">
 
@@ -98,7 +97,6 @@
 <script>
 
 import CategoriesComponent from 'src/components/CategoriesComponent.vue';
-import AddressPage from 'src/modules/address-page/pages/AddressPage.vue';
 import { mapActions } from 'vuex';
 
 export default {
@@ -106,7 +104,6 @@ export default {
 
   components: {
     CategoriesComponent,
-    AddressPage,
   },
 
   data() {
