@@ -18,7 +18,9 @@
 
         <!-- Título do header -->
         <q-toolbar-title shrink class="row items-center no-wrap">
-          <span class="q-ml-sm">ConstruApp</span>
+          <router-link to="/main-page" class="router-link" >
+            <span class="q-ml-sm">ConstruApp</span>
+          </router-link>
         </q-toolbar-title>
 
         <q-space />
@@ -45,20 +47,24 @@
         <div class="q-gutter-sm row items-center no-wrap">
 
            <!-- Conta do usuário -->
-          <q-btn color="amber" text-color="black">
-            <span v-if="!logado" class="q-ml-sm">Entrar</span>
-            <q-avatar v-else size="26px">
-              <img src="https://cdn.quasar.dev/img/boy-avatar.png">
-            </q-avatar>
-            <q-tooltip>Nome do Usuário</q-tooltip>
-          </q-btn>
+          <router-link to="/login-page" class="router-link" >
+            <q-btn color="amber" text-color="black">
+              <span v-if="!logado" class="q-ml-sm">Entrar</span>
+              <q-avatar v-else size="26px">
+                <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+              </q-avatar>
+              <q-tooltip>Nome do Usuário</q-tooltip>
+            </q-btn>
+          </router-link>
 
           <!-- Carrinho -->
-          <q-btn flat icon="shopping_cart" class="" >
-            <q-badge rounded class="q-mr-sm q-mt-xs" color="red" text-color="white" floating>
-              {{ shoppingCartValue }}
-            </q-badge>
-          </q-btn>
+          <router-link to="/cart-page" class="router-link" >
+            <q-btn flat icon="shopping_cart" class="" >
+              <q-badge rounded class="q-mr-sm q-mt-xs" color="red" text-color="white" floating>
+                {{ shoppingCartValue }}
+              </q-badge>
+            </q-btn>
+          </router-link>
 
           <!-- Notificações -->
           <q-btn round dense flat color="grey-8" icon="notifications">
