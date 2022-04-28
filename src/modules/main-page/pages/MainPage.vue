@@ -2,6 +2,7 @@
   <q-page>
 
     <CategoriesComponent />
+    <AddressPage v-if="!logado"/>
 
     <!-- ---------------------remover---------------------------------------- -->
     <div class="center-screen" style=" max-width: 1400px">
@@ -52,6 +53,8 @@
 
 import CategoriesComponent from 'src/components/CategoriesComponent.vue';
 import CardProductComponent from 'src/components/CardProductComponent.vue';
+import AddressPage from 'src/modules/address-page/pages/AddressPage.vue';
+
 import { mapActions } from 'vuex';
 
 export default {
@@ -60,11 +63,14 @@ export default {
   components: {
     CategoriesComponent,
     CardProductComponent,
+    AddressPage,
   },
 
   data() {
     return {
       search: '',
+      logado: false,
+
       // Lista de itens para teste
       listProducts: [
         {
