@@ -4,6 +4,7 @@ import ProductPageRoute from '../modules/product-page/routes';
 import RegisterProductRoute from '../modules/register-product/routes';
 import RegisterUserRoute from '../modules/register-user/routes';
 import AddressPageRoute from '../modules/address-page/routes';
+import CartPageRoute from '../modules/cart-page/routes';
 
 const routes = [
   {
@@ -17,6 +18,7 @@ const routes = [
       ...RegisterProductRoute,
       ...RegisterUserRoute,
       ...AddressPageRoute,
+      ...CartPageRoute,
     ],
   },
 
