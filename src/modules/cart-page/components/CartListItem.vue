@@ -3,13 +3,13 @@
     <q-list bordered padding class="q-mt-xl" style="max-width: 900px">
       <q-item>
         <q-item-section top thumbnail class="q-ml-none">
-          <img src="https://cdn.quasar.dev/img/mountains.jpg">
+          <img class="q-ma-md" src="https://cdn.quasar.dev/img/mountains.jpg">
         </q-item-section>
 
         <q-item-section>
-          <q-item-label>Single line item</q-item-label>
-          <q-item-label >Secondary line text. Lorem ipsum dolor
-            sit amet, consectetur adipiscit elit.</q-item-label>
+          <q-item-label>Nome do item</q-item-label>
+          <q-item-label >Descrição breve do item</q-item-label>
+          <q-item-label >Valor: R$ {{ itemValue }}</q-item-label>
         </q-item-section>
 
         <q-item-section >
@@ -17,11 +17,20 @@
               {{ deleteItem }}
             </q-btn>
         </q-item-section>
+        <q-item-section class="btnAmber " >
+          <q-btn flat icon="add" class="" ></q-btn>
+          <q-input>{{ itemQuantity }}</q-input>
+          <q-btn flat icon="remove" class="" ></q-btn>
+        </q-item-section>
         <q-item-section >
-          <q-item-label >Valor</q-item-label>
+          <q-item-label >R$ {{ value }}</q-item-label>
         </q-item-section>
       </q-item>
     </q-list>
+    <q-section>
+      <h5>Forma de pagamento:</h5>
+       <q-select rounded v-model="model" :options="options" label="Opção de pagamento" />
+    </q-section>
   </q-page>
 </template>
 
@@ -31,8 +40,23 @@ export default {
 
   data() {
     return {
-      deleteItem: '',
+      deletedItem: '',
+      itemValue: '1700,00',
+      itemQuantity: '0',
+      value: '1700,00',
+      item: '',
+      model: null,
+      options: [
+        'Dinheiro', 'Cartão de Crédito', 'Cartão de Débito',
+      ],
     };
   },
+
+  methods: {
+    deleteItem() {
+      console.log('Apagar Item:');
+    },
+  },
+
 };
 </script>
