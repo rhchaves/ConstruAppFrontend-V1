@@ -41,27 +41,9 @@
 export default {
   name: 'CartlistItem',
 
-  // props: {
-
-  //   itemQuantity: {
-  //     type: Number,
-  //     required: true,
-  //     default: 0,
-  //   },
-
-  //   deletedItem: {
-  //     type: String,
-  //   },
-
-  //   options: {
-  //     type: String,
-  //     default: 'Dinheiro, Cartão de Crédito, Cartão de Débito',
-  //   },
-
-  // },
-
   data() {
     return {
+      name: '',
       deletedItem: '',
       item: {
         id: 1,

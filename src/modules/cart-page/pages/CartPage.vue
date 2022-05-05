@@ -1,23 +1,80 @@
 <template>
   <q-page class="q-ma-md">
     <h3>Esta é a página de carrinho</h3>
-    <CartlistItem />
+    <q-list bordered padding class="q-mt-xl" style="max-width: 900px">
+      <q-item v-if="item.inCart">
+        <q-item-section top thumbnail class="q-ml-none">
+          <img class="q-ma-md" src="https://cdn.quasar.dev/img/mountains.jpg">
+        </q-item-section>
+
+        <q-item-section>
+          <q-item-label v-model="item.name">Nome do item</q-item-label>
+          <q-item-label v-model="item.description">Descrição breve do item</q-item-label>
+          <q-item-label v-model="item.value">Valor: R$ {{ item.value }}</q-item-label>
+        </q-item-section>
+
+        <q-item-section >
+          <q-btn flat icon="delete" class="" v-model="item.id" @click="deleteItem()"></q-btn>
+        </q-item-section>
+        <q-item-section class=" " >
+          <div class="row items-center no-wrap btnAmber">
+
+          <q-btn flat icon="remove" class="" @click="removeQuantity"></q-btn>
+          <q-input
+            class=""
+            v-model="item.quantity"
+            @focusout="checkValue"
+            style="text-align: center"
+          ></q-input>
+          <q-btn flat icon="add" class="" @click="addQuantity"></q-btn>
+          </div>
+
+        </q-item-section>
+        <q-item-section >
+          <q-item-label v-model="item.subtotal">R$ {{ item.subtotal }}</q-item-label>
+        </q-item-section>
+      </q-item>
+    </q-list>
+    <q-section class="q-ma-lg">
+      <h5>Forma de pagamento:</h5>
+      <q-select rounded v-model="model" :options="options" :name="name"
+        style="max-width: 300px" label="Opção de pagamento" />
+    </q-section>
+
+    <q-section class="q-ma-lg">
+      <q-input class="" outlined rounded v-model="deliveryAddress.street"
+        style="max-width: 300px"></q-input>
+      <q-input
+        class=""
+        outlined
+        rounded
+        v-model="deliveryValue"
+        prefix="R$"
+        style="max-width: 300px"
+      ></q-input>
+      <q-input
+        class=""
+        outlined
+        rounded
+        v-model="totalValue"
+        prefix="R$"
+        style="max-width: 300px"
+      ></q-input>
+      <q-btn class="btnAmber" rounded @click="changeAddress">Alterar Endereço</q-btn>
+      <q-btn class="btnAmber" rounded @click="sendRequest">Enviar Pedido</q-btn>
+
+    </q-section>
   </q-page>
 </template>
 
 <script>
 
-import CartlistItem from 'src/modules/cart-page/components/CartListItem.vue';
-
 export default {
   name: 'CartPage',
 
-  components: {
-    CartlistItem,
-  },
-
   data() {
     return {
+      name: '',
       deletedItem: '',
       item: {
         id: 1,
@@ -26,18 +83,26 @@ export default {
         subtotal: 0,
         name: '',
         description: '',
+        inCart: true,
       },
       model: null,
       options: [
         'Dinheiro', 'Cartão de Crédito', 'Cartão de Débito',
       ],
+      deliveryAddress: {
+        street: 'Rua teste',
+        number: '',
+        district: '',
+      },
+      deliveryValue: 'A calcular',
+      totalValue: 0,
     };
   },
 
   methods: {
     deleteItem() {
       console.log('Apagar Item:', this.deletedItem);
-      this.item = [];
+      this.item.inCart = false;
     },
 
     addQuantity() {
@@ -76,6 +141,19 @@ export default {
 
     calcSubtotal() {
       this.item.subtotal = this.item.quantity * this.item.value;
+      this.calcTotal();
+    },
+
+    calcTotal() {
+      this.totalValue = this.item.subtotal;
+    },
+
+    changeAddress() {
+      console.log('Alterar o endereço');
+    },
+
+    sendRequest() {
+      console.log('Enviar o Pedido');
     },
   },
 
