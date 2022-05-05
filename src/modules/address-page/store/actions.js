@@ -1,13 +1,12 @@
 import axios from 'axios';
 
 // //////////////////////////////////////
-const listCep = ({ commit }, payload) => {
+const searchCep = ({ commit }, payload) => {
   commit('SEARCHING', true);
 
   axios.get(`https://viacep.com.br/ws/${payload}/json`).then((response) => {
     commit('LIST_CEP', response.data);
-    console.log(response);
-    alert(response.data.logradouro); // atributo
+    console.log(response.data);
     return response;
   });
 
@@ -16,5 +15,5 @@ const listCep = ({ commit }, payload) => {
 // //////////////////////////////////////
 
 export {
-  listCep,
+  searchCep,
 };

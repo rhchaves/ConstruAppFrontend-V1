@@ -1,7 +1,6 @@
 <template>
-  <q-page class="flex flex-center">
-    <h3>Página de Login</h3>
-
+  <q-page>
+    <h2>Página de Login</h2>
   </q-page>
 </template>
 

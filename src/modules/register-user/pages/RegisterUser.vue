@@ -16,6 +16,12 @@
 
     <h3>Página de Cadastro de Usuário</h3>
 
+    <div class="q-pa-md">
+      <div class="q-gutter-md" style="max-width: 300px">
+        <q-input standout label="Nome" />
+      </div>
+    </div>
+
   </q-page>
 </template>
 
