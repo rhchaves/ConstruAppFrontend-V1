@@ -10,6 +10,7 @@
               <q-form class="q-gutter-md">
                 <!-- inputs de entrada de dados -->
                 <q-input
+                  autofocus
                   outlined
                   v-model="address.cep"
                   type="text"
@@ -26,7 +27,7 @@
                 <!-- botão de pesquisar CEP -->
                 <q-btn
                   class="btnAmber"
-                  label="Pesquisar por CEP"
+                  label="Preencher com CEP"
                   rounded
                   no-caps
                   @click="searchForCep()"/>
@@ -84,10 +85,16 @@ export default {
     // ...mapActions('addressPage', ['searchCep']),
 
     confirmAddress() {
-      if (this.address.cep.length !== 8 || this.address.number === '') {
+      if (this.address.cep.length !== 8) {
         Swal.fire(
           'Atenção!',
           'Preencha os campos',
+          'warning',
+        );
+      } else if (this.address.number === '') {
+        Swal.fire(
+          'Atenção!',
+          'Preencha o número',
           'warning',
         );
       } else {
