@@ -4,7 +4,7 @@
 
     <h3>Página de Principal</h3>
 
-    <LoginPage />
+    <LoginPage  />
     <AddressPage v-if="!logado"/>
     <ContentMainPage />
   </q-page>
