@@ -47,24 +47,22 @@
         <div class="q-gutter-sm row items-center no-wrap">
 
            <!-- Conta do usuário -->
-          <router-link to="/login-page" class="router-link" >
-            <q-btn color="amber" text-color="black">
-              <span v-if="!logado" class="q-ml-sm">Entrar</span>
+          <!-- <router-link to="/login-page" class="router-link" > -->
+            <q-btn color="amber" text-color="black" >
+              <span v-if="!logado" class="q-ml-sm" @click="logIntoAccount">Entrar</span>
               <q-avatar v-else size="26px">
                 <img src="https://cdn.quasar.dev/img/boy-avatar.png">
               </q-avatar>
               <q-tooltip>Nome do Usuário</q-tooltip>
             </q-btn>
-          </router-link>
+          <!-- </router-link> -->
 
           <!-- Carrinho -->
-          <router-link to="/cart-page" class="router-link" >
-            <q-btn flat icon="shopping_cart" class="" >
-              <q-badge rounded class="q-mr-sm q-mt-xs" color="red" text-color="white" floating>
-                {{ shoppingCartValue }}
-              </q-badge>
-            </q-btn>
-          </router-link>
+          <q-btn flat icon="shopping_cart" class="" to="cart-page">
+            <q-badge rounded class="q-mr-sm q-mt-xs" color="red" text-color="white" floating>
+              {{ shoppingCartValue }}
+            </q-badge>
+          </q-btn>
 
           <!-- Notificações -->
           <q-btn round dense flat color="grey-8" icon="notifications">
@@ -107,13 +105,25 @@
       </q-scroll-area>
     </q-drawer>
     <!-- Término da listagem dos itens no menu retrátil lateral esquerdo -->
+    <LoginPage
+      :login="loginAccount"
+      titulo="Teste"
+      @closeDialog="closeDialog"
+      @isLoggedIn="isLoggedIn"
+    />
 
   </div>
 </template>
 
 <script>
+import LoginPage from 'src/modules/login/pages/LoginPage.vue';
+
 export default {
   name: 'HeaderComponent',
+
+  components: {
+    LoginPage,
+  },
 
   // Local para definir as variáveis da página
   data() {
@@ -122,6 +132,7 @@ export default {
       leftDrawerOpen: false,
       shoppingCartValue: 2,
       logado: false,
+      loginAccount: false,
     };
   },
 
@@ -134,10 +145,22 @@ export default {
 
     // enviar palavra chave da pesquisa
     searchProduct(item) {
-      console.log('Clicou em pesquisar o item: ', item);
+      console.log('Clicou em pesquisar o itsem: ', item);
       this.search = '';
     },
 
+    logIntoAccount() {
+      this.loginAccount = true;
+      console.log('Abriu o Dialog: ', this.loginAccount);
+    },
+    closeDialog() {
+      this.loginAccount = false;
+      console.log('Fechou o Dialog: ', this.loginAccount);
+    },
+
+    isLoggedIn() {
+      this.logado = true;
+    },
   },
 };
 </script>
