@@ -8,17 +8,10 @@
       style="border-bottom: solid 1px #ccc;"
     >
 
-      <!-- Icone do menu retrátil lateral esquerdo icone de 3 riscos (=) -->
-      <q-toolbar class="">
-        <q-btn
-          flat
-          @click="toggleLeftDrawer"
-          icon="menu"
-        />
-
+      <q-toolbar class="" >
         <!-- Título do header -->
         <q-toolbar-title shrink class="row items-center no-wrap">
-          <router-link to="/main-page" class="router-link" >
+          <router-link to="/" class="router-link" >
             <span class="q-ml-sm">ConstruApp</span>
           </router-link>
         </q-toolbar-title>
@@ -26,7 +19,7 @@
         <q-space />
 
         <!-- Input de pesquisa -->
-        <div class="">
+        <div class="row items-center no-wrap" v-if="visibleSearchField">
           <q-input
             outlined
             v-model="search"
@@ -46,16 +39,48 @@
         <!-- Icones lateral direita -->
         <div class="q-gutter-sm row items-center no-wrap">
 
-           <!-- Conta do usuário -->
-          <!-- <router-link to="/login-page" class="router-link" > -->
-            <q-btn color="amber" text-color="black" >
-              <span v-if="!logado" class="q-ml-sm" @click="logIntoAccount">Entrar</span>
-              <q-avatar v-else size="26px">
-                <img src="https://cdn.quasar.dev/img/boy-avatar.png">
-              </q-avatar>
-              <q-tooltip>Nome do Usuário</q-tooltip>
+          <div class="btnAmber rounded-item row items-center no-wrap" >
+
+            <!-- Conta do usuário -->
+            <div v-if="visibleLogin && logado">
+
+            <q-avatar class="q-ml-sm q-mr-sm" v-if="logado" size="26px">
+              <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+            </q-avatar>
+            {{ nameUser }}
+
+            </div>
+            <q-btn flat v-if="visibleLogin && !logado" >
+              <span  class=""
+                @click="logIntoAccount">Entrar</span>
             </q-btn>
-          <!-- </router-link> -->
+
+            <!-- Menu retrátil (icone de 3 riscos) -->
+            <q-btn
+              v-if="visibleMenu && logado"
+              flat
+              @click="toggleLeftDrawer"
+              icon="menu"
+            >
+
+              <q-menu class="">
+                <q-list class="btnAmber" style="min-width: 100px">
+                  <q-item clickable v-close-popup>
+                    <q-item-section>Minhas compras</q-item-section>
+                  </q-item>
+                  <q-item clickable v-close-popup>
+                    <q-item-section>Alterar dados</q-item-section>
+                  </q-item>
+                  <q-separator />
+                  <q-item clickable v-close-popup>
+                    <q-item-section @click="logado = false">Sair</q-item-section>
+                  </q-item>
+                </q-list>
+              </q-menu>
+
+            </q-btn>
+
+          </div>
 
           <!-- Carrinho -->
           <q-btn flat icon="shopping_cart" class="" to="cart-page">
@@ -79,31 +104,6 @@
     </q-header>
     <!-- Término do cabeçalho -->
 
-    <!-- Início da listagem dos itens no menu retrátil lateral esquerdo -->
-    <q-drawer
-      v-model="leftDrawerOpen"
-      bordered
-      class="bg-white"
-      :width="280"
-    >
-      <q-scroll-area class="fit">
-        <q-list padding class="text-grey-8">
-
-          <div class="q-mt-md">
-            <div class="flex flex-center q-gutter-xs">
-              <a class="" href="javascript:void(0)"
-              aria-label="Privacy">Privacy</a>
-              <span> · </span>
-              <a class="" href="javascript:void(0)"
-               aria-label="Terms">Terms</a>
-              <span> · </span>
-              <a class="" href="javascript:void(0)"
-              aria-label="About">About Google</a>
-            </div>
-          </div>
-        </q-list>
-      </q-scroll-area>
-    </q-drawer>
     <!-- Término da listagem dos itens no menu retrátil lateral esquerdo -->
     <LoginPage
       :login="loginAccount"
@@ -125,11 +125,33 @@ export default {
     LoginPage,
   },
 
+  props: {
+    nameUser: {
+      type: String,
+      required: false,
+      default: 'Nome do Usuário',
+    },
+    visibleSearchField: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
+    visibleLogin: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
+    visibleMenu: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
+  },
+
   // Local para definir as variáveis da página
   data() {
     return {
       search: '',
-      leftDrawerOpen: false,
       shoppingCartValue: 2,
       logado: false,
       loginAccount: false,
