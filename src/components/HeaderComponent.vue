@@ -116,7 +116,7 @@
 </template>
 
 <script>
-import LoginPage from 'src/modules/login/pages/LoginPage.vue';
+import LoginPage from 'src/components/LoginPage.vue';
 
 export default {
   name: 'HeaderComponent',
