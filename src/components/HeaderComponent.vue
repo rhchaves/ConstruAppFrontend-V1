@@ -11,7 +11,7 @@
       <q-toolbar class="" >
         <!-- Título do header -->
         <q-toolbar-title shrink class="row items-center no-wrap">
-          <router-link to="/" class="router-link" >
+          <router-link to="/main-page" class="router-link" >
             <span class="q-ml-sm">ConstruApp</span>
           </router-link>
         </q-toolbar-title>
