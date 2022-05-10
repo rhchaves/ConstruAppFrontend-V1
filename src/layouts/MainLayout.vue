@@ -2,7 +2,11 @@
   <q-layout view="hHh Lpr fFf" class="">
 
      <div style="margin: 0 auto; max-width: 1920px;" >
-        <HeaderComponent/>
+        <HeaderComponent
+          :visibleSearchField="true"
+          :visibleMenu="true"
+          :visibleLogin="true"
+        />
       </div>
 
     <!-- Conteúdo principal da página -->
