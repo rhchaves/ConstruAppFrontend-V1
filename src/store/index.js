@@ -10,7 +10,11 @@ import mainPage from '../modules/main-page/store';
 import productPage from '../modules/product-page/store';
 import registerProduct from '../modules/register-product/store';
 import registerUser from '../modules/register-user/store';
+<<<<<<< HEAD
 import addressPage from '../modules/address-page/store';
+=======
+import cartPage from '../modules/cart-page/store';
+>>>>>>> ddf3dfcb65d4b221110fbb0b4f30bd76a0a614b4
 
 /*
  * If not building with SSR mode, you can
@@ -29,7 +33,11 @@ export default function (/* { ssrContext } */) {
       productPage,
       registerProduct,
       registerUser,
+<<<<<<< HEAD
       addressPage,
+=======
+      cartPage,
+>>>>>>> ddf3dfcb65d4b221110fbb0b4f30bd76a0a614b4
     },
 
     // enable strict mode (adds overhead!)
