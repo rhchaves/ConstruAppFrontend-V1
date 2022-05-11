@@ -1,8 +1,8 @@
 const loadingCep = (state) => state.searching;
 
-const getListCep = (state) => state.cep;
+const getUserAddress = (state) => state.address;
 
 export {
   loadingCep,
-  getListCep,
+  getUserAddress,
 };

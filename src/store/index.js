@@ -10,6 +10,7 @@ import mainPage from '../modules/main-page/store';
 import productPage from '../modules/product-page/store';
 import registerProduct from '../modules/register-product/store';
 import registerUser from '../modules/register-user/store';
+import addressPage from '../modules/address-page/store';
 import cartPage from '../modules/cart-page/store';
 
 /*
@@ -29,6 +30,7 @@ export default function (/* { ssrContext } */) {
       productPage,
       registerProduct,
       registerUser,
+      addressPage,
       cartPage,
     },
 
