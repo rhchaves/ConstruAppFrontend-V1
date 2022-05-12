@@ -46,7 +46,7 @@
 
 <script>
 
-import CardProductComponent from 'src/components/CardProductComponent.vue';
+import CardProductComponent from 'src/common/CardProductComponent.vue';
 import { mapActions } from 'vuex';
 
 export default {

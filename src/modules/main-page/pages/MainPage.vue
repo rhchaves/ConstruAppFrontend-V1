@@ -10,7 +10,7 @@
 
 <script>
 
-import CategoriesComponent from 'src/components/CategoriesComponent.vue';
+import CategoriesComponent from 'src/common/CategoriesComponent.vue';
 import ContentMainPage from 'src/modules/main-page/components/ContentMainPage.vue';
 
 export default {

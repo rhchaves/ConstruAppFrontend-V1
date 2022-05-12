@@ -42,7 +42,7 @@
 
 <script>
 
-import CategoriesComponent from 'src/components/CategoriesComponent.vue';
+import CategoriesComponent from 'src/common/CategoriesComponent.vue';
 
 export default {
   name: 'ProductPage',
