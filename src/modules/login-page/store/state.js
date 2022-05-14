@@ -1,4 +1,9 @@
 export default {
-  searching: false,
+  loading: false,
+  isLoggedIn: false,
+  user: {
+    email: '',
+    password: '',
+  },
 
 };

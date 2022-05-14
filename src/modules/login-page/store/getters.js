@@ -1,5 +1,11 @@
-const searchingTeste = (state) => state.searching;
+const getLoading = (state) => state.loading;
+
+const getIsLoggedIn = (state) => state.isLoggedIn;
+
+const getUser = (state) => state.user;
 
 export {
-  searchingTeste,
+  getLoading,
+  getIsLoggedIn,
+  getUser,
 };

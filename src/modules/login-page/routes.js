@@ -1,4 +1,4 @@
-import LoginPage from 'src/modules/login-page/routes';
+import LoginPage from './pages/LoginPage.vue';
 
 const routes = [
   {

@@ -1,130 +1,93 @@
 <template>
-  <q-page>
-    <h2>Página de Login</h2>
-    <!-- <q-form> -->
-    <!-- <q-btn label="Prompt" color="primary" @click="isLoggedIn = !isLoggedIn" /> -->
-      <!-- <q-dialog v-model="loginAccount" persistent> -->
-        <q-card style="min-width: 350px">
-          <q-card-section>
-            <div class="text-h6">Entrar</div>
-            <q-btn class="" type="text" icon="close" flat round v-close-popup
-              @click="closedDialog"></q-btn>
-          </q-card-section>
+  <q-page class="window-height window-width row justify-center items-center">
+    <q-card class="" style="min-width: 350px; max-width: 500px">
+      <q-card-section>
+        <div class="text-h6 row justify-center">Entrar</div>
+      </q-card-section>
 
-          <q-card-section class="q-pt-none">
-            <q-input
-              outlined
-              v-model="name"
-              type="text"
-              label="Email"
-              lazy-rules
-              :rules="[ val => val && val.length <= 0 || 'Preencha o Campo']"
-            />
+      <q-card-section class="q-pt-none">
+        <q-input
+          outlined
+          v-model="user.email"
+          type="text"
+          label="Email"
+          lazy-rules
+          :rules="[ val => val && val !== '' || 'Preencha o email']"
+        />
 
-            <q-input
-              outlined
-              v-model="password"
-              type="text"
-              label="Senha"
-              lazy-rules
-            />
-          </q-card-section>
+        <q-input
+          outlined
+          v-model="user.password"
+          type="text"
+          label="Senha"
+          lazy-rules
+          :rules="[ val => val && val !== '' || 'Preencha a senha']"
+        />
+      </q-card-section>
 
-          <q-card-actions align="right" class="text-primary">
-            <q-btn class="" type="text" flat>Esqueci a senha</q-btn>
-            <q-btn class="btnAmber" type="text" rounded v-close-popup
-              @click="isLoggedInFunc">Login</q-btn>
-            <q-btn class="btnAmber" type="text" rounded v-close-popup
-              @click="createAccount">Criar Conta</q-btn>
-          </q-card-actions>
-        </q-card>
-      <!-- </q-dialog> -->
-
-    <!-- </q-form> -->
+      <q-card-actions align="right" class="text-primary">
+        <q-btn class="" type="text" flat
+          @click="forgotPassword">Esqueci a senha</q-btn>
+        <q-btn class="btnAmber" type="text" rounded
+          @click="loginAccount">Login</q-btn>
+        <q-btn class="btnAmber" type="text" rounded v-close-popup
+          @click="createAccount">Criar Conta</q-btn>
+      </q-card-actions>
+    </q-card>
   </q-page>
 </template>
 
 <script>
+
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
   name: 'LoginPage',
 
-  props: {
-    login: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-    titulo: {
-      type: String,
-      required: true,
-      default: '',
-    },
-    tamanho: {
-      type: String,
-      required: false,
-      default: 'sm',
-    },
-    mostrarHeader: {
-      type: Boolean,
-      required: false,
-      default: true,
-    },
-    mostrarBody: {
-      type: Boolean,
-      required: false,
-      default: true,
-    },
-    mostrarFooter: {
-      type: Boolean,
-      required: false,
-      default: true,
-    },
-  },
-
   data() {
     return {
-      alert: false,
+      user: {
+        email: '',
+        password: '',
+      },
 
-      password: null,
-      name: null,
-
-      prompt: false,
-
-      address: '',
-
-      loginAccount: false,
+      login: false,
       isLoggedIn: false,
 
     };
   },
 
-  watch: {
-    login() {
-      console.log('loginAccount watch', this.loginAccount);
-      this.loginAccount = true;
-      console.log('loginAccount watch alterado', this.loginAccount);
-    },
+  computed: {
+
   },
 
   methods: {
 
-    closedDialog() {
-      console.log('closedDialog', this.loginAccount);
-      this.loginAccount = false;
-      console.log('closedDialog alterado', this.loginAccount);
-      this.$emit('closedDialog');
+    ...mapActions('loginPage', ['checkLogin']),
+    ...mapGetters('loginPage', ['getIsLoggedIn', 'getUser']),
+
+    forgotPassword() {
+      console.log('forgotPassword');
+      console.log('getIsLoggedIn', this.getIsLoggedIn());
+      console.log('getUser', this.getUser());
     },
 
-    isLoggedInFunc() {
-      this.isLoggedIn = true;
-      console.log('isLoggedInFunc', this.isLoggedIn);
-      this.$emit('isLoggedIn');
+    loginAccount() {
+      if (this.user.email !== '' && this.user.password !== '') {
+        this.login = true;
+        console.log('logado');
+        console.log('loginAccount', this.login);
+        this.checkLogin(this.user);
+        this.$router.push('main-page');
+      } else {
+        console.log('Preencha os campos');
+      }
     },
 
     createAccount() {
-      this.isLoggedIn = false;
-      console.log('isLoggedInFunc', this.isLoggedIn);
-      this.$emit('closedDialog');
+      this.login = false;
+      console.log('loginAccount', this.login);
+      console.log('isLoggedIn', this.isLoggedIn);
     },
   },
 };
