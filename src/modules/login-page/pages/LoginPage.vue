@@ -1,9 +1,9 @@
 <template>
-  <!-- <q-page> -->
-    <!-- <h2>Página de Login</h2> -->
+  <q-page>
+    <h2>Página de Login</h2>
     <!-- <q-form> -->
     <!-- <q-btn label="Prompt" color="primary" @click="isLoggedIn = !isLoggedIn" /> -->
-      <q-dialog v-model="loginAccount" persistent>
+      <!-- <q-dialog v-model="loginAccount" persistent> -->
         <q-card style="min-width: 350px">
           <q-card-section>
             <div class="text-h6">Entrar</div>
@@ -38,10 +38,10 @@
               @click="createAccount">Criar Conta</q-btn>
           </q-card-actions>
         </q-card>
-      </q-dialog>
+      <!-- </q-dialog> -->
 
     <!-- </q-form> -->
-  <!-- </q-page> -->
+  </q-page>
 </template>
 
 <script>
