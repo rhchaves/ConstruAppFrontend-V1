@@ -59,8 +59,7 @@
 
 <script>
 
-import axios from 'axios';
-// import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import Swal from 'sweetalert2';
 
 export default {
@@ -82,9 +81,26 @@ export default {
     };
   },
 
+  computed: {
+    ...mapGetters('addressPage', ['getUserAddress']),
+  },
+
   methods: {
 
-    // ...mapActions('addressPage', ['searchCep']),
+    ...mapActions('addressPage', ['searchAddress']),
+
+    // função para procurar o cep informado
+    searchForCep() {
+      if (this.address.cep.length === 8) {
+        this.searchAddress(this.address.cep);
+        const data = this.getUserAddress;
+
+        this.address.street = data.logradouro;
+        this.address.district = data.bairro;
+        this.address.city = data.localidade;
+        this.address.state = data.uf;
+      }
+    },
 
     confirmedAddress() {
       if (this.address.city.length) {
@@ -105,55 +121,34 @@ export default {
         this.confirmedAddress();
         console.log('fechou no dialogo');
       } else {
-        Swal.fire(
-          'Atenção!',
-          'Preencha o CEP e o Número',
-          'warning',
-        );
+        this.msgFillCepNumber();
       }
     },
 
-    // função para procurar o cep informado
-    searchForCep() {
-      let data = {};
-      // this.searchCep(this.cep);
-
-      // requisição via axios
-      if (this.address.cep.length === 8) {
-        axios.get(`https://viacep.com.br/ws/${this.address.cep}/json`).then((response) => {
-          console.log('Pesquisou o cep:', this.address.cep);
-          console.log(response.data);
-          // const data  = response.data;
-          data = response.data;
-
-          // caso não haja erro preenche os campos
-          if (!data.erro) {
-            this.address.street = data.logradouro;
-            this.address.district = data.bairro;
-            this.address.city = data.localidade;
-            this.address.state = data.uf;
-          } else {
-            Swal.fire(
-              'Atenção!',
-              `O CEP ${this.address.cep} não foi encontrado`,
-              'error',
-            );
-          }
-          return response;
-
-        // caso ocorra algum erro entra no catch
-        }).catch((error) => {
-          console.log('Entrou no catch, erro:', error);
-        });
-      } else {
-        // msgCepFill();
-        Swal.fire(
-          'Atenção!',
-          'Preencha o CEP corretamente',
-          'warning',
-        );
-      }
+    msgFillCepNumber() {
+      Swal.fire(
+        'Atenção!',
+        'Preencha o CEP e o Número',
+        'warning',
+      );
     },
+
+    msgCepNotfound() {
+      Swal.fire(
+        'Atenção!',
+        `O CEP ${this.address.cep} não foi encontrado`,
+        'error',
+      );
+    },
+
+    msgCepFill() {
+      Swal.fire(
+        'Atenção!',
+        'Preencha o CEP corretamente',
+        'warning',
+      );
+    },
+
   },
 };
 </script>

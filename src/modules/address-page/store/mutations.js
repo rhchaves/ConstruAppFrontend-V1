@@ -2,11 +2,11 @@ const SEARCHING = (state, payload) => {
   state.searching = payload;
 };
 
-const LIST_CEP = (state, payload) => {
-  state.cep.push(payload);
+const USER_ADDRESS = (state, payload) => {
+  state.address = payload;
 };
 
 export {
   SEARCHING,
-  LIST_CEP,
+  USER_ADDRESS,
 };
