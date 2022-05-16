@@ -3,18 +3,24 @@ import MainPageRoute from '../modules/main-page/routes';
 import ProductPageRoute from '../modules/product-page/routes';
 import RegisterProductRoute from '../modules/register-product/routes';
 import RegisterUserRoute from '../modules/register-user/routes';
+import AddressPageRoute from '../modules/address-page/routes';
+import CartPageRoute from '../modules/cart-page/routes';
+import LoginPageRoute from '../modules/login-page/routes';
 
 const routes = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('src/modules/main-page/pages/MainPage.vue') },
+      { path: '', component: () => import('src/modules/address-page/pages/AddressPage.vue') },
       ...AdminPageRoute,
       ...MainPageRoute,
       ...ProductPageRoute,
       ...RegisterProductRoute,
       ...RegisterUserRoute,
+      ...AddressPageRoute,
+      ...CartPageRoute,
+      ...LoginPageRoute,
     ],
   },
 
