@@ -1,8 +1,11 @@
 const loadingCep = (state) => state.searching;
 
-const getUserAddress = (state) => state.address;
+const getSearchedAddress = (state) => state.searchedAddress;
+
+const getUserAddress = (state) => state.userAddress;
 
 export {
   loadingCep,
+  getSearchedAddress,
   getUserAddress,
 };

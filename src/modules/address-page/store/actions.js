@@ -2,20 +2,27 @@ import axios from 'axios';
 
 // //////////////////////////////////////
 const searchAddress = ({ commit }, payload) => {
-  commit('SEARCHING', true);
+  commit('LOADING', true);
 
   axios.get(`https://viacep.com.br/ws/${payload}/json`).then((response) => {
-    commit('USER_ADDRESS', response.data);
+    commit('SEARCHED_ADDRESS', response.data);
     console.log('Print da actions', response.data);
-    return response;
+    return response.data;
   }).catch((error) => {
     console.log('Erro na requisição', error);
   }).finally(() => {
-    commit('SEARCHING', false);
+    commit('LOADING', false);
   });
+};
+// //////////////////////////////////////
+const saveAddress = ({ commit }, payload) => {
+  commit('LOADING', true);
+  commit('USER_ADDRESS', payload);
+  commit('LOADING', false);
 };
 // //////////////////////////////////////
 
 export {
   searchAddress,
+  saveAddress,
 };

@@ -12,14 +12,16 @@
         <!-- Título do header -->
         <q-toolbar-title shrink class="row items-center no-wrap">
           <router-link to="/main-page" class="router-link" >
-            <span class="q-ml-sm">ConstruApp</span>
+            <span class="q-ml-sm" v-if="getUserAddress || getLogado">ConstruApp </span>
           </router-link>
         </q-toolbar-title>
-
+        <!-- Verificar se vamos deixar o endereço disponivel aqui -->
+        {{getUserAddress.street}} -->
+        {{getUserAddress.number}}
         <q-space />
 
         <!-- Input de pesquisa -->
-        <div class="row items-center no-wrap" v-if="visibleSearchField">
+        <div class="row items-center no-wrap" v-if="getUserAddress || getLogado">
           <q-input
             outlined
             v-model="search"
@@ -42,7 +44,7 @@
           <div class="btnAmber rounded-item row items-center no-wrap" >
 
             <!-- Conta do usuário -->
-            <div v-if="visibleLogin && getLogado">
+            <div v-if="getLogado">
 
             <q-avatar class="q-ml-sm q-mr-sm" v-if="getLogado" size="26px">
               <img src="https://cdn.quasar.dev/img/boy-avatar.png">
@@ -57,7 +59,7 @@
 
             <!-- Menu retrátil (icone de 3 riscos) -->
             <q-btn
-              v-if="visibleMenu && getLogado"
+              v-if="getLogado"
               flat
               @click="toggleLeftDrawer"
               icon="menu"
@@ -115,29 +117,6 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'HeaderComponent',
 
-  props: {
-    nameUser: {
-      type: String,
-      required: false,
-      default: 'Nome do Usuário',
-    },
-    visibleSearchField: {
-      type: Boolean,
-      required: true,
-      default: true,
-    },
-    visibleLogin: {
-      type: Boolean,
-      required: true,
-      default: true,
-    },
-    visibleMenu: {
-      type: Boolean,
-      required: true,
-      default: true,
-    },
-  },
-
   // Local para definir as variáveis da página
   data() {
     return {
@@ -148,6 +127,7 @@ export default {
 
   computed: {
     ...mapGetters('loginPage', ['getLogado', 'getUser']),
+    ...mapGetters('addressPage', ['getUserAddress']),
   },
 
   // Funções

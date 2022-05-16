@@ -1,12 +1,17 @@
-const SEARCHING = (state, payload) => {
+const LOADING = (state, payload) => {
   state.searching = payload;
 };
 
 const USER_ADDRESS = (state, payload) => {
-  state.address = payload;
+  state.userAddress = payload;
+};
+
+const SEARCHED_ADDRESS = (state, payload) => {
+  state.searchedAddress = payload;
 };
 
 export {
-  SEARCHING,
+  LOADING,
   USER_ADDRESS,
+  SEARCHED_ADDRESS,
 };
