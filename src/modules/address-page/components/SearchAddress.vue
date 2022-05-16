@@ -2,7 +2,6 @@
   <q-page class="window-height window-width row justify-center items-center">
       <div class="column">
         <div class="row">
-          <!-- <q-dialog v-model="searchCep" persistent> -->
 
           <q-card square bordered class="q-pa-lg shadow-1">
             <q-card-section class="q-gutter-md">
@@ -50,7 +49,6 @@
             </q-card-actions>
 
           </q-card>
-          <!-- </q-dialog> -->
         </div>
       </div>
     </q-page>
@@ -77,12 +75,11 @@ export default {
         city: '',
         state: '',
       },
-      searchCep: true,
     };
   },
 
   computed: {
-    ...mapGetters('addressPage', ['getUserAddress']),
+    ...mapGetters('addressPage', ['getUserAddress', 'getSearchedAddress']),
   },
 
   methods: {
@@ -93,7 +90,7 @@ export default {
     searchForCep() {
       if (this.address.cep.length === 8) {
         this.searchAddress(this.address.cep);
-        const data = this.getUserAddress;
+        const data = this.getSearchedAddress;
 
         this.address.street = data.logradouro;
         this.address.district = data.bairro;
