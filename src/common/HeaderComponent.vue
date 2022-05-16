@@ -42,49 +42,50 @@
           <div class="btnAmber rounded-item row items-center no-wrap" >
 
             <!-- Conta do usuário -->
-            <div v-if="visibleLogin && logado">
+            <div v-if="visibleLogin && getLogado">
 
-            <q-avatar class="q-ml-sm q-mr-sm" v-if="logado" size="26px">
+            <q-avatar class="q-ml-sm q-mr-sm" v-if="getLogado" size="26px">
               <img src="https://cdn.quasar.dev/img/boy-avatar.png">
             </q-avatar>
-            {{ nameUser }}
+            <!-- alterar para nome do usuário -->
+            {{ getUser.email }}
 
             </div>
-            <q-btn flat v-if="visibleLogin && !logado" >
-              <span  class=""
-                @click="logIntoAccount">Entrar</span>
+            <q-btn flat to="/login-page" v-if="!getLogado">
+              Entrar
             </q-btn>
 
             <!-- Menu retrátil (icone de 3 riscos) -->
             <q-btn
-              v-if="visibleMenu && logado"
+              v-if="visibleMenu && getLogado"
               flat
               @click="toggleLeftDrawer"
               icon="menu"
             >
-
               <q-menu class="">
                 <q-list class="btnAmber" style="min-width: 100px">
                   <q-item clickable v-close-popup>
-                    <q-item-section>Minhas compras</q-item-section>
+                    <q-item-section >Minhas compras</q-item-section>
                   </q-item>
                   <q-item clickable v-close-popup>
                     <q-item-section>Alterar dados</q-item-section>
                   </q-item>
                   <q-separator />
                   <q-item clickable v-close-popup>
-                    <q-item-section @click="logado = false">Sair</q-item-section>
+                    <q-item-section @click="clickLogout">Sair</q-item-section>
                   </q-item>
                 </q-list>
               </q-menu>
 
             </q-btn>
+            <!-- Término da listagem dos itens no menu retrátil -->
 
           </div>
 
           <!-- Carrinho -->
           <q-btn flat icon="shopping_cart" class="" to="cart-page">
             <q-badge rounded class="q-mr-sm q-mt-xs" color="red" text-color="white" floating>
+              <!-- alterar para retorno da quantidade de itens no carrinho -->
               {{ shoppingCartValue }}
             </q-badge>
           </q-btn>
@@ -104,26 +105,15 @@
     </q-header>
     <!-- Término do cabeçalho -->
 
-    <!-- Término da listagem dos itens no menu retrátil lateral esquerdo -->
-    <LoginPage
-      :login="loginAccount"
-      titulo="Teste"
-      @closeDialog="closeDialog"
-      @isLoggedIn="isLoggedIn"
-    />
-
   </div>
 </template>
 
 <script>
-import LoginPage from 'src/common/LoginPage.vue';
+
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'HeaderComponent',
-
-  components: {
-    LoginPage,
-  },
 
   props: {
     nameUser: {
@@ -153,12 +143,16 @@ export default {
     return {
       search: '',
       shoppingCartValue: 2,
-      logado: false,
-      loginAccount: false,
     };
   },
 
-  methods: { // Funções
+  computed: {
+    ...mapGetters('loginPage', ['getLogado', 'getUser']),
+  },
+
+  // Funções
+  methods: {
+    ...mapActions('loginPage', ['logout']),
 
     // abrir e fechar o menu lateral esquerdo
     toggleLeftDrawer() {
@@ -167,21 +161,15 @@ export default {
 
     // enviar palavra chave da pesquisa
     searchProduct(item) {
-      console.log('Clicou em pesquisar o itsem: ', item);
+      console.log('Clicou em pesquisar o item: ', item);
       this.search = '';
     },
 
-    logIntoAccount() {
-      this.loginAccount = true;
-      console.log('Abriu o Dialog: ', this.loginAccount);
-    },
-    closeDialog() {
-      this.loginAccount = false;
-      console.log('Fechou o Dialog: ', this.loginAccount);
-    },
-
-    isLoggedIn() {
-      this.logado = true;
+    // função para realizar o logout do usuário
+    clickLogout() {
+      console.log('Deslogar');
+      // 'função' carregada do mapActions
+      this.logout();
     },
   },
 };
