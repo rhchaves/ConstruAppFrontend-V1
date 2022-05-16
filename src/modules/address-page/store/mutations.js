@@ -1,4 +1,4 @@
-const SEARCHING = (state, payload) => {
+const LOADING = (state, payload) => {
   state.searching = payload;
 };
 
@@ -7,6 +7,6 @@ const USER_ADDRESS = (state, payload) => {
 };
 
 export {
-  SEARCHING,
+  LOADING,
   USER_ADDRESS,
 };

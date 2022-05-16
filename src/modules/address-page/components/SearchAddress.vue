@@ -87,7 +87,7 @@ export default {
 
   methods: {
 
-    ...mapActions('addressPage', ['searchAddress']),
+    ...mapActions('addressPage', ['searchAddress', 'saveAddress']),
 
     // função para procurar o cep informado
     searchForCep() {
@@ -105,6 +105,7 @@ export default {
     confirmedAddress() {
       if (this.address.city.length) {
         this.$router.push('/main-page');
+        this.saveAddress(this.address);
       } else {
         this.$router.push('/');
       }
