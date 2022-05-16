@@ -16,8 +16,8 @@
           </router-link>
         </q-toolbar-title>
         <!-- Verificar se vamos deixar o endereço disponivel aqui -->
-        {{getUserAddress.logradouro}} -->
-        {{getUserAddress.bairro}}
+        {{getUserAddress.street}} -->
+        {{getUserAddress.number}}
         <q-space />
 
         <!-- Input de pesquisa -->

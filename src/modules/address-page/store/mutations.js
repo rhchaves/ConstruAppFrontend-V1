@@ -3,10 +3,15 @@ const LOADING = (state, payload) => {
 };
 
 const USER_ADDRESS = (state, payload) => {
-  state.address = payload;
+  state.userAddress = payload;
+};
+
+const SEARCHED_ADDRESS = (state, payload) => {
+  state.searchedAddress = payload;
 };
 
 export {
   LOADING,
   USER_ADDRESS,
+  SEARCHED_ADDRESS,
 };
