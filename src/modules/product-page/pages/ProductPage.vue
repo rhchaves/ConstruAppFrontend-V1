@@ -22,12 +22,12 @@
     <section class="row ">
       <!-- imagem do produto -->
       <div class="product-img ">
-        <img src="~/assets/fita_isolante.jpg" alt="" class="my-card">
+        <img src="~/assets/img/saco-de-areia.jpg" alt="" class="my-card">
       </div>
       <!-- area de titulo e demais informações -->
       <div class="">
         <h1>{{ title }}</h1>
-        <h2>{{ shorDescription }}</h2>
+        <h2>{{ shortDescription }}</h2>
         <h3>{{ brand }}</h3>
         <h4>R${{ priceProduct }}</h4>
         <!-- botão de adicionar ao carrinho -->
@@ -57,7 +57,7 @@ export default {
       required: true,
       default: 'Nome do Produto',
     },
-    shorDescription: {
+    shortDescription: {
       type: String,
       required: true,
       default: 'Descrição Breve do Produto',

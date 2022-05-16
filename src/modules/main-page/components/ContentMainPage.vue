@@ -30,7 +30,7 @@
             :idItem="product.id"
             :labelItem="product.label"
             :priceItem="product.price"
-            :imageItem="product.image"
+            :imageItem="product.img"
             @addCartItemEmit="addCardProduct(product.id)"
             @addFavoriteItemEmit="addFavoriteProduct(product.id)"
             @shareItemEmit="shareProduct(product.id)"
@@ -68,7 +68,7 @@ export default {
           name: 'fita-isolante',
           label: 'Fita Isolante',
           price: '6,90',
-          image: '/assets/img/saco-de-pedra.png',
+          img: '../assets/img/saco-de-areia.jpg',
           altImage: 'Descrição da imagem do produto',
         },
         {
@@ -76,7 +76,7 @@ export default {
           name: 'cola-pvc-tigre',
           label: 'Cola PVC Tigre',
           price: '4,90',
-          image: 'img/fita-isolante.png',
+          img: 'img/fitaIsolante.jpg',
           altImage: 'Descrição da imagem do produto',
         },
         {
@@ -84,7 +84,7 @@ export default {
           name: 'conexao-t-tigre',
           label: 'Conexão "T" Tigre',
           price: '3,90',
-          image: 'img/fita-isolante.png',
+          img: 'img/fitaIsolante.jpg',
           altImage: 'Descrição da imagem do produto',
         },
         {
@@ -92,7 +92,7 @@ export default {
           name: 'pincel-tigre',
           label: 'Pincel Tigre',
           price: '5,90',
-          image: 'img/fita-isolante.png',
+          img: 'img/fitaIsolante.jpg',
           altImage: 'Descrição da imagem do produto',
         },
         {
@@ -100,7 +100,7 @@ export default {
           name: 'saco-de-areia',
           label: 'Saco de Areia',
           price: '9,90',
-          image: 'img/fita-isolante.png',
+          img: 'img/fitaIsolante.jpg',
           altImage: 'Descrição da imagem do produto',
         },
         {
@@ -108,7 +108,7 @@ export default {
           name: 'saco-de-pedra',
           label: 'Saco de Pedra',
           price: '8,90',
-          image: 'img/fita-isolante.png',
+          img: 'img/fitaIsolante.jpg',
           altImage: 'Descrição da imagem do produto',
         },
         {
@@ -116,7 +116,7 @@ export default {
           name: 'tinta-esmalte-preta-coral',
           label: 'Tinta Esmalte Coral Preto',
           price: '29,90',
-          image: 'img/fita-isolante.png',
+          img: 'img/fitaIsolante.jpg',
           altImage: 'Descrição da imagem do produto',
         },
         {
@@ -124,7 +124,7 @@ export default {
           name: 'alicate-universal-gedore',
           label: 'Alicate Universal Gedore',
           price: '59,90',
-          image: 'img/fita_isolante.jpg',
+          img: 'img/fitaIsolante.jpg',
           altImage: 'Descrição da imagem do produto',
         },
       ],
