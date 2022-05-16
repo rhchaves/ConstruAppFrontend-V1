@@ -1,11 +1,11 @@
 const getLoading = (state) => state.loading;
 
-const getIsLoggedIn = (state) => state.isLoggedIn;
+const getLogado = (state) => state.logado;
 
 const getUser = (state) => state.user;
 
 export {
   getLoading,
-  getIsLoggedIn,
+  getLogado,
   getUser,
 };

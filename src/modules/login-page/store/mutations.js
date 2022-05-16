@@ -2,8 +2,8 @@ const LOADING = (state, payload) => {
   state.loading = payload;
 };
 
-const IS_LOGGED_IN = (state, payload) => {
-  state.isLoggedIn = payload;
+const LOGAR = (state, payload) => {
+  state.logado = payload;
 };
 
 const LOGIN_USER = (state, payload) => {
@@ -13,6 +13,6 @@ const LOGIN_USER = (state, payload) => {
 
 export {
   LOADING,
-  IS_LOGGED_IN,
+  LOGAR,
   LOGIN_USER,
 };
