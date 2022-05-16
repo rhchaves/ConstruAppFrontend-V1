@@ -7,6 +7,7 @@
 
       <q-card-section class="q-pt-none">
         <q-input
+          autofocus
           outlined
           v-model="user.email"
           type="text"
@@ -50,34 +51,24 @@ export default {
         email: '',
         password: '',
       },
-
-      login: false,
-      isLoggedIn: false,
-
     };
-  },
-
-  computed: {
-
   },
 
   methods: {
 
-    ...mapActions('loginPage', ['checkLogin']),
-    ...mapGetters('loginPage', ['getIsLoggedIn', 'getUser']),
+    ...mapActions('loginPage', ['login']),
+    ...mapGetters('loginPage', ['getLogado', 'getUser']),
 
     forgotPassword() {
-      console.log('forgotPassword');
-      console.log('getIsLoggedIn', this.getIsLoggedIn());
+      console.log('Função forgotPassword');
+      console.log('getLogado', this.getLogado());
       console.log('getUser', this.getUser());
     },
 
     loginAccount() {
       if (this.user.email !== '' && this.user.password !== '') {
-        this.login = true;
         console.log('logado');
-        console.log('loginAccount', this.login);
-        this.checkLogin(this.user);
+        this.login(this.user);
         this.$router.push('main-page');
       } else {
         console.log('Preencha os campos');
@@ -85,9 +76,6 @@ export default {
     },
 
     createAccount() {
-      this.login = false;
-      console.log('loginAccount', this.login);
-      console.log('isLoggedIn', this.isLoggedIn);
     },
   },
 };

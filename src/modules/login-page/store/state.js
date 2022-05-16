@@ -1,6 +1,6 @@
 export default {
   loading: false,
-  isLoggedIn: false,
+  logado: false,
   user: {
     email: '',
     password: '',
