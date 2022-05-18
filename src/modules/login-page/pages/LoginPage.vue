@@ -32,7 +32,7 @@
         <q-btn class="btnAmber" type="text" rounded
           @click="loginAccount">Login</q-btn>
         <q-btn class="btnAmber" type="text" rounded v-close-popup
-          @click="createAccount">Criar Conta</q-btn>
+          to="register-user">Criar Conta</q-btn>
       </q-card-actions>
     </q-card>
   </q-page>
@@ -75,8 +75,6 @@ export default {
       }
     },
 
-    createAccount() {
-    },
   },
 };
 
