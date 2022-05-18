@@ -85,7 +85,11 @@
           </div>
 
           <!-- Carrinho -->
-          <q-btn flat icon="shopping_cart" class="" to="cart-page">
+          <q-btn
+            flat
+            icon="shopping_cart"
+            to="cart-page"
+            v-if="getUserAddress || getLogado">
             <q-badge rounded class="q-mr-sm q-mt-xs" color="red" text-color="white" floating>
               <!-- alterar para retorno da quantidade de itens no carrinho -->
               {{ shoppingCartValue }}
@@ -93,7 +97,14 @@
           </q-btn>
 
           <!-- Notificações -->
-          <q-btn round dense flat color="grey-8" icon="notifications">
+          <q-btn
+            round
+            dense
+            flat
+            color="grey-8"
+            icon="notifications"
+            v-if="getUserAddress || getLogado"
+          >
             <q-badge rounded color="red" text-color="white" floating>
               2
             </q-badge>
