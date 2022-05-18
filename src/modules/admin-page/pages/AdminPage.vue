@@ -8,7 +8,7 @@
         class="btnAmber"
         type="text"
         rounded
-        to="../components/ManageAdmin"
+        to="manage-admin"
       >
         Gerenciar Administrador
       </q-btn>
@@ -17,6 +17,7 @@
         class="btnAmber"
         type="text"
         rounded
+        to="manage-product"
       >
         Gerenciar Produto
       </q-btn>
@@ -25,6 +26,7 @@
         class="btnAmber"
         type="text"
         rounded
+        to="manage-seller"
       >
         Gerenciar Vendedor
       </q-btn>

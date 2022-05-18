@@ -14,6 +14,9 @@ import registerSeller from '../modules/resgister-seller/store';
 import addressPage from '../modules/address-page/store';
 import cartPage from '../modules/cart-page/store';
 import loginPage from '../modules/login-page/store';
+import manageAdmin from '../modules/manage-admin/store';
+import manageProduct from '../modules/manage-product/store';
+import manageSeller from '../modules/manage-seller/store';
 
 /*
  * If not building with SSR mode, you can
@@ -36,6 +39,9 @@ export default function (/* { ssrContext } */) {
       addressPage,
       cartPage,
       loginPage,
+      manageAdmin,
+      manageProduct,
+      manageSeller,
     },
 
     // enable strict mode (adds overhead!)
