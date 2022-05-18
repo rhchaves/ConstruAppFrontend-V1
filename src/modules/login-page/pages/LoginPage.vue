@@ -69,7 +69,11 @@ export default {
       if (this.user.email !== '' && this.user.password !== '') {
         console.log('logado');
         this.login(this.user);
-        this.$router.push('main-page');
+        if (this.user.email === 'admin' && this.user.password === 'admin') {
+          this.$router.push('admin-page');
+        } else {
+          this.$router.push('main-page');
+        }
       } else {
         console.log('Preencha os campos');
       }
