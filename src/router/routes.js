@@ -7,6 +7,9 @@ import RegisterSellerRoute from '../modules/resgister-seller/routes';
 import AddressPageRoute from '../modules/address-page/routes';
 import CartPageRoute from '../modules/cart-page/routes';
 import LoginPageRoute from '../modules/login-page/routes';
+import ManageAdmin from '../modules/manage-admin/routes';
+import ManageProduct from '../modules/manage-product/routes';
+import ManageSeller from '../modules/manage-seller/routes';
 
 const routes = [
   {
@@ -23,6 +26,9 @@ const routes = [
       ...AddressPageRoute,
       ...CartPageRoute,
       ...LoginPageRoute,
+      ...ManageAdmin,
+      ...ManageProduct,
+      ...ManageSeller,
     ],
   },
 
