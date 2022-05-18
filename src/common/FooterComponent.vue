@@ -14,7 +14,7 @@
 
     <div class="q-ml-sm column items-center">
       <span>Parcerias</span>
-      <a href="">Quero ser um parceiro</a>
+      <a href="/register-seller">Quero ser um parceiro</a>
     </div>
 
   </div>
