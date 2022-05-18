@@ -1,20 +1,34 @@
 <template>
-  <q-page class="">
-
-    <router-link to="/main-page" class="router-link">
-      <q-btn
-        class="q-ma-sm"
-        color="black"
-        rounded
-        no-caps
-        size="lg"
-        padding="sm"
-      >
-        <span class="text-weight-light font-size-18"> Página principal </span>
-      </q-btn>
-    </router-link>
+  <q-page class="window-height window-width row justify-center items-center">
 
     <h3>Página de Administração</h3>
+
+    <div class="">
+      <q-btn
+        class="btnAmber"
+        type="text"
+        rounded
+        to="../components/ManageAdmin"
+      >
+        Gerenciar Administrador
+      </q-btn>
+
+      <q-btn
+        class="btnAmber"
+        type="text"
+        rounded
+      >
+        Gerenciar Produto
+      </q-btn>
+
+      <q-btn
+        class="btnAmber"
+        type="text"
+        rounded
+      >
+        Gerenciar Vendedor
+      </q-btn>
+    </div>
 
   </q-page>
 </template>
@@ -22,6 +36,26 @@
 <script>
 export default {
   name: 'AdminPage',
-};
 
+  data() {
+    return {
+
+    };
+  },
+
+  methods: {
+    manageAdmin() {
+      console.log('Gerenciar Admin');
+    },
+
+    manageProduct() {
+      console.log('Gerenciar Produto');
+    },
+
+    manageSeller() {
+      console.log('Gerenciar Vendedor');
+    },
+  },
+
+};
 </script>
