@@ -3,6 +3,8 @@
 
     <h3>Gerenciar Administradores</h3>
 
+    <RegisterNewAdmin />
+
     <div>
       <q-btn
         class="btnAmber"
@@ -33,8 +35,15 @@
 </template>
 
 <script>
+
+import RegisterNewAdmin from '../components/RegisterNewAdmin.vue';
+
 export default {
   name: 'ManageAdmin',
+
+  components: {
+    RegisterNewAdmin,
+  },
 
   data() {
     return {
