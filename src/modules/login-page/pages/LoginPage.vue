@@ -19,11 +19,19 @@
         <q-input
           outlined
           v-model="user.password"
-          type="text"
+          :type="isPwd ? 'password' : 'text'"
           label="Senha"
           lazy-rules
           :rules="[ val => val && val !== '' || 'Preencha a senha']"
-        />
+        >
+          <template v-slot:append>
+            <q-icon
+              :name="isPwd ? 'visibility_off' : 'visibility'"
+              class="cursor-pointer"
+              @click="isPwd = !isPwd"
+            />
+          </template>
+        </q-input>
       </q-card-section>
 
       <q-card-actions align="right" class="text-primary">
@@ -51,6 +59,7 @@ export default {
         email: '',
         password: '',
       },
+      isPwd: true,
     };
   },
 
