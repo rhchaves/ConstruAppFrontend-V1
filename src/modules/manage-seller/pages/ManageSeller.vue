@@ -3,6 +3,18 @@
 
     <h3>Gerenciar Vendedor</h3>
 
+    <div>
+
+      <q-btn
+        class="btnAmber"
+        type="text"
+        rounded
+      >
+        Excluir Vendedor
+      </q-btn>
+
+    </div>
+
   </q-page>
 </template>
 
