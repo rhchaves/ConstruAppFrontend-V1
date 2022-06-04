@@ -1,19 +1,69 @@
 <template>
   <div>
-    <h3>Cadastrar no admin</h3>
-
-    <q-btn label="Confirm" color="primary" @click="confirm = true" />
-
-    <q-dialog v-model="confirm" persistent>
+    <q-dialog v-model="showDialog" persistent>
       <q-card>
         <q-card-section class="row items-center">
-          <q-avatar icon="signal_wifi_off" color="primary" text-color="white" />
-          <span class="q-ml-sm">You are currently not connected to any network.</span>
+          <span class="btnAmber">Cadastrar Novo Administrador</span>
+        </q-card-section>
+
+        <q-card-section class="row items-center">
+          <q-input
+            outlined
+            v-model="admin.name"
+            placeholder="Nome do Administrador"
+          />
+
+          <q-input
+            outlined
+            v-model="admin.cpf"
+            placeholder="CPF"
+          />
+
+          <q-input
+            outlined
+            v-model="admin.email"
+            placeholder="E-mail"
+          />
+
+          <q-input
+            outlined
+            v-model="admin.password"
+            :type="isPwd ? 'password' : 'text'"
+            label="Senha"
+            lazy-rules
+            :rules="[ val => val && val !== '' || 'Preencha a senha']"
+            >
+            <template v-slot:append>
+              <q-icon
+                :name="isPwd ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd = !isPwd"
+              />
+            </template>
+          </q-input>
+
+          <q-input
+          outlined
+          v-model="admin.confirmPassword"
+          :type="isPwd ? 'password' : 'text'"
+          label="Confirmar a senha"
+          lazy-rules
+          :rules="[ val => val && val !== '' || 'Preencha a senha']"
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="isPwd ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd = !isPwd"
+              />
+            </template>
+          </q-input>
+
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn flat label="Cancel" color="primary" v-close-popup />
-          <q-btn flat label="Turn on Wifi" color="primary" v-close-popup />
+          <q-btn class="btnCancel" label="Cancel" @click="closeDialog"/>
+          <q-btn class="btnAmber" label="Confirmar" @click="closeDialog"/>
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -27,8 +77,30 @@ export default {
 
   data() {
     return {
-      confirm: true,
+      showDialog: false,
+      isPwd: true,
+
+      admin: {
+        name: '',
+        cpf: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      },
     };
+  },
+
+  mounted() {
+    this.showDialog = true;
+  },
+
+  methods: {
+    closeDialog() {
+      this.showDialog = false;
+      setTimeout(() => {
+        this.$emit('closeDialogEmit');
+      }, 300);
+    },
   },
 };
 </script>

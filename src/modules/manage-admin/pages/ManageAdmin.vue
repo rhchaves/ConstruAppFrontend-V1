@@ -10,13 +10,17 @@
       rowKey="name"
     />
 
-    <RegisterNewAdmin />
+    <RegisterNewAdmin
+      v-if="showDialog"
+      @closeDialogEmit="closeDialog"
+    />
 
     <div>
       <q-btn
         class="btnAmber"
         type="text"
         rounded
+        @click="addNewAdmin"
       >
         Cadastrar novo Administrador
       </q-btn>
@@ -65,6 +69,8 @@ export default {
 
   data() {
     return {
+
+      showDialog: false,
 
       columns: [
         {
@@ -122,6 +128,13 @@ export default {
   },
 
   methods: {
+    addNewAdmin() {
+      this.showDialog = true;
+    },
+
+    closeDialog() {
+      this.showDialog = false;
+    },
 
   },
 
