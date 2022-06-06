@@ -90,5 +90,11 @@ export default {
       return this.selected.length === 0 ? '' : `${this.selected.length} record${this.selected.length > 1 ? 's' : ''} selected of ${this.data.length}`;
     },
   },
+
+  watch: {
+    selected() {
+      this.$emit('itemSelectedEmit', this.selected);
+    },
+  },
 };
 </script>
