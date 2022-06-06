@@ -1,5 +1,8 @@
-const searchingTeste = (state) => state.searching;
+const getLoading = (state) => state.loading;
+
+const getAdmins = (state) => state.admins;
 
 export {
-  searchingTeste,
+  getLoading,
+  getAdmins,
 };

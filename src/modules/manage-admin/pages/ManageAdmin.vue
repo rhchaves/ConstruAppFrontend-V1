@@ -1,54 +1,64 @@
 <template>
   <q-page class="window-height window-width row justify-center items-center">
+    <div class="column q-pa-md">
+      <div class="row q-gutter-md">
 
-    <h3>Gerenciar Administradores</h3>
+        <h3>Gerenciar Administradores</h3>
 
-    <TableComponent
-      title="Gerenciar Administradores"
-      :columns="columns"
-      :data="data"
-      rowKey="name"
-    />
+        <TableComponent
+          title="Gerenciar Administradores"
+          :columns="columns"
+          :data="getAdmins"
+          rowKey="name"
+          @itemSelectedEmit="itemSelected"
+        />
 
-    <RegisterNewAdmin
-      v-if="showDialog"
-      @closeDialogEmit="closeDialog"
-    />
+        <FormNewAdmin
+          v-if="showDialog"
+          :adminUser="admin[0]"
+          :formType="formType"
+          @closeDialogEmit="closeDialog"
+        />
 
-    <div>
-      <q-btn
-        class="btnAmber"
-        type="text"
-        rounded
-        @click="addNewAdmin"
-      >
-        Cadastrar novo Administrador
-      </q-btn>
+        {{selected}}
 
-      <q-btn
-        class="btnAmber"
-        type="text"
-        rounded
-      >
-        Alterar dados
-      </q-btn>
+        <div>
+          <q-btn
+            class="btnAmber"
+            type="text"
+            rounded
+            @click="addNewAdmin"
+          >
+            Cadastrar novo Administrador
+          </q-btn>
 
-      <q-btn
-        class="btnAmber"
-        type="text"
-        rounded
-      >
-        Excluir Cadastro
-      </q-btn>
+          <q-btn
+            class="btnAmber"
+            type="text"
+            rounded
+            @click="changeAdmin"
+          >
+            Alterar dados
+          </q-btn>
 
-      <q-btn
-        class="btnAmber"
-        type="text"
-        rounded
-        to="admin-page"
-      >
-        Voltar
-      </q-btn>
+          <q-btn
+            class="btnAmber"
+            type="text"
+            rounded
+          >
+            Excluir Cadastro
+          </q-btn>
+
+          <q-btn
+            class="btnAmber"
+            type="text"
+            rounded
+            to="admin-page"
+          >
+            Voltar
+          </q-btn>
+        </div>
+      </div>
     </div>
 
   </q-page>
@@ -56,21 +66,25 @@
 
 <script>
 
+import { mapGetters } from 'vuex';
 import TableComponent from 'src/common/TableComponent.vue';
-import RegisterNewAdmin from '../components/RegisterNewAdmin.vue';
+import FormNewAdmin from '../components/FormNewAdmin.vue';
 
 export default {
   name: 'ManageAdmin',
 
   components: {
-    RegisterNewAdmin,
+    FormNewAdmin,
     TableComponent,
   },
 
   data() {
     return {
 
+      admin: [],
+      formType: 'save',
       showDialog: false,
+      selected: [],
 
       columns: [
         {
@@ -105,37 +119,35 @@ export default {
         },
       ],
 
-      data: [
-        {
-          id: 1,
-          name: 'Usuário Teste',
-          cpf: '233.456.456-56',
-          email: 'teste@teste.com',
-          createdIn: '12/01/21',
-          status: 'Ativo',
-        },
-        {
-          id: 2,
-          name: 'Usuário Teste 2',
-          cpf: '233.456.456-56',
-          email: 'teste2@teste.com',
-          createdIn: '24/12/18',
-          status: 'Inativo',
-        },
-      ],
-
     };
+  },
+
+  computed: {
+    ...mapGetters('manageAdmin', ['getAdmins']),
   },
 
   methods: {
     addNewAdmin() {
+      this.formType = 'save';
+      this.admin = [];
       this.showDialog = true;
+    },
+
+    changeAdmin() {
+      if (this.selected.length === 1) {
+        this.formType = 'edit';
+        this.admin = this.selected;
+        this.showDialog = true;
+      }
+    },
+
+    itemSelected(item) {
+      this.selected = item;
     },
 
     closeDialog() {
       this.showDialog = false;
     },
-
   },
 
 };
