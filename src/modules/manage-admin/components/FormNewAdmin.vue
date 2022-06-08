@@ -9,25 +9,25 @@
         <q-card-section class="q-gutter-md">
           <q-input
             outlined
-            v-model="formulario.name"
+            v-model="form.name"
             placeholder="Nome do Administrador"
           />
 
           <q-input
             outlined
-            v-model="formulario.cpf"
+            v-model="form.cpf"
             placeholder="CPF"
           />
 
           <q-input
             outlined
-            v-model="formulario.email"
+            v-model="form.email"
             placeholder="E-mail"
           />
 
           <q-input
             outlined
-            v-model="formulario.password"
+            v-model="form.password"
             :type="isPwd ? 'password' : 'text'"
             label="Senha"
             lazy-rules
@@ -44,7 +44,7 @@
 
           <q-input
           outlined
-          v-model="formulario.confirmPassword"
+          v-model="form.confirmPassword"
           :type="isPwd ? 'password' : 'text'"
           label="Confirmar a senha"
           lazy-rules
@@ -99,7 +99,7 @@ export default {
       showDialog: false,
       isPwd: true,
 
-      formulario: this.$props.adminUser || {
+      form: this.$props.adminUser || {
         name: '',
         cpf: '',
         email: '',
@@ -119,16 +119,16 @@ export default {
 
     confirmAdmin() {
       if (this.formType === 'save') {
-        this.addNewAdmin(this.formulario);
+        this.addNewAdmin(this.form);
         this.closeDialog();
       } else {
-        this.changeAdmin(this.formulario);
+        this.changeAdmin(this.form);
         this.closeDialog();
       }
     },
 
     closeDialog() {
-      // this.formulario = {};
+      // this.form = {};
       this.showDialog = false;
       setTimeout(() => {
         this.$emit('closeDialogEmit');

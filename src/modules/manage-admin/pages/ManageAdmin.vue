@@ -1,17 +1,21 @@
 <template>
-  <q-page class="window-height window-width row justify-center items-center">
-    <div class="column q-pa-md">
-      <div class="row q-gutter-md">
+  <q-page class="row justify-center items-center">
+    <div class="">
+      <div class="row justify-center q-gutter-md">
 
-        <h3>Gerenciar Administradores</h3>
+        <div class="col-12">
+          <h3 class="row justify-center">Gerenciar Administradores</h3>
+        </div>
 
-        <TableComponent
-          title="Gerenciar Administradores"
-          :columns="columns"
-          :data="getAdmins"
-          rowKey="name"
-          @itemSelectedEmit="itemSelected"
-        />
+        <div class="">
+          <TableComponent
+            title="Lista de Administradores"
+            :columns="columns"
+            :data="getAdmins"
+            rowKey="name"
+            @itemSelectedEmit="itemSelected"
+          />
+        </div>
 
         <FormNewAdmin
           v-if="showDialog"
@@ -20,11 +24,9 @@
           @closeDialogEmit="closeDialog"
         />
 
-        {{selected}}
-
-        <div>
+        <div class="q-ma-md">
           <q-btn
-            class="btnAmber"
+            class="btnAmber q-ma-md"
             type="text"
             rounded
             @click="addNewAdmin"
@@ -33,7 +35,7 @@
           </q-btn>
 
           <q-btn
-            class="btnAmber"
+            class="btnAmber q-ma-md"
             type="text"
             rounded
             @click="changeAdmin"
@@ -42,7 +44,7 @@
           </q-btn>
 
           <q-btn
-            class="btnAmber"
+            class="btnAmber q-ma-md"
             type="text"
             rounded
           >
@@ -50,7 +52,7 @@
           </q-btn>
 
           <q-btn
-            class="btnAmber"
+            class="btnAmber q-ma-md"
             type="text"
             rounded
             to="admin-page"
@@ -58,6 +60,7 @@
             Voltar
           </q-btn>
         </div>
+
       </div>
     </div>
 
