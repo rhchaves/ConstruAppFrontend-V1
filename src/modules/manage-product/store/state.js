@@ -1,4 +1,71 @@
 export default {
   searching: false,
 
+  products: [
+    {
+      id: 1,
+      name: 'fita-isolante',
+      label: 'Fita Isolante',
+      value: '6,90',
+      img: '../assets/img/saco-de-areia.jpg',
+      altImage: 'Descrição da imagem do produto',
+    },
+    {
+      id: 2,
+      name: 'cola-pvc-tigre',
+      label: 'Cola PVC Tigre',
+      value: '4,90',
+      img: 'img/fitaIsolante.jpg',
+      altImage: 'Descrição da imagem do produto',
+    },
+    {
+      id: 3,
+      name: 'conexao-t-tigre',
+      label: 'Conexão "T" Tigre',
+      value: '3,90',
+      img: 'img/fitaIsolante.jpg',
+      altImage: 'Descrição da imagem do produto',
+    },
+    {
+      id: 4,
+      name: 'pincel-tigre',
+      label: 'Pincel Tigre',
+      value: '5,90',
+      img: 'img/fitaIsolante.jpg',
+      altImage: 'Descrição da imagem do produto',
+    },
+    {
+      id: 5,
+      name: 'saco-de-areia',
+      label: 'Saco de Areia',
+      value: '9,90',
+      img: 'img/fitaIsolante.jpg',
+      altImage: 'Descrição da imagem do produto',
+    },
+    {
+      id: 6,
+      name: 'saco-de-pedra',
+      label: 'Saco de Pedra',
+      value: '8,90',
+      img: 'img/fitaIsolante.jpg',
+      altImage: 'Descrição da imagem do produto',
+    },
+    {
+      id: 7,
+      name: 'tinta-esmalte-preta-coral',
+      label: 'Tinta Esmalte Coral Preto',
+      value: '29,90',
+      img: 'img/fitaIsolante.jpg',
+      altImage: 'Descrição da imagem do produto',
+    },
+    {
+      id: 8,
+      name: 'alicate-universal-gedore',
+      label: 'Alicate Universal Gedore',
+      value: '59,90',
+      img: 'img/fitaIsolante.jpg',
+      altImage: 'Descrição da imagem do produto',
+    },
+  ],
+
 };
