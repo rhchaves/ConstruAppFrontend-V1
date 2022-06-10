@@ -47,6 +47,7 @@
             class="btnAmber q-ma-md"
             type="text"
             rounded
+            @click="deleteAdmin"
           >
             Excluir Cadastro
           </q-btn>
@@ -69,7 +70,7 @@
 
 <script>
 
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import TableComponent from 'src/common/TableComponent.vue';
 import FormNewAdmin from '../components/FormNewAdmin.vue';
 
@@ -130,6 +131,9 @@ export default {
   },
 
   methods: {
+
+    ...mapActions('manageAdmin', ['deleteAdmin']),
+
     addNewAdmin() {
       this.formType = 'save';
       this.admin = [];
@@ -146,6 +150,12 @@ export default {
 
     itemSelected(item) {
       this.selected = item;
+    },
+
+    deleteAdmin() {
+      if (this.selected.length === 1) {
+        this.deleteAdmin(this.selected);
+      }
     },
 
     closeDialog() {

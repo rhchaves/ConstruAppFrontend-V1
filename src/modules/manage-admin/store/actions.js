@@ -6,6 +6,7 @@ const addNewAdmin = async ({ commit }, payload) => {
 
   commit('LOADING', false);
 };
+// //////////////////////////////////////////////////////
 
 const changeAdmin = async ({ commit }, payload) => {
   commit('LOADING', true);
@@ -16,7 +17,17 @@ const changeAdmin = async ({ commit }, payload) => {
 };
 // //////////////////////////////////////////////////////
 
+const deleteAdmin = async ({ commit }, payload) => {
+  commit('LOADING', true);
+
+  commit('DELETE_ADMIN', payload);
+
+  commit('LOADING', false);
+};
+// //////////////////////////////////////////////////////
+
 export {
   addNewAdmin,
   changeAdmin,
+  deleteAdmin,
 };
