@@ -1,72 +1,77 @@
 <template>
   <div>
-    <q-dialog v-model="showDialog" persistent>
-      <q-card class="row justify-center items-center q-pa-md">
-        <q-card-section class=" q-gutter-md">
-          <span class="btnAmber">Cadastrar Novo Administrador</span>
-        </q-card-section>
+    <q-dialog v-model="showDialog" persistent >
+      <q-card
+        class="col q-pa-md"
+        style="max-width: 500px"
+      >
+        <div class="" >
+          <q-card-section class="row justify-center q-gutter-md">
+            <span class="title">Cadastrar Novo Administrador</span>
+          </q-card-section>
 
-        <q-card-section class="q-gutter-md">
-          <q-input
-            outlined
-            v-model="form.name"
-            placeholder="Nome do Administrador"
-          />
+          <q-card-section class="q-gutter-md">
+            <q-input
+              outlined
+              v-model="form.name"
+              placeholder="Nome do Administrador"
+            />
 
-          <q-input
-            outlined
-            v-model="form.cpf"
-            placeholder="CPF"
-          />
+            <q-input
+              outlined
+              v-model="form.cpf"
+              placeholder="CPF"
+            />
 
-          <q-input
-            outlined
-            v-model="form.email"
-            placeholder="E-mail"
-          />
+            <q-input
+              outlined
+              v-model="form.email"
+              placeholder="E-mail"
+            />
 
-          <q-input
+            <q-input
+              outlined
+              v-model="form.password"
+              :type="isPwd ? 'password' : 'text'"
+              label="Senha"
+              lazy-rules
+              :rules="[ val => val && val !== '' || 'Preencha a senha']"
+              >
+              <template v-slot:append>
+                <q-icon
+                  :name="isPwd ? 'visibility_off' : 'visibility'"
+                  class="cursor-pointer"
+                  @click="isPwd = !isPwd"
+                />
+              </template>
+            </q-input>
+
+            <q-input
             outlined
-            v-model="form.password"
+            v-model="form.confirmPassword"
             :type="isPwd ? 'password' : 'text'"
-            label="Senha"
+            label="Confirmar a senha"
             lazy-rules
             :rules="[ val => val && val !== '' || 'Preencha a senha']"
             >
-            <template v-slot:append>
-              <q-icon
-                :name="isPwd ? 'visibility_off' : 'visibility'"
-                class="cursor-pointer"
-                @click="isPwd = !isPwd"
-              />
-            </template>
-          </q-input>
+              <template v-slot:append>
+                <q-icon
+                  :name="isPwd ? 'visibility_off' : 'visibility'"
+                  class="cursor-pointer"
+                  @click="isPwd = !isPwd"
+                />
+              </template>
+            </q-input>
 
-          <q-input
-          outlined
-          v-model="form.confirmPassword"
-          :type="isPwd ? 'password' : 'text'"
-          label="Confirmar a senha"
-          lazy-rules
-          :rules="[ val => val && val !== '' || 'Preencha a senha']"
-          >
-            <template v-slot:append>
-              <q-icon
-                :name="isPwd ? 'visibility_off' : 'visibility'"
-                class="cursor-pointer"
-                @click="isPwd = !isPwd"
-              />
-            </template>
-          </q-input>
+          </q-card-section>
 
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn class="btnCancel" label="Cancel" @click="closeDialog"/>
-          <q-btn class="btnAmber" @click="confirmAdmin">
-            {{ formType === 'save' ? 'Salvar' : 'Atualizar' }}
-          </q-btn>
-        </q-card-actions>
+          <q-card-actions align="right" class="row justify-center">
+            <q-btn class="btnCancel sizeBtn3 q-ma-md" label="Cancel" @click="closeDialog" />
+            <q-btn class="btnAmber sizeBtn3 q-ma-md" @click="confirmAdmin">
+              {{ formType === 'save' ? 'Salvar' : 'Atualizar' }}
+            </q-btn>
+          </q-card-actions>
+        </div>
       </q-card>
     </q-dialog>
 

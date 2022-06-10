@@ -15,8 +15,13 @@ const CHANGE_ADMIN = (state, payload) => {
   });
 };
 
+const DELETE_ADMIN = (state, payload) => {
+  state.admins = state.admins.filter((admin) => admin.id !== payload.id);
+};
+
 export {
   LOADING,
   INSERT_NEW_ADMIN,
   CHANGE_ADMIN,
+  DELETE_ADMIN,
 };
