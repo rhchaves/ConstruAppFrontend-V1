@@ -1,13 +1,13 @@
 <template>
-  <q-page class="window-height window-width row justify-center items-center">
-    <q-card class="" style="min-width: 350px; max-width: 500px">
-      <q-card-section>
-        <div class="text-h6 row justify-center">Entrar</div>
-      </q-card-section>
+  <q-page class="row justify-center items-center">
 
-      <q-card-section class="q-pt-none">
+    <div
+      v-if="!btnForgotPassword"
+      class="row justify-center q-ma-lg">
+      <div class="column size-custom-450">
+        <p class="text-h6 text-center center-screen size-custom-300 q-pb-lg"
+        >SUA CONTA PARA TUDO DA CONSTRUAPP</p>
         <q-input
-          autofocus
           outlined
           v-model="user.email"
           type="text"
@@ -32,26 +32,44 @@
             />
           </template>
         </q-input>
-      </q-card-section>
 
-      <q-card-actions align="right" class="text-primary">
-        <q-btn class="" type="text" flat
-          @click="forgotPassword">Esqueci a senha</q-btn>
-        <q-btn class="btnAmber" type="text" rounded
-          @click="loginAccount">Login</q-btn>
-        <q-btn class="btnAmber" type="text" rounded v-close-popup
-          to="register-client">Criar Conta</q-btn>
-      </q-card-actions>
-    </q-card>
+        <q-btn class="column items-center sizeBtn4" type="text" flat
+          @click="btnForgotPassword = true">Esqueci a senha</q-btn>
+
+        <p class="text-center q-ma-lg"
+        >
+          Ao fazer login, você concorda com a
+          <a href="">Política de privacidade</a> e com os
+          <a href="">Termos de uso</a> do ConstruApp.com.br
+        </p>
+
+        <div class="column items-center">
+          <q-btn class="btnAmber q-mt-md sizeBtn6" type="text" rounded
+            @click="loginAccount">Login</q-btn>
+          <q-btn class="btnAmber q-mt-md sizeBtn6" type="text" rounded v-close-popup
+            to="register-client">Criar Conta</q-btn>
+        </div>
+      </div>
+    </div>
+
+    <ForgotPasswordPage
+      v-if="btnForgotPassword"
+      @loginEmit= 'login'
+    />
   </q-page>
 </template>
 
 <script>
 
 import { mapActions, mapGetters } from 'vuex';
+import ForgotPasswordPage from '../components/ForgotPassawordPage.vue';
 
 export default {
   name: 'LoginPage',
+
+  components: {
+    ForgotPasswordPage,
+  },
 
   data() {
     return {
@@ -60,6 +78,7 @@ export default {
         password: '',
       },
       isPwd: true,
+      btnForgotPassword: false,
     };
   },
 
@@ -67,12 +86,6 @@ export default {
 
     ...mapActions('loginPage', ['login']),
     ...mapGetters('loginPage', ['getLogado', 'getUser']),
-
-    forgotPassword() {
-      console.log('Função forgotPassword');
-      console.log('getLogado', this.getLogado());
-      console.log('getUser', this.getUser());
-    },
 
     loginAccount() {
       if (this.user.email !== '' && this.user.password !== '') {
@@ -86,6 +99,10 @@ export default {
       } else {
         console.log('Preencha os campos');
       }
+    },
+
+    login() {
+      this.btnForgotPassword = false;
     },
 
   },
