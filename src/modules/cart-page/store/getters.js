@@ -1,5 +1,8 @@
-const searchingTeste = (state) => state.searching;
+const getLoading = (state) => state.loading;
+
+const getCartList = (state) => state.cartProductList;
 
 export {
-  searchingTeste,
+  getLoading,
+  getCartList,
 };

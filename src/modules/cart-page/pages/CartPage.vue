@@ -1,20 +1,27 @@
 <template>
   <q-page class="q-ma-md">
     <h3>Esta é a página de carrinho</h3>
-    <q-list bordered padding class="q-mt-xl" style="max-width: 900px">
-      <q-item v-if="item.inCart">
+    <q-list bordered padding class="q-mt-xl" style="max-width: 900px"
+      v-if="getCartList.length"
+    >
+      <q-item
+        v-for="product in getCartList"
+        :key="product.id"
+      >
         <q-item-section top thumbnail class="q-ml-none">
-          <img class="q-ma-md" src="https://cdn.quasar.dev/img/mountains.jpg">
+          <img class="q-ma-md" :src="product.img">
         </q-item-section>
 
         <q-item-section>
-          <q-item-label v-model="item.name">Nome do item</q-item-label>
-          <q-item-label v-model="item.description">Descrição breve do item</q-item-label>
-          <q-item-label v-model="item.value">Valor: R$ {{ item.value }}</q-item-label>
+          <q-item-label v-model="product.name">Nome do item: {{product.name}} </q-item-label>
+          <q-item-label
+            v-model="product.description">Descrição breve do item {{ product.description}}
+          </q-item-label>
+          <q-item-label v-model="product.value">Valor: R$ {{ product.value }}</q-item-label>
         </q-item-section>
 
         <q-item-section >
-          <q-btn flat icon="delete" class="" v-model="item.id" @click="deleteItem()"></q-btn>
+          <q-btn flat icon="delete" class="" v-model="product.id" @click="deleteItem()"></q-btn>
         </q-item-section>
         <q-item-section class=" " >
           <div class="row items-center no-wrap btnAmber">
@@ -22,7 +29,7 @@
           <q-btn flat icon="remove" class="" @click="removeQuantity"></q-btn>
           <q-input
             class=""
-            v-model="item.quantity"
+            v-model="product.quantity"
             @focusout="checkValue"
             style="text-align: center"
           ></q-input>
@@ -31,7 +38,7 @@
 
         </q-item-section>
         <q-item-section >
-          <q-item-label v-model="item.subtotal">R$ {{ item.subtotal }}</q-item-label>
+          <q-item-label v-model="product.subtotal">R$ {{ product.subtotal }}</q-item-label>
         </q-item-section>
       </q-item>
     </q-list>
@@ -69,6 +76,8 @@
 
 <script>
 
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'CartPage',
 
@@ -76,15 +85,6 @@ export default {
     return {
       name: '',
       deletedItem: '',
-      item: {
-        id: 1,
-        quantity: 0,
-        value: 17.00,
-        subtotal: 0,
-        name: '',
-        description: '',
-        inCart: true,
-      },
       model: null,
       options: [
         'Dinheiro', 'Cartão de Crédito', 'Cartão de Débito',
@@ -97,6 +97,10 @@ export default {
       deliveryValue: 'A calcular',
       totalValue: 0,
     };
+  },
+
+  computed: {
+    ...mapGetters('cartPage', ['getCartList']),
   },
 
   methods: {
