@@ -1,14 +1,25 @@
 <template>
   <q-page class="window-height window-width row justify-center items-center">
-      <div class="column">
-        <div class="row">
+      <div class="colun">
+        <div class="ro">
+          <q-card square bordered class="q-pl-lg q-pr-lg q-pb-lg shadow-1">
 
-          <q-card square bordered class="q-pa-lg shadow-1">
+              <div class="row justify-end">
+                <q-btn class="q-pt-md" icon="close" flat round v-close-popup
+                  @click="close"
+                ></q-btn>
+              </div>
+
             <q-card-section class="q-gutter-md">
-                <q-btn class="" type="text" icon="close" flat round v-close-popup
-              @click="close"></q-btn>
-                <!-- inputs de entrada de dados -->
+
+              <div class="row justify-center">
+                <p class="title-custom text-center size-custom-400">Endereço de Entrega</p>
+              </div>
+
+              <!-- inputs de entrada de dados -->
+              <div class="row justify-between">
                 <q-input
+                  class="size-custom-300"
                   autofocus
                   outlined
                   v-model="address.cep"
@@ -16,36 +27,84 @@
                   label="Digite o cep"
                   mask="#####-###"
                   unmasked-value
-                  style="max-width: 200px"
                   :rules="[val => !! val || 'Campo obrigatório']"
                 />
-                <!-- link para site do correios -->
-                <a href="https://buscacepinter.correios.com.br/app/endereco/index.php"
-                  target="_blank">Não sei meu cep!
-                </a>
+
                 <!-- botão de pesquisar CEP -->
                 <q-btn
-                  class="btnAmber"
+                  class="btnAmber q-ml-xl q-mt-sm "
                   label="Preencher com CEP"
                   rounded
                   no-caps
-                  @click="searchForCep()"/>
+                  @click="searchForCep()"
+                  style="height: 36px"
+                />
+              </div>
+              <!-- link para site do correios -->
+              <div class="q-ml-lg">
 
-                <q-input outlined v-model="address.street" type="text" label="Rua"
-                  :rules="[val => !! val || 'Campo obrigatório']"/>
-                <q-input outlined v-model="address.number" type="text" label="Número"
-                  :rules="[val => !! val || 'Campo obrigatório']"/>
-                <q-input outlined v-model="address.complement" type="text" label="Complemento" />
-                <q-input outlined v-model="address.district" type="text" label="Bairro"
-                  :rules="[val => !! val || 'Campo obrigatório']"/>
-                <q-input outlined v-model="address.city" type="text" label="Cidade" readonly
-                  :rules="[val => !! val || 'Campo obrigatório']"/>
-                <q-input outlined v-model="address.state" type="text" label="UF" readonly
-                  :rules="[val => !! val || 'Campo obrigatório']"/>
+                <a href="https://buscacepinter.correios.com.br/app/endereco/index.php"
+                  target="_blank"
+                >Não sei meu cep!
+                </a>
+
+              </div>
+
+              <q-input outlined v-model="address.street" type="text" label="Rua"
+                :rules="[val => !! val || 'Campo obrigatório']"/>
+
+              <div class="row">
+                <q-input
+                  class="size-custom-110 q-mr-md"
+                  outlined
+                  v-model="address.number"
+                  type="text"
+                  label="Número"
+                  :rules="[val => !! val || 'Campo obrigatório']"
+                />
+                <q-input
+                  class="size-custom-410"
+                  outlined
+                  v-model="address.complement"
+                  type="text"
+                  label="Complemento"
+                />
+              </div>
+
+              <div class="row">
+                <q-input
+                  class="size-custom-250 q-mr-md"
+                  outlined
+                  v-model="address.district"
+                  type="text"
+                  label="Bairro"
+                  :rules="[val => !! val || 'Campo obrigatório']"
+                />
+                <q-input
+                  class="q-mr-md"
+                  outlined
+                  v-model="address.city"
+                  type="text"
+                  label="Cidade"
+                  readonly
+                  :rules="[val => !! val || 'Campo obrigatório']"
+                />
+                <q-input
+                  class="q-mr-md size-custom-50"
+                  outlined
+                  v-model="address.state"
+                  type="text"
+                  label="UF"
+                  readonly
+                  :rules="[val => !! val || 'Campo obrigatório']"
+                />
+              </div>
             </q-card-section>
-            <q-card-actions class="q-px-md">
-              <q-btn class="btnAmber" label="Confirmar" rounded
-                @click="confirm"/>
+            <q-card-actions class="q-px-md column items-center">
+                <div class="col">
+                  <q-btn class="btnAmber sizeBtn5"
+                  label="Confirmar" rounded @click="confirm"/>
+                </div>
             </q-card-actions>
 
           </q-card>

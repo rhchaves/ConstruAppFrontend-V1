@@ -1,9 +1,6 @@
 <template>
   <q-page>
     <CategoriesComponent />
-
-    <h3>Página de Principal</h3>
-
     <ContentMainPage />
   </q-page>
 </template>
@@ -12,7 +9,6 @@
 
 import CategoriesComponent from 'src/common/CategoriesComponent.vue';
 import ContentMainPage from 'src/modules/main-page/components/ContentMainPage.vue';
-
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -27,9 +23,6 @@ export default {
     return {
       search: '',
       showPage: false,
-
-      // Lista de itens para teste
-
     };
   },
 

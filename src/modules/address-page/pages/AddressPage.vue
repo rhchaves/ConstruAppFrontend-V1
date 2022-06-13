@@ -2,21 +2,26 @@
   <q-page class="window-height window-width row justify-center items-center">
       <section class="q-ma-lg bg-re ">
         <div class="" v-if="!changeSearchAddress">
-                <!-- inputs de entrada de dados -->
-                <q-input
-                  outlined
-                  type="text"
-                  label="Inserir o cep para ver os produtos"
-                  mask="#####-###"
-                  unmasked-value
-                  @focusin="open"
-                  style="width: 350px"
+          <!-- inputs de entrada de dados -->
+          <q-input
+            outlined
+            type="text"
+            label="Inserir o cep para ver os produtos"
+            mask="#####-###"
+            unmasked-value
+            @focusin="open"
+            style="width: 350px"
 
-                />
-                <!-- link para site do correios -->
-                <a href="https://buscacepinter.correios.com.br/app/endereco/index.php"
-                  target="_blank">Não sei meu cep!
-                </a>
+          />
+          <!-- link para site do correios -->
+          <div class="q-ma-md">
+            <a
+              href="https://buscacepinter.correios.com.br/app/endereco/index.php"
+              target="_blank"
+            >
+              Não sei meu cep
+            </a>
+          </div>
 
         </div>
       </section>

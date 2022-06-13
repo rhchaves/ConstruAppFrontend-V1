@@ -9,14 +9,23 @@
     >
 
       <q-toolbar class="" >
-        <!-- Título do header -->
-        <q-toolbar-title shrink class="row items-center no-wrap">
+        <!-- Título do header logado -->
+        <q-toolbar-title shrink class="row items-center no-wrap"
+          v-if="getUserAddress || getLogado"
+        >
           <router-link to="/main-page" class="router-link" >
-            <span class="q-ml-sm" v-if="getUserAddress || getLogado">ConstruApp </span>
+            <span class="q-ml-sm" >ConstruApp </span>
           </router-link>
         </q-toolbar-title>
+
+        <!-- Título do header não logado -->
+        <q-toolbar-title shrink class="row items-center no-wrap"
+          v-if="!getUserAddress && !getLogado"
+        >
+          <span class="q-ml-sm">ConstruApp </span>
+        </q-toolbar-title>
         <!-- Verificar se vamos deixar o endereço disponivel aqui -->
-        {{getUserAddress.street}} -->
+        {{getUserAddress.street}}
         {{getUserAddress.number}}
         <q-space />
 

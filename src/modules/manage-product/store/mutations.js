@@ -1,7 +1,27 @@
-const LIST_DATA = (state, payload) => {
-  state.items = payload;
+const LOADING = (state, payload) => {
+  state.loading = payload;
+};
+
+const INSERT_NEW_PRODUCT = (state, payload) => {
+  state.products.push(payload);
+};
+
+const CHANGE_PRODUCT = (state, payload) => {
+  state.products = state.products.map((products) => {
+    if (products.id === payload.id) {
+      return payload;
+    }
+    return products;
+  });
+};
+
+const DELETE_PRODUCT = (state, payload) => {
+  state.products = state.products.filter((products) => products.id !== payload.id);
 };
 
 export {
-  LIST_DATA,
+  LOADING,
+  INSERT_NEW_PRODUCT,
+  CHANGE_PRODUCT,
+  DELETE_PRODUCT,
 };
