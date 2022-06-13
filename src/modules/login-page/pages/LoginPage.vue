@@ -54,7 +54,7 @@
 
     <ForgotPasswordPage
       v-if="btnForgotPassword"
-      @loginEmit= 'login'
+      @loginEmit="loginEmit()"
     />
   </q-page>
 </template>
@@ -101,7 +101,7 @@ export default {
       }
     },
 
-    login() {
+    loginEmit() {
       this.btnForgotPassword = false;
     },
 
