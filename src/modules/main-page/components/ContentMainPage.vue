@@ -8,10 +8,10 @@
         :labelItem="product.label"
         :priceItem="product.price"
         :imageItem="product.img"
-        @addCartItemEmit="addCardProduct(product.id)"
-        @addFavoriteItemEmit="addFavoriteProduct(product.id)"
-        @shareItemEmit="shareProduct(product.id)"
-        @buyItemEmit="buyProduct(product.id)"
+        @addCartItemEmit="addProduct(product)"
+        @addFavoriteItemEmit="addFavoriteProduct(product)"
+        @shareItemEmit="shareProduct(product)"
+        @buyItemEmit="buyProduct(product)"
       />
     </section>
   </q-page>
@@ -39,18 +39,22 @@ export default {
 
   computed: {
     ...mapGetters('manageProduct', ['getListProducts']),
+    ...mapGetters('cartPage', ['getCartList']),
   },
 
   methods: {
     ...mapActions('mainPage', ['listCep']),
+    ...mapActions('cartPage', ['addProductCart']),
 
     onSubmit() {
       console.log('Clicou em buscar:', this.search);
       this.listCep(this.search);
     },
 
-    addCardProduct(item) {
+    addProduct(item) {
       console.log('Clicou em Adicionar:', item);
+      this.addProductCart(item);
+      console.log('Lista do carrinho', this.getCartList);
     },
 
     addFavoriteProduct(item) {
