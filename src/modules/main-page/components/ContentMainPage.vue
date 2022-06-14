@@ -6,7 +6,7 @@
         :key="product.id"
         :idItem="product.id"
         :labelItem="product.label"
-        :priceItem="product.price"
+        :priceItem="product.value"
         :imageItem="product.img"
         @addCartItemEmit="addProduct(product)"
         @addFavoriteItemEmit="addFavoriteProduct(product)"
@@ -33,7 +33,7 @@ export default {
     return {
       search: '',
       logado: false,
-
+      qtd: 1,
     };
   },
 
@@ -51,8 +51,8 @@ export default {
       this.listCep(this.search);
     },
 
-    addProduct(item) {
-      console.log('Clicou em Adicionar:', item);
+    addProduct(item, qtd) {
+      console.log('Clicou em Adicionar:', item, qtd);
       this.addProductCart(item);
       console.log('Lista do carrinho', this.getCartList);
     },
@@ -66,6 +66,7 @@ export default {
     },
 
     buyProduct(item) {
+      this.$router.push('product-page');
       console.log('Clicou em Comprar:', item);
     },
   },

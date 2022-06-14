@@ -68,17 +68,7 @@ export default {
 
   data() {
     return {
-      // Lista de itens para teste
-      // listItems: [
-      //   {
-      //     id: 1,
-      //     name: 'fita',
-      //     label: 'Fita Isolante',
-      //     price: '19,90',
-      //     image: 'img/fita_isolante.jpg',
-      //     altImage: 'Fita isolante Scotch 33+',
-      //   },
-      // ],
+
     };
   },
 

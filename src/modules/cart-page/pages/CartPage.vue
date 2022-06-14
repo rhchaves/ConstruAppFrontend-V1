@@ -15,7 +15,8 @@
         <q-item-section>
           <q-item-label v-model="product.name">Nome do item: {{product.name}} </q-item-label>
           <q-item-label
-            v-model="product.description">Descrição breve do item {{ product.description}}
+            v-model="product.shortDescription"
+            >Descrição breve do item: {{ product.shortDescription}}
           </q-item-label>
           <q-item-label v-model="product.value">Valor: R$ {{ product.value }}</q-item-label>
         </q-item-section>
@@ -29,11 +30,11 @@
           <q-btn flat icon="remove" class="" @click="removeQuantity"></q-btn>
           <q-input
             class=""
-            v-model="product.quantity"
+            v-model="product.qtdForSale"
             @focusout="checkValue"
             style="text-align: center"
           ></q-input>
-          <q-btn flat icon="add" class="" @click="addQuantity"></q-btn>
+          <q-btn flat icon="add" class="" @click="addQuantity(product)"></q-btn>
           </div>
 
         </q-item-section>
@@ -76,7 +77,7 @@
 
 <script>
 
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'CartPage',
@@ -96,6 +97,7 @@ export default {
       },
       deliveryValue: 'A calcular',
       totalValue: 0,
+      qtd: 1,
     };
   },
 
@@ -104,13 +106,16 @@ export default {
   },
 
   methods: {
+
+    ...mapActions('cartPage', ['addQtdCart']),
+
     deleteItem() {
       console.log('Apagar Item:', this.deletedItem);
       this.item.inCart = false;
     },
 
-    addQuantity() {
-      this.item.quantity += 1;
+    addQuantity(item) {
+      this.addQtdCart(item, this.qtd);
       this.calcSubtotal();
     },
 

@@ -3,7 +3,7 @@
 
     <!-- Inicio do cabeçalho -->
     <q-header
-      class="bg-white text-grey-8 q-py-xs"
+      class="bg-white text-grey-8 q-py-md"
       height-hint="58"
       style="border-bottom: solid 1px #ccc;"
     >
@@ -14,7 +14,7 @@
           v-if="getUserAddress || getLogado"
         >
           <router-link to="/main-page" class="router-link" >
-            <span class="q-ml-sm" >ConstruApp </span>
+            <q-img style="width: 150px" :src="urlLogo"></q-img>
           </router-link>
         </q-toolbar-title>
 
@@ -22,7 +22,7 @@
         <q-toolbar-title shrink class="row items-center no-wrap"
           v-if="!getUserAddress && !getLogado"
         >
-          <span class="q-ml-sm">ConstruApp </span>
+          <q-img style="width: 150px" :src="urlLogo"></q-img>
         </q-toolbar-title>
         <!-- Verificar se vamos deixar o endereço disponivel aqui -->
         {{getUserAddress.street}}
@@ -101,7 +101,7 @@
             v-if="getUserAddress || getLogado">
             <q-badge rounded class="q-mr-sm q-mt-xs" color="red" text-color="white" floating>
               <!-- alterar para retorno da quantidade de itens no carrinho -->
-              {{ shoppingCartValue }}
+              {{ getCartList.length }}
             </q-badge>
           </q-btn>
 
@@ -141,13 +141,14 @@ export default {
   data() {
     return {
       search: '',
-      shoppingCartValue: 2,
+      urlLogo: 'img/logo-contruApp-v1.png',
     };
   },
 
   computed: {
     ...mapGetters('loginPage', ['getLogado', 'getUser']),
     ...mapGetters('addressPage', ['getUserAddress']),
+    ...mapGetters('cartPage', ['getCartList']),
   },
 
   // Funções

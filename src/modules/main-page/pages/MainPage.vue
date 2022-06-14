@@ -22,7 +22,12 @@ export default {
   data() {
     return {
       search: '',
-      showPage: false,
+
+      // /////////////////////////////////////////////////////////
+      // Alterar a exibição da página
+      // showPage: false,
+      showPage: true,
+      // /////////////////////////////////////////////////////////
     };
   },
 

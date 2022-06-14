@@ -2,7 +2,7 @@
   <div class="bg-grey row justify-center">
 
     <div>
-      <h2>Logo</h2>
+      <q-img style="width: 150px" :src="urlLogo"></q-img>
     </div>
 
     <div class="q-ml-sm column items-center">
@@ -26,7 +26,7 @@ export default {
 
   data() {
     return {
-
+      urlLogo: 'img/logo-contruApp-v1.png',
     };
   },
 };

@@ -14,9 +14,18 @@ const removeProductCart = async ({ commit }, payload) => {
 
   commit('LOADING', false);
 };
+
+const addQtdCart = async ({ commit }, payload, qtd) => {
+  commit('LOADING', true);
+
+  commit('ADD_QTD_PRODUCT', payload, qtd);
+
+  commit('LOADING', false);
+};
 // //////////////////////////////////////////////////////
 
 export {
   addProductCart,
   removeProductCart,
+  addQtdCart,
 };
