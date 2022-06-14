@@ -1,6 +1,6 @@
 <template>
-  <q-page class="q-ma-md">
-    <h3>Esta é a página de carrinho</h3>
+  <q-page class="q-ma-md col justify-center items-center">
+
     <q-list bordered padding class="q-mt-xl" style="max-width: 900px"
       v-if="getCartList.length"
     >
@@ -13,6 +13,7 @@
         </q-item-section>
 
         <q-item-section>
+
           <q-item-label v-model="product.name">Nome do item: {{product.name}} </q-item-label>
           <q-item-label
             v-model="product.shortDescription"
@@ -25,19 +26,14 @@
           <q-btn flat icon="delete" class="" v-model="product.id" @click="deleteItem()"></q-btn>
         </q-item-section>
         <q-item-section class=" " >
-          <div class="row items-center no-wrap btnAmber">
 
-          <q-btn flat icon="remove" class="" @click="removeQuantity"></q-btn>
-          <q-input
-            class=""
-            v-model="product.qtdForSale"
-            @focusout="checkValue"
-            style="text-align: center"
-          ></q-input>
-          <q-btn flat icon="add" class="" @click="addQuantity(product)"></q-btn>
-          </div>
+          <InputQtdComponent
+            @addQuantityEmit="addQuantity"
+            @removeQuantityEmit="removeQuantity"
+          />
 
         </q-item-section>
+
         <q-item-section >
           <q-item-label v-model="product.subtotal">R$ {{ product.subtotal }}</q-item-label>
         </q-item-section>
@@ -77,10 +73,15 @@
 
 <script>
 
+import InputQtdComponent from 'src/common/InputQtdComponent.vue';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'CartPage',
+
+  components: {
+    InputQtdComponent,
+  },
 
   data() {
     return {
@@ -111,19 +112,21 @@ export default {
 
     deleteItem() {
       console.log('Apagar Item:', this.deletedItem);
-      this.item.inCart = false;
     },
 
     addQuantity(item) {
-      this.addQtdCart(item, this.qtd);
+      this.addQtdCart(this.qtd, item);
+      console.log('Qtd', this.qtd);
+      console.log('Item', item);
+      console.log('Adicionado', this.getCartList);
       this.calcSubtotal();
     },
 
     removeQuantity() {
-      if (this.item.quantity >= 1) {
-        this.item.quantity -= 1;
-      }
-      this.calcSubtotal();
+      // if (this.item.quantity >= 1) {
+      //   this.item.quantity -= 1;
+      // }
+      // this.calcSubtotal();
     },
 
     checkNaN(x) {
@@ -132,29 +135,13 @@ export default {
       }
     },
 
-    checkValue() {
-      const check = this.item.quantity;
-
-      if (this.item.quantity < 0) {
-        this.item.quantity = 0;
-      }
-
-      if (this.isNaN(check) !== false) {
-        console.log('Não É número');
-      }
-
-      // this.checkNaN(this.item.quantity);
-
-      this.calcSubtotal();
-    },
-
     calcSubtotal() {
-      this.item.subtotal = this.item.quantity * this.item.value;
-      this.calcTotal();
+      // this.item.subtotal = this.item.quantity * this.item.value;
+      // this.calcTotal();
     },
 
     calcTotal() {
-      this.totalValue = this.item.subtotal;
+      // this.totalValue = this.item.subtotal;
     },
 
     changeAddress() {
