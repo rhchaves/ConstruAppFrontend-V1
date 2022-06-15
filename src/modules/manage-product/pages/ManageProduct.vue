@@ -7,7 +7,7 @@
           <h3 class="row justify-center">Gerenciar Produtos</h3>
         </div>
 
-        <div class="">
+        <div class="col-12">
           <TableComponent
             title="Lista de Produtos"
             :columns="columns"
@@ -34,6 +34,15 @@
             rounded
           >
             Confirmar itens à venda
+          </q-btn>
+
+          <q-btn
+            class="btnAmber q-ma-md"
+            type="text"
+            rounded
+            to="admin-page"
+          >
+            Voltar
           </q-btn>
 
         </div>

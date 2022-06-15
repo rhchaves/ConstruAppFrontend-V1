@@ -28,6 +28,7 @@
           <q-img style="width: 150px" :src="urlLogo"></q-img>
         </q-toolbar-title>
         <!-- Verificar se vamos deixar o endereço disponivel aqui -->
+        <div class="q-ml-xl"></div>
         {{getUserAddress.street}}
         {{getUserAddress.number}}
         <q-space />

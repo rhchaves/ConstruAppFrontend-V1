@@ -7,7 +7,7 @@
           <h3 class="row justify-center">Gerenciar Vendedores</h3>
         </div>
 
-        <div class="">
+        <div class="col-12">
           <TableComponent
             title="Lista de Vendedores"
             :columns="columns"
