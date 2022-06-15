@@ -1,25 +1,28 @@
 <template>
-  <q-page class="q-ma-md col justify-center items-center">
+  <q-page class="q-ma-md ro justify-cente items-cente">
 
-    <q-list bordered padding class="q-mt-xl" style="max-width: 900px"
+    <div class="q-ma-md row justify-center items-center">
+
+    <q-list bordered padding class="q-mt-xl " style="max-width: 900px"
       v-if="getCartList.length"
     >
       <q-item
         v-for="product in getCartList"
         :key="product.id"
       >
-        <q-item-section top thumbnail class="q-ml-none">
-          <img class="q-ma-md" :src="product.img">
+        <q-item-section top thumbnail class="q-ml-lg">
+          <img class="q-ma-md" :src="product.img"
+          style="width: 70px">
         </q-item-section>
 
         <q-item-section>
 
-          <q-item-label v-model="product.name">Nome do item: {{product.name}} </q-item-label>
+          <q-item-label v-model="product.name"><b>Nome do item:</b> {{product.name}} </q-item-label>
           <q-item-label
             v-model="product.shortDescription"
-            >Descrição breve do item: {{ product.shortDescription}}
+            ><b>Descrição breve do item:</b> {{ product.shortDescription}}
           </q-item-label>
-          <q-item-label v-model="product.value">Valor: R$ {{ product.value }}</q-item-label>
+          <q-item-label v-model="product.value"><b>Valor:</b> R$ {{ product.value }}</q-item-label>
         </q-item-section>
 
         <q-item-section >
@@ -39,17 +42,21 @@
         </q-item-section>
       </q-item>
     </q-list>
-    <q-section class="q-ma-lg">
-      <h5>Forma de pagamento:</h5>
-      <q-select rounded v-model="model" :options="options" :name="name"
+
+    <div>
+
+    <q-section class="q-ma-lg col-12">
+      <h5 class="q-ma-lg">Forma de pagamento:</h5>
+      <q-select class="q-ma-lg" rounded v-model="model" :options="options" :name="name"
         style="max-width: 300px" label="Opção de pagamento" />
     </q-section>
 
-    <q-section class="q-ma-lg">
-      <q-input class="" outlined rounded v-model="deliveryAddress.street"
+    <q-section class="q-ma-lg "
+    style="">
+      <q-input class="q-ma-lg" outlined rounded v-model="deliveryAddress.street"
         style="max-width: 300px"></q-input>
       <q-input
-        class=""
+        class="q-ma-lg"
         outlined
         rounded
         v-model="deliveryValue"
@@ -57,17 +64,21 @@
         style="max-width: 300px"
       ></q-input>
       <q-input
-        class=""
+        class="q-ma-lg"
         outlined
         rounded
         v-model="totalValue"
         prefix="R$"
         style="max-width: 300px"
       ></q-input>
-      <q-btn class="btnAmber" rounded @click="changeAddress">Alterar Endereço</q-btn>
-      <q-btn class="btnAmber" rounded @click="sendRequest">Enviar Pedido</q-btn>
+      <q-btn class="btnAmber q-ma-lg" rounded @click="changeAddress">Alterar Endereço</q-btn>
+      <q-btn class="btnAmber q-ma-lg" rounded @click="sendRequest">Enviar Pedido</q-btn>
 
     </q-section>
+
+    </div>
+
+    </div>
   </q-page>
 </template>
 

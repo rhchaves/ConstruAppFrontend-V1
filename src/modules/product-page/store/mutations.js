@@ -1,7 +1,12 @@
-const LIST_DATA = (state, payload) => {
-  state.items = payload;
+const LOADING = (state, payload) => {
+  state.loading = payload;
+};
+
+const INSERT_PRODUCT_PAGE = (state, payload) => {
+  state.productPage = payload;
 };
 
 export {
-  LIST_DATA,
+  LOADING,
+  INSERT_PRODUCT_PAGE,
 };

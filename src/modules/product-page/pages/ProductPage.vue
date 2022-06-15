@@ -3,36 +3,21 @@
 
     <CategoriesComponent />
 
-    <router-link to="/main-page" class="router-link">
-      <q-btn
-        class="q-ma-sm"
-        color="black"
-        rounded
-        no-caps
-        size="lg"
-        padding="sm"
-      >
-        <span class="text-weight-light font-size-18"> Página principal </span>
-      </q-btn>
-    </router-link>
-
-    <h3>Página de Produto</h3>
-
     <!-- seção principal da página -->
-    <section class="row ">
+    <section class="row justify-center q-mt-xl">
       <!-- imagem do produto -->
       <div class="product-img ">
-        <img src="~/assets/img/saco-de-areia.jpg" alt="" class="my-card">
+        <img :src="getProductPage.img" alt="" class="my-card">
       </div>
       <!-- area de titulo e demais informações -->
-      <div class="">
-        <h1>{{ title }}</h1>
-        <h2>{{ shortDescription }}</h2>
-        <h3>{{ brand }}</h3>
-        <h4>R${{ priceProduct }}</h4>
+      <div class="q-ma-lg">
+        <h2 class="q-ma-lg">{{ getProductPage.label }}</h2>
+        <h5 class="q-ma-lg">{{ getProductPage.shortDescription }}</h5>
+        <h4 class="q-ma-lg">R${{ getProductPage.value }}</h4>
         <!-- botão de adicionar ao carrinho -->
         <div class="col col-md-5">
-          <q-btn class="btnAmber" rounded @click="addToCart()">Adicionar ao Carrinho</q-btn>
+          <q-btn class="btnAmber q-ma-lg q-mt-xl"
+            rounded @click="addToCart()">Adicionar ao Carrinho</q-btn>
         </div>
       </div>
     </section>
@@ -43,6 +28,7 @@
 <script>
 
 import CategoriesComponent from 'src/common/CategoriesComponent.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'ProductPage',
@@ -51,34 +37,38 @@ export default {
     CategoriesComponent,
   },
 
-  props: {
-    title: {
-      type: String,
-      required: true,
-      default: 'Nome do Produto',
-    },
-    shortDescription: {
-      type: String,
-      required: true,
-      default: 'Descrição Breve do Produto',
-    },
-    // Fabricante
-    brand: {
-      type: String,
-      required: true,
-      default: 'Marca do Produto',
-    },
-    priceProduct: {
-      type: String,
-      required: true,
-      default: '0',
-    },
-  },
+  // props: {
+  //   title: {
+  //     type: String,
+  //     required: true,
+  //     default: 'Nome do Produto',
+  //   },
+  //   shortDescription: {
+  //     type: String,
+  //     required: true,
+  //     default: 'Descrição Breve do Produto',
+  //   },
+  //   // Fabricante
+  //   brand: {
+  //     type: String,
+  //     required: true,
+  //     default: 'Marca do Produto',
+  //   },
+  //   priceProduct: {
+  //     type: String,
+  //     required: true,
+  //     default: '0',
+  //   },
+  // },
 
   data() {
     return {
 
     };
+  },
+
+  computed: {
+    ...mapGetters('productPage', ['getProductPage']),
   },
 
   methods: {

@@ -9,6 +9,9 @@
     >
 
       <q-toolbar class="" >
+        <div class="q-mr-xl">
+
+        </div>
         <!-- Título do header logado -->
         <q-toolbar-title shrink class="row items-center no-wrap"
           v-if="getUserAddress || getLogado"
@@ -95,6 +98,7 @@
 
           <!-- Carrinho -->
           <q-btn
+            class="q-mr-lg"
             flat
             icon="shopping_cart"
             to="cart-page"
@@ -106,7 +110,7 @@
           </q-btn>
 
           <!-- Notificações -->
-          <q-btn
+          <!-- <q-btn
             round
             dense
             flat
@@ -118,7 +122,10 @@
               2
             </q-badge>
             <q-tooltip>Notifications</q-tooltip>
-          </q-btn>
+          </q-btn> -->
+
+        <div class="q-ml-xl">
+        </div>
 
         </div>
 

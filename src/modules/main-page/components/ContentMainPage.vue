@@ -45,6 +45,7 @@ export default {
   methods: {
     ...mapActions('mainPage', ['listCep']),
     ...mapActions('cartPage', ['addProductCart']),
+    ...mapActions('productPage', ['insertProductPage']),
 
     onSubmit() {
       console.log('Clicou em buscar:', this.search);
@@ -66,6 +67,7 @@ export default {
     },
 
     buyProduct(item) {
+      this.insertProductPage(item);
       this.$router.push('product-page');
       console.log('Clicou em Comprar:', item);
     },
