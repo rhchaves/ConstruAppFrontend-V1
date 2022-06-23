@@ -114,7 +114,7 @@ export default {
         {
           name: 'createdIn',
           label: 'Criado em:',
-          field: 'createdIn',
+          field: 'created_at',
         },
         {
           name: 'status',
@@ -126,13 +126,17 @@ export default {
     };
   },
 
+  created() {
+    this.listAllAdmin();
+  },
+
   computed: {
     ...mapGetters('manageAdmin', ['getAdmins']),
   },
 
   methods: {
 
-    ...mapActions('manageAdmin', ['deleteAdmin']),
+    ...mapActions('manageAdmin', ['listAllAdmin', 'deleteAdmin']),
 
     addNewAdmin() {
       this.formType = 'save';

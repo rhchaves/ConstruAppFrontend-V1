@@ -79,7 +79,7 @@ export default {
         {
           name: 'createdIn',
           label: 'Criado em:',
-          field: 'createdIn',
+          field: 'created_at',
         },
         {
           name: 'status',
@@ -91,13 +91,17 @@ export default {
     };
   },
 
+  created() {
+    this.listAllSellers();
+  },
+
   computed: {
     ...mapGetters('manageSeller', ['getSellers']),
   },
 
   methods: {
 
-    ...mapActions('manageSeller', ['deleteSellers']),
+    ...mapActions('manageSeller', ['listAllSellers', 'deleteSellers']),
 
     itemSelected(item) {
       this.selected = item;

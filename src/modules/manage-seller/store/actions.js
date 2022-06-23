@@ -1,3 +1,5 @@
+import HttpClient from 'src/boot/HttpClient';
+
 // //////////////////////////////////////////////////////
 
 const changeSeller = async ({ commit }, payload) => {
@@ -9,6 +11,22 @@ const changeSeller = async ({ commit }, payload) => {
 };
 // //////////////////////////////////////////////////////
 
+const listAllSellers = async ({ commit }) => {
+  commit('LOADING', true);
+
+  HttpClient.get('/seller').then((response) => {
+    commit('INSERT_LIST_SELLERS', response.data);
+    console.log('LISTA DE VENDEDORES AQUI', response.data);
+    return response;
+  }).catch((error) => {
+    console.log('Erro na requisição da lista', error);
+  }).finally(() => {
+    commit('LOADING', false);
+  });
+};
+// //////////////////////////////////////////////////////
+
 export {
   changeSeller,
+  listAllSellers,
 };

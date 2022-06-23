@@ -3,7 +3,7 @@
 
     <div class="q-ma-md row justify-center items-center">
 
-    <q-list bordered padding class="q-mt-xl " style="max-width: 900px"
+    <q-list bordered padding class="q-mt-xl " style="max-width: 800px"
       v-if="getCartList.length"
     >
       <q-item
@@ -26,13 +26,14 @@
         </q-item-section>
 
         <q-item-section >
-          <q-btn flat icon="delete" class="" v-model="product.id" @click="deleteItem()"></q-btn>
+          <q-btn flat icon="delete" class="size-custom-40"
+            v-model="product.id" @click="deleteItem()"></q-btn>
         </q-item-section>
         <q-item-section class=" " >
 
           <InputQtdComponent
-            @addQuantityEmit="addQuantity"
-            @removeQuantityEmit="removeQuantity"
+            @addQuantityEmit="addQuantity(product)"
+            @removeQuantityEmit="removeQuantity(product)"
           />
 
         </q-item-section>
@@ -41,6 +42,7 @@
           <q-item-label v-model="product.subtotal">R$ {{ product.subtotal }}</q-item-label>
         </q-item-section>
       </q-item>
+      <q-separator />
     </q-list>
 
     <div>
@@ -109,7 +111,7 @@ export default {
       },
       deliveryValue: 'A calcular',
       totalValue: 0,
-      qtd: 1,
+      qtd: 5,
     };
   },
 
@@ -126,18 +128,19 @@ export default {
     },
 
     addQuantity(item) {
-      this.addQtdCart(this.qtd, item);
-      console.log('Qtd', this.qtd);
+      this.addQtdCart(item, this.qtd);
       console.log('Item', item);
+      console.log('Qtd', this.qtd);
       console.log('Adicionado', this.getCartList);
       this.calcSubtotal();
     },
 
-    removeQuantity() {
+    removeQuantity(item) {
       // if (this.item.quantity >= 1) {
       //   this.item.quantity -= 1;
       // }
       // this.calcSubtotal();
+      console.log('Item', item);
     },
 
     checkNaN(x) {

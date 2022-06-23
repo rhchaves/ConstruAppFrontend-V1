@@ -11,7 +11,12 @@ const CHANGE_SELLER = (state, payload) => {
   });
 };
 
+const INSERT_LIST_SELLERS = (state, payload) => {
+  state.sellers = payload;
+};
+
 export {
   LOADING,
   CHANGE_SELLER,
+  INSERT_LIST_SELLERS,
 };
