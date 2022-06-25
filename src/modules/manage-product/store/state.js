@@ -1,5 +1,5 @@
 export default {
-  searching: false,
+  loading: false,
 
   products: [
     {

@@ -1,22 +1,24 @@
 <template>
   <q-page class="row justify-center items-center">
     <div class="">
-      <div class="row justify-center q-gutter-md">
+      <div class="row justify-center q-gutter-md q-mt-lg" v-if="!getLoading">
 
         <div class="col-12">
           <h3 class="row justify-center">Gerenciar Produtos</h3>
         </div>
 
-        <div class="col-12">
+        <div class="col-12" v-if="getProducts.length">
           <TableComponent
             title="Lista de Produtos"
             :columns="columns"
             :data="getProducts"
             rowKey="name"
             selectionType="single"
-            @productSelectedEmit="productSelected"
+            @itemSelectedEmit="productSelected"
           />
         </div>
+
+        <ContentAlertComponent v-else/>
 
         <div class="q-ma-md q-ma-md">
           <q-btn
@@ -46,6 +48,10 @@
           </q-btn>
 
         </div>
+
+        <LoadingComponent
+          :visible="getLoading"
+        />
       </div>
     </div>
 
@@ -63,6 +69,8 @@
 
 import { mapGetters } from 'vuex';
 import TableComponent from 'src/common/TableComponent.vue';
+import LoadingComponent from 'src/common/LoadingComponent.vue';
+import ContentAlertComponent from 'src/common/ContentAlertComponent.vue';
 import FormNewProduct from '../components/FormNewProduct.vue';
 
 export default {
@@ -71,6 +79,8 @@ export default {
   components: {
     TableComponent,
     FormNewProduct,
+    LoadingComponent,
+    ContentAlertComponent,
   },
 
   data() {
@@ -117,7 +127,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters('manageProduct', ['getProducts']),
+    ...mapGetters('manageProduct', ['getProducts', 'getLoading']),
   },
 
   methods: {

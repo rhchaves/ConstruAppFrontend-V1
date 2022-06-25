@@ -44,6 +44,19 @@
           Gerenciar Vendedor
         </q-btn>
       </div>
+
+      <div class="col q-ma-xl">
+        <q-btn
+          class="btnAmber"
+          type="text"
+          rounded
+          to="manage-client"
+          size="20px"
+          style="width: 350px"
+        >
+          Gerenciar Cliente
+        </q-btn>
+      </div>
     </section>
 
   </q-page>
@@ -70,6 +83,10 @@ export default {
 
     manageSeller() {
       console.log('Gerenciar Vendedor');
+    },
+
+    manageClient() {
+      console.log('Gerenciar Cliente');
     },
   },
 

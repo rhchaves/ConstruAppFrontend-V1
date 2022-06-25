@@ -1,21 +1,24 @@
 <template>
   <q-page class="row justify-center items-center">
     <div class="">
-      <div class="row justify-center q-gutter-md">
+
+      <div class="row justify-center q-gutter-md q-mt-lg" v-if="!getLoading">
 
         <div class="col-12">
           <h3 class="row justify-center">Gerenciar Administradores</h3>
         </div>
 
-        <div class="col-12">
+        <div class="col-12" v-if="getAdmins.length">
           <TableComponent
             title="Lista de Administradores"
             :columns="columns"
             :data="getAdmins"
             rowKey="name"
-            @itemSelectedEmit="itemSelected"
+            @itemSelectedEmit="adminSelected"
           />
         </div>
+
+        <ContentAlertComponent v-else/>
 
         <FormNewAdmin
           v-if="showDialog"
@@ -63,6 +66,11 @@
         </div>
 
       </div>
+
+      <LoadingComponent
+        :visible="getLoading"
+      />
+
     </div>
 
   </q-page>
@@ -72,6 +80,8 @@
 
 import { mapGetters, mapActions } from 'vuex';
 import TableComponent from 'src/common/TableComponent.vue';
+import LoadingComponent from 'src/common/LoadingComponent.vue';
+import ContentAlertComponent from 'src/common/ContentAlertComponent.vue';
 import FormNewAdmin from '../components/FormNewAdmin.vue';
 
 export default {
@@ -80,6 +90,8 @@ export default {
   components: {
     FormNewAdmin,
     TableComponent,
+    LoadingComponent,
+    ContentAlertComponent,
   },
 
   data() {
@@ -131,7 +143,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters('manageAdmin', ['getAdmins']),
+    ...mapGetters('manageAdmin', ['getAdmins', 'getLoading']),
   },
 
   methods: {
@@ -152,7 +164,7 @@ export default {
       }
     },
 
-    itemSelected(item) {
+    adminSelected(item) {
       this.selected = item;
     },
 

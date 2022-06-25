@@ -17,6 +17,7 @@ import loginPage from '../modules/login-page/store';
 import manageAdmin from '../modules/manage-admin/store';
 import manageProduct from '../modules/manage-product/store';
 import manageSeller from '../modules/manage-seller/store';
+import manageClient from '../modules/manage-client/store';
 
 /*
  * If not building with SSR mode, you can
@@ -42,6 +43,7 @@ export default function (/* { ssrContext } */) {
       manageAdmin,
       manageProduct,
       manageSeller,
+      manageClient,
     },
 
     // enable strict mode (adds overhead!)

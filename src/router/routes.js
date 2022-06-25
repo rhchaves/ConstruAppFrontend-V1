@@ -10,6 +10,7 @@ import LoginPageRoute from '../modules/login-page/routes';
 import ManageAdmin from '../modules/manage-admin/routes';
 import ManageProduct from '../modules/manage-product/routes';
 import ManageSeller from '../modules/manage-seller/routes';
+import ManageClient from '../modules/manage-client/routes';
 
 const routes = [
   {
@@ -29,6 +30,7 @@ const routes = [
       ...ManageAdmin,
       ...ManageProduct,
       ...ManageSeller,
+      ...ManageClient,
     ],
   },
 
