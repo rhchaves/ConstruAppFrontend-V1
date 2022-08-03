@@ -1,8 +1,8 @@
 const getLoading = (state) => state.loading;
 
-const getAdmins = (state) => state.admins;
+const getListAdmins = (state) => state.admins;
 
 export {
   getLoading,
-  getAdmins,
+  getListAdmins,
 };

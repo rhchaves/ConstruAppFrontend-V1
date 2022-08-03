@@ -8,24 +8,18 @@
           <h3 class="row justify-center">Gerenciar Administradores</h3>
         </div>
 
-        <div class="col-12" v-if="getAdmins.length">
+        <div class="col-12" v-if="getListAdmins.length">
           <TableComponent
             title="Lista de Administradores"
             :columns="columns"
-            :data="getAdmins"
+            :data="getListAdmins"
             rowKey="name"
+            selectionType="single"
             @itemSelectedEmit="adminSelected"
           />
         </div>
 
         <ContentAlertComponent v-else/>
-
-        <FormNewAdmin
-          v-if="showDialog"
-          :adminUser="admin[0]"
-          :formType="formType"
-          @closeDialogEmit="closeDialog"
-        />
 
         <div class="q-ma-md">
           <q-btn
@@ -43,14 +37,14 @@
             rounded
             @click="changeAdmin"
           >
-            Alterar dados
+            ?Alterar dados?
           </q-btn>
 
           <q-btn
             class="btnAmber q-ma-md"
             type="text"
             rounded
-            @click="deleteAdmin"
+            @click="openDialog"
           >
             Excluir Cadastro
           </q-btn>
@@ -67,6 +61,19 @@
 
       </div>
 
+      <FormNewAdmin
+        v-if="showDialog"
+        :adminUser="adminSelecte[0]"
+        :formType="formType"
+        @closeDialogEmit="closeDialog"
+      />
+
+      <ConfirmDeletionComponent
+        v-if="openDeleteDialog"
+        @confirmDialogEmit="confirmDeletion"
+        @closeDialogEmit="closeDialog"
+      />
+
       <LoadingComponent
         :visible="getLoading"
       />
@@ -79,19 +86,21 @@
 <script>
 
 import { mapGetters, mapActions } from 'vuex';
-import TableComponent from 'src/common/TableComponent.vue';
-import LoadingComponent from 'src/common/LoadingComponent.vue';
-import ContentAlertComponent from 'src/common/ContentAlertComponent.vue';
+import TableComponent from 'src/common/components/TableComponent.vue';
+import LoadingComponent from 'src/common/components/LoadingComponent.vue';
+import ContentAlertComponent from 'src/common/components/ContentAlertComponent.vue';
+import ConfirmDeletionComponent from 'src/common/components/ConfirmDeletionComponent.vue';
 import FormNewAdmin from '../components/FormNewAdmin.vue';
 
 export default {
   name: 'ManageAdmin',
 
   components: {
-    FormNewAdmin,
     TableComponent,
-    LoadingComponent,
     ContentAlertComponent,
+    FormNewAdmin,
+    ConfirmDeletionComponent,
+    LoadingComponent,
   },
 
   data() {
@@ -101,6 +110,9 @@ export default {
       formType: 'save',
       showDialog: false,
       selected: [],
+      openDeleteDialog: false,
+
+      adminSelecte: [],
 
       columns: [
         {
@@ -124,7 +136,7 @@ export default {
           field: 'email',
         },
         {
-          name: 'createdIn',
+          name: 'created_at',
           label: 'Criado em:',
           field: 'created_at',
         },
@@ -139,16 +151,16 @@ export default {
   },
 
   created() {
-    this.listAllAdmin();
+    this.listAllAdmins();
   },
 
   computed: {
-    ...mapGetters('manageAdmin', ['getAdmins', 'getLoading']),
+    ...mapGetters('manageAdmin', ['getListAdmins', 'getLoading']),
   },
 
   methods: {
 
-    ...mapActions('manageAdmin', ['listAllAdmin', 'deleteAdmin']),
+    ...mapActions('manageAdmin', ['listAllAdmins', 'deleteAdmin']),
 
     addNewAdmin() {
       this.formType = 'save';
@@ -159,8 +171,9 @@ export default {
     changeAdmin() {
       if (this.selected.length === 1) {
         this.formType = 'edit';
-        this.admin = this.selected;
+        this.adminSelecte = this.selected;
         this.showDialog = true;
+        console.log('this.selected', this.selected);
       }
     },
 
@@ -168,14 +181,21 @@ export default {
       this.selected = item;
     },
 
-    deleteAdmin() {
+    confirmDeletion() {
+      this.deleteAdmin(this.selected);
+      this.selected = [];
+      this.openDeleteDialog = false;
+    },
+
+    openDialog() {
       if (this.selected.length === 1) {
-        this.deleteAdmin(this.selected);
+        this.openDeleteDialog = true;
       }
     },
 
     closeDialog() {
       this.showDialog = false;
+      this.openDeleteDialog = false;
     },
   },
 

@@ -1,27 +1,7 @@
-import axios from 'axios';
 import HttpClient from 'src/boot/HttpClient';
 
 // //////////////////////////////////////////////////////
-const addNewAdmin = async ({ commit }, payload) => {
-  commit('LOADING', true);
-
-  commit('INSERT_NEW_ADMIN', payload);
-
-  axios.put(`https://viacep.com.br/ws/${payload}/json`).then((response) => {
-    commit('SEARCHED_ADDRESS', response.data);
-    console.log('Print da actions', response.data);
-    return response.data;
-  }).catch((error) => {
-    console.log('Erro na requisição', error);
-  }).finally(() => {
-    commit('LOADING', false);
-  });
-
-  commit('LOADING', false);
-};
-
-// //////////////////////////////////////////////////////
-const listAllAdmin = async ({ commit }) => {
+const listAllAdmins = async ({ commit }) => {
   commit('LOADING', true);
 
   HttpClient.get('/admin').then((response) => {
@@ -29,34 +9,57 @@ const listAllAdmin = async ({ commit }) => {
     console.log('listAllAdmin', response.data);
     return response;
   }).catch((error) => {
-    console.log('Erro na requisição da lista', error);
+    console.log('Erro na requisição', error);
+  }).finally(() => {
+    commit('LOADING', false);
+  });
+};
+// //////////////////////////////////////////////////////
+const addNewAdmin = async ({ commit }, payload) => {
+  commit('LOADING', true);
+
+  return HttpClient.post('/admin', payload).then((response) => {
+    console.log('Print da actions', response.data);
+    commit('INSERT_NEW_ADMIN', response.data);
+    return response;
+  }).catch((error) => {
+    console.log('Erro na requisição', error);
+  }).finally(() => {
+    commit('LOADING', false);
+  });
+};
+// //////////////////////////////////////////////////////
+const updateAdmin = async ({ commit }, payload) => {
+  commit('LOADING', true);
+
+  return HttpClient.put(`/admin/${payload.id}`, payload).then((response) => {
+    console.log('Print updateAdmin payload', payload);
+    commit('UPDATE_ADMIN', payload);
+    return response;
+  }).catch((error) => {
+    console.log('Erro na requisição', error);
+  }).finally(() => {
+    commit('LOADING', false);
+  });
+};
+// //////////////////////////////////////////////////////
+const deleteAdmin = async ({ commit }, payload) => {
+  commit('LOADING', true);
+
+  console.log('deleteAdmin', payload);
+
+  return HttpClient.delete(`/admin/${payload[0].id}`).then((response) => {
+    commit('DELETE_ADMIN', payload[0]);
+    return response;
   }).finally(() => {
     commit('LOADING', false);
   });
 };
 // //////////////////////////////////////////////////////
 
-const changeAdmin = async ({ commit }, payload) => {
-  commit('LOADING', true);
-
-  commit('CHANGE_ADMIN', payload);
-
-  commit('LOADING', false);
-};
-// //////////////////////////////////////////////////////
-
-const deleteAdmin = async ({ commit }, payload) => {
-  commit('LOADING', true);
-
-  commit('DELETE_ADMIN', payload);
-
-  commit('LOADING', false);
-};
-// //////////////////////////////////////////////////////
-
 export {
+  listAllAdmins,
   addNewAdmin,
-  listAllAdmin,
-  changeAdmin,
+  updateAdmin,
   deleteAdmin,
 };

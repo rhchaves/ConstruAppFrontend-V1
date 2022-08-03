@@ -22,7 +22,7 @@
             v-model="product.shortDescription"
             ><b>Descrição breve do item:</b> {{ product.shortDescription}}
           </q-item-label>
-          <q-item-label v-model="product.value"><b>Valor:</b> R$ {{ product.value }}</q-item-label>
+          <q-item-label v-model="product.price"><b>Valor:</b> R$ {{ product.price }}</q-item-label>
         </q-item-section>
 
         <q-item-section >
@@ -30,6 +30,13 @@
             v-model="product.id" @click="deleteItem()"></q-btn>
         </q-item-section>
         <q-item-section class=" " >
+
+          <!-- <q-input
+            v-model.number="qtd"
+            type="number"
+            filled
+            style="max-width: 200px"
+          /> -->
 
           <InputQtdComponent
             @addQuantityEmit="addQuantity(product)"
@@ -39,7 +46,7 @@
         </q-item-section>
 
         <q-item-section >
-          <q-item-label v-model="product.subtotal">R$ {{ product.subtotal }}</q-item-label>
+          <q-item-label v-model="product.subtotal">{{ product.subtotal }}</q-item-label>
         </q-item-section>
       </q-item>
       <q-separator />
@@ -86,7 +93,7 @@
 
 <script>
 
-import InputQtdComponent from 'src/common/InputQtdComponent.vue';
+import InputQtdComponent from 'src/common/components/InputQtdComponent.vue';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -150,7 +157,7 @@ export default {
     },
 
     calcSubtotal() {
-      // this.item.subtotal = this.item.quantity * this.item.value;
+      // this.item.subtotal = this.item.quantity * this.item.price;
       // this.calcTotal();
     },
 

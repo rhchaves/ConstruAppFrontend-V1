@@ -1,3 +1,5 @@
+import HttpClient from 'src/boot/HttpClient';
+
 // //////////////////////////////////////////////////////
 const addNewProduct = async ({ commit }, payload) => {
   commit('LOADING', true);
@@ -6,28 +8,50 @@ const addNewProduct = async ({ commit }, payload) => {
 
   commit('LOADING', false);
 };
-// //////////////////////////////////////////////////////
 
-const changeProduct = async ({ commit }, payload) => {
+// //////////////////////////////////////////////////////
+const listAllProducts = async ({ commit }) => {
+  commit('LOADING', true);
+
+  HttpClient.get('/product').then((response) => {
+    commit('INSERT_LIST_PRODUCTS', response.data);
+    console.log('listAllProducts', response.data);
+    return response;
+  }).catch((error) => {
+    console.log('Erro na requisição da lista', error);
+  }).finally(() => {
+    commit('LOADING', false);
+  });
+};
+
+// //////////////////////////////////////////////////////
+const updateProduct = async ({ commit }, payload) => {
   commit('LOADING', true);
 
   commit('CHANGE_PRODUCT', payload);
 
   commit('LOADING', false);
 };
-// //////////////////////////////////////////////////////
 
+// //////////////////////////////////////////////////////
 const deleteProduct = async ({ commit }, payload) => {
   commit('LOADING', true);
 
-  commit('DELETE_PRODUCT', payload);
+  console.log('deleteProduct', payload);
 
-  commit('LOADING', false);
+  return HttpClient.delete(`/product/${payload[0].id}`).then((response) => {
+    commit('DELETE_PRODUCT', payload[0]);
+    return response;
+  }).finally(() => {
+    commit('LOADING', false);
+  });
 };
+
 // //////////////////////////////////////////////////////
 
 export {
   addNewProduct,
-  changeProduct,
+  listAllProducts,
+  updateProduct,
   deleteProduct,
 };

@@ -8,14 +8,13 @@
           <h3 class="row justify-center">Gerenciar Vendedores</h3>
         </div>
 
-        <div class="col-12" v-if="getSellers.length">
+        <div class="col-12" v-if="getListSellers.length">
           <TableComponent
             title="Lista de Vendedores"
             :columns="columns"
-            :data="getSellers"
+            :data="getListSellers"
             rowKey="name"
-            selectionType="single"
-            @itemSelectedEmit="itemSelected"
+            @itemSelectedEmit="sellerSelected"
           />
         </div>
 
@@ -27,7 +26,7 @@
             class="btnAmber q-ma-md"
             type="text"
             rounded
-            @click="deleteSeller"
+            @click="openDialog"
           >
             Excluir Cadastro
           </q-btn>
@@ -44,6 +43,12 @@
 
       </div>
 
+      <ConfirmDeletionComponent
+        v-if="openDeleteDialog"
+        @confirmDialogEmit="confirmDeletion"
+        @closeDialogEmit="closeDialog"
+      />
+
       <LoadingComponent
         :visible="getLoading"
       />
@@ -55,9 +60,10 @@
 <script>
 
 import { mapGetters, mapActions } from 'vuex';
-import TableComponent from 'src/common/TableComponent.vue';
-import LoadingComponent from 'src/common/LoadingComponent.vue';
-import ContentAlertComponent from 'src/common/ContentAlertComponent.vue';
+import TableComponent from 'src/common/components/TableComponent.vue';
+import LoadingComponent from 'src/common/components/LoadingComponent.vue';
+import ContentAlertComponent from 'src/common/components/ContentAlertComponent.vue';
+import ConfirmDeletionComponent from 'src/common/components/ConfirmDeletionComponent.vue';
 
 export default {
   name: 'ManageSeller',
@@ -66,6 +72,7 @@ export default {
     TableComponent,
     LoadingComponent,
     ContentAlertComponent,
+    ConfirmDeletionComponent,
   },
 
   data() {
@@ -75,6 +82,7 @@ export default {
       formType: 'save',
       showDialog: false,
       selected: [],
+      openDeleteDialog: false,
 
       columns: [
         {
@@ -107,25 +115,33 @@ export default {
   },
 
   computed: {
-    ...mapGetters('manageSeller', ['getSellers', 'getLoading']),
+    ...mapGetters('manageSeller', ['getListSellers', 'getLoading']),
   },
 
   methods: {
 
-    ...mapActions('manageSeller', ['listAllSellers', 'deleteSellers']),
+    ...mapActions('manageSeller', ['listAllSellers', 'deleteSeller']),
 
-    itemSelected(item) {
+    sellerSelected(item) {
       this.selected = item;
+      console.log('this.selected', this.selected);
     },
 
-    deleteSeller() {
+    confirmDeletion() {
+      this.deleteSeller(this.selected);
+      this.selected = [];
+      this.openDeleteDialog = false;
+    },
+
+    openDialog() {
       if (this.selected.length === 1) {
-        this.deleteSellers(this.selected);
+        this.openDeleteDialog = true;
       }
     },
 
     closeDialog() {
       this.showDialog = false;
+      this.openDeleteDialog = false;
     },
   },
 

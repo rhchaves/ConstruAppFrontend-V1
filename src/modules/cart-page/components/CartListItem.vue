@@ -9,7 +9,7 @@
         <q-item-section>
           <q-item-label v-model="item.name">Nome do item</q-item-label>
           <q-item-label v-model="item.description">Descrição breve do item</q-item-label>
-          <q-item-label v-model="item.value">Valor: R$ {{ item.value }}</q-item-label>
+          <q-item-label v-model="item.price">Valor: R$ {{ item.price }}</q-item-label>
         </q-item-section>
 
         <q-item-section >
@@ -48,7 +48,7 @@ export default {
       item: {
         id: 1,
         quantity: 0,
-        value: 17.00,
+        price: 17.00,
         subtotal: 0,
         name: '',
         description: '',
@@ -101,7 +101,7 @@ export default {
     },
 
     calcSubtotal() {
-      this.item.subtotal = this.item.quantity * this.item.value;
+      this.item.subtotal = this.item.quantity * this.item.price;
     },
   },
 

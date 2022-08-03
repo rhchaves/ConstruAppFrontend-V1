@@ -10,7 +10,7 @@ const INSERT_LIST_ADMINS = (state, payload) => {
   state.admins = payload;
 };
 
-const CHANGE_ADMIN = (state, payload) => {
+const UPDATE_ADMIN = (state, payload) => {
   state.admins = state.admins.map((admin) => {
     if (admin.id === payload.id) {
       return payload;
@@ -27,6 +27,6 @@ export {
   LOADING,
   INSERT_NEW_ADMIN,
   INSERT_LIST_ADMINS,
-  CHANGE_ADMIN,
+  UPDATE_ADMIN,
   DELETE_ADMIN,
 };

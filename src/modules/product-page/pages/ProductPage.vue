@@ -13,7 +13,7 @@
       <div class="q-ma-lg">
         <h2 class="q-ma-lg">{{ getProductPage.label }}</h2>
         <h5 class="q-ma-lg">{{ getProductPage.shortDescription }}</h5>
-        <h4 class="q-ma-lg">R${{ getProductPage.value }}</h4>
+        <h4 class="q-ma-lg">R${{ getProductPage.price }}</h4>
         <!-- botão de adicionar ao carrinho -->
         <div class="col col-md-5">
           <q-btn class="btnAmber q-ma-lg q-mt-xl"
@@ -27,7 +27,7 @@
 
 <script>
 
-import CategoriesComponent from 'src/common/CategoriesComponent.vue';
+import CategoriesComponent from 'src/common/components/CategoriesComponent.vue';
 import { mapGetters } from 'vuex';
 
 export default {

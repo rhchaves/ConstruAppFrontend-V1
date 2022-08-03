@@ -7,11 +7,11 @@
           <h3 class="row justify-center">Gerenciar Produtos</h3>
         </div>
 
-        <div class="col-12" v-if="getProducts.length">
+        <div class="col-12" v-if="getListProducts.length">
           <TableComponent
             title="Lista de Produtos"
             :columns="columns"
-            :data="getProducts"
+            :data="getListProducts"
             rowKey="name"
             selectionType="single"
             @itemSelectedEmit="productSelected"
@@ -42,6 +42,15 @@
             class="btnAmber q-ma-md"
             type="text"
             rounded
+            @click="openDialog"
+          >
+            Excluir Produto
+          </q-btn>
+
+          <q-btn
+            class="btnAmber q-ma-md"
+            type="text"
+            rounded
             to="admin-page"
           >
             Voltar
@@ -49,28 +58,36 @@
 
         </div>
 
+        <FormNewProduct
+          v-if="showDialog"
+          :adminUser="product[0]"
+          :formType="formType"
+          @closeDialogEmit="closeDialog"
+        />
+
+        <ConfirmDeletionComponent
+          v-if="openDeleteDialog"
+          @confirmDialogEmit="confirmDeletion"
+          @closeDialogEmit="closeDialog"
+        />
+
         <LoadingComponent
           :visible="getLoading"
         />
+
       </div>
     </div>
-
-    <FormNewProduct
-      v-if="showDialog"
-      :adminUser="product[0]"
-      :formType="formType"
-      @closeDialogEmit="closeDialog"
-    />
 
   </q-page>
 </template>
 
 <script>
 
-import { mapGetters } from 'vuex';
-import TableComponent from 'src/common/TableComponent.vue';
-import LoadingComponent from 'src/common/LoadingComponent.vue';
-import ContentAlertComponent from 'src/common/ContentAlertComponent.vue';
+import { mapActions, mapGetters } from 'vuex';
+import TableComponent from 'src/common/components/TableComponent.vue';
+import LoadingComponent from 'src/common/components/LoadingComponent.vue';
+import ContentAlertComponent from 'src/common/components/ContentAlertComponent.vue';
+import ConfirmDeletionComponent from 'src/common/components/ConfirmDeletionComponent.vue';
 import FormNewProduct from '../components/FormNewProduct.vue';
 
 export default {
@@ -78,9 +95,10 @@ export default {
 
   components: {
     TableComponent,
-    FormNewProduct,
-    LoadingComponent,
     ContentAlertComponent,
+    FormNewProduct,
+    ConfirmDeletionComponent,
+    LoadingComponent,
   },
 
   data() {
@@ -90,12 +108,18 @@ export default {
       formType: 'save',
       showDialog: false,
       selected: [],
+      openDeleteDialog: false,
 
       columns: [
         {
           name: 'name',
           label: 'Nome do Produto',
           field: 'name',
+        },
+        {
+          name: 'label',
+          label: 'Label do Produto',
+          field: 'label',
         },
         {
           name: 'category',
@@ -108,14 +132,14 @@ export default {
           field: 'details',
         },
         {
-          name: 'value',
+          name: 'price',
           label: 'Valor',
-          field: 'value',
+          field: 'price',
         },
         {
-          name: 'createdIn',
+          name: 'created_at',
           label: 'Criado em:',
-          field: 'createdIn',
+          field: 'created_at',
         },
         {
           name: 'status',
@@ -126,11 +150,17 @@ export default {
     };
   },
 
+  created() {
+    this.listAllProducts();
+  },
+
   computed: {
-    ...mapGetters('manageProduct', ['getProducts', 'getLoading']),
+    ...mapGetters('manageProduct', ['getListProducts', 'getLoading']),
   },
 
   methods: {
+
+    ...mapActions('manageProduct', ['listAllProducts', 'deleteProduct']),
 
     addNewProduct() {
       this.formType = 'save';
@@ -150,8 +180,21 @@ export default {
       this.selected = item;
     },
 
+    confirmDeletion() {
+      this.deleteProduct(this.selected);
+      this.selected = [];
+      this.openDeleteDialog = false;
+    },
+
+    openDialog() {
+      if (this.selected.length === 1) {
+        this.openDeleteDialog = true;
+      }
+    },
+
     closeDialog() {
       this.showDialog = false;
+      this.openDeleteDialog = false;
     },
   },
 

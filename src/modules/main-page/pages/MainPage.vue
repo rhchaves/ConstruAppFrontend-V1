@@ -7,7 +7,7 @@
 
 <script>
 
-import CategoriesComponent from 'src/common/CategoriesComponent.vue';
+import CategoriesComponent from 'src/common/components/CategoriesComponent.vue';
 import ContentMainPage from 'src/modules/main-page/components/ContentMainPage.vue';
 import { mapActions, mapGetters } from 'vuex';
 

@@ -1,25 +1,30 @@
 <template>
-  <q-page>
-    <section class="row justify-center">
+  <q-page class="row justify-center">
+    <section class="row justify-center" style="max-width: 1300px">
       <CardProductComponent
         v-for="product in getListProducts"
         :key="product.id"
         :idItem="product.id"
         :labelItem="product.label"
-        :priceItem="product.value"
-        :imageItem="product.img"
+        :priceItem="product.price"
+        :imageItem="product.image"
         @addCartItemEmit="addProduct(product)"
         @addFavoriteItemEmit="addFavoriteProduct(product)"
         @shareItemEmit="shareProduct(product)"
         @buyItemEmit="buyProduct(product)"
       />
     </section>
+
+    <ContentAlertComponent
+      v-if="!getListProducts.length"
+    />
   </q-page>
 </template>
 
 <script>
 
-import CardProductComponent from 'src/common/CardProductComponent.vue';
+import CardProductComponent from 'src/common/components/CardProductComponent.vue';
+import ContentAlertComponent from 'src/common/components/ContentAlertComponent.vue';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -27,6 +32,7 @@ export default {
 
   components: {
     CardProductComponent,
+    ContentAlertComponent,
   },
 
   data() {
@@ -35,6 +41,10 @@ export default {
       logado: false,
       qtd: 1,
     };
+  },
+
+  created() {
+    this.listAllProducts();
   },
 
   computed: {
@@ -46,6 +56,7 @@ export default {
     ...mapActions('mainPage', ['listCep']),
     ...mapActions('cartPage', ['addProductCart']),
     ...mapActions('productPage', ['insertProductPage']),
+    ...mapActions('manageProduct', ['listAllProducts']),
 
     onSubmit() {
       console.log('Clicou em buscar:', this.search);

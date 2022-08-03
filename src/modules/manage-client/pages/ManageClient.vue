@@ -27,7 +27,7 @@
             class="btnAmber q-ma-md"
             type="text"
             rounded
-            @click="deleteClient"
+            @click="openDialog"
           >
             Excluir Cadastro
           </q-btn>
@@ -44,6 +44,12 @@
 
       </div>
 
+      <ConfirmDeletionComponent
+        v-if="openDeleteDialog"
+        @confirmDialogEmit="confirmDeletion"
+        @closeDialogEmit="closeDialog"
+      />
+
       <LoadingComponent
         :visible="getLoading"
       />
@@ -56,9 +62,10 @@
 <script>
 
 import { mapGetters, mapActions } from 'vuex';
-import TableComponent from 'src/common/TableComponent.vue';
-import LoadingComponent from 'src/common/LoadingComponent.vue';
-import ContentAlertComponent from 'src/common/ContentAlertComponent.vue';
+import TableComponent from 'src/common/components/TableComponent.vue';
+import LoadingComponent from 'src/common/components/LoadingComponent.vue';
+import ContentAlertComponent from 'src/common/components/ContentAlertComponent.vue';
+import ConfirmDeletionComponent from 'src/common/components/ConfirmDeletionComponent.vue';
 
 export default {
   name: 'ManageClient',
@@ -67,6 +74,7 @@ export default {
     TableComponent,
     LoadingComponent,
     ContentAlertComponent,
+    ConfirmDeletionComponent,
   },
 
   data() {
@@ -76,6 +84,7 @@ export default {
       formType: 'save',
       showDialog: false,
       selected: [],
+      openDeleteDialog: false,
 
       columns: [
         {
@@ -113,20 +122,27 @@ export default {
 
   methods: {
 
-    ...mapActions('manageClient', ['listAllClients', 'deleteClients']),
+    ...mapActions('manageClient', ['listAllClients', 'deleteClient']),
 
     clientSelected(item) {
       this.selected = item;
     },
 
-    deleteClient() {
+    confirmDeletion() {
+      this.deleteClient(this.selected);
+      this.selected = [];
+      this.openDeleteDialog = false;
+    },
+
+    openDialog() {
       if (this.selected.length === 1) {
-        this.deleteClients(this.selected);
+        this.openDeleteDialog = true;
       }
     },
 
     closeDialog() {
       this.showDialog = false;
+      this.openDeleteDialog = false;
     },
   },
 

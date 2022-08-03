@@ -6,6 +6,10 @@ const INSERT_NEW_PRODUCT = (state, payload) => {
   state.products.push(payload);
 };
 
+const INSERT_LIST_PRODUCTS = (state, payload) => {
+  state.products = payload;
+};
+
 const CHANGE_PRODUCT = (state, payload) => {
   state.products = state.products.map((products) => {
     if (products.id === payload.id) {
@@ -22,6 +26,7 @@ const DELETE_PRODUCT = (state, payload) => {
 export {
   LOADING,
   INSERT_NEW_PRODUCT,
+  INSERT_LIST_PRODUCTS,
   CHANGE_PRODUCT,
   DELETE_PRODUCT,
 };

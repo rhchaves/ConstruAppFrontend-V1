@@ -25,8 +25,22 @@ const listAllSellers = async ({ commit }) => {
   });
 };
 // //////////////////////////////////////////////////////
+const deleteSeller = async ({ commit }, payload) => {
+  commit('LOADING', true);
+
+  console.log('deleteSeller', payload);
+
+  return HttpClient.delete(`/seller/${payload[0].id}`).then((response) => {
+    commit('DELETE_SELLER', payload[0]);
+    return response;
+  }).finally(() => {
+    commit('LOADING', false);
+  });
+};
+// //////////////////////////////////////////////////////
 
 export {
   changeSeller,
   listAllSellers,
+  deleteSeller,
 };

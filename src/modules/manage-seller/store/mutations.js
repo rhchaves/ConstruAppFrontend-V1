@@ -15,8 +15,13 @@ const INSERT_LIST_SELLERS = (state, payload) => {
   state.sellers = payload;
 };
 
+const DELETE_SELLER = (state, payload) => {
+  state.sellers = state.sellers.filter((seller) => seller.id !== payload.id);
+};
+
 export {
   LOADING,
   CHANGE_SELLER,
   INSERT_LIST_SELLERS,
+  DELETE_SELLER,
 };

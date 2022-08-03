@@ -4,7 +4,14 @@
       class="row justify-center items-center no-wrap btnAmber"
       style="border-radius: 8px">
 
-      <q-btn
+      <q-input
+        v-model.number="qtd"
+        type="number"
+        filled
+        style="max-width: 200px"
+      />
+
+      <!-- <q-btn
         class="q-ml-sm"
         round
         icon="remove"
@@ -25,7 +32,7 @@
         icon="add"
         @click="addQuantity"
       >
-      </q-btn>
+      </q-btn> -->
 
     </div>
   </div>

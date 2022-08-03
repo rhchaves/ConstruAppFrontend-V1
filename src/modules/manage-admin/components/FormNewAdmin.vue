@@ -15,21 +15,29 @@
               outlined
               v-model="form.name"
               placeholder="Nome do Administrador"
+              :rules="[ val => val.length >= 3 && val !== '' || 'Mínimo 3 caracteres']"
             />
 
             <q-input
               outlined
               v-model="form.cpf"
-              placeholder="CPF"
+              label="CPF"
+              mask="###.###.###-##"
+              :rules="[ val => val !== '' && val.length == 14||
+                'Preencha um CPF válido com 11 dígitos']"
             />
+              <!-- fill-mask como propriedade para mostrar na tela o formato da máscara -->
 
             <q-input
               outlined
               v-model="form.email"
               placeholder="E-mail"
+              type="email"
+              :rules="[ val => val.length >= 3 && val !== '' || 'Preencha um email válido']"
             />
 
             <q-input
+              v-if="formType === 'edi'"
               outlined
               v-model="form.password"
               :type="isPwd ? 'password' : 'text'"
@@ -47,6 +55,7 @@
             </q-input>
 
             <q-input
+            v-if="formType === 'edi'"
             outlined
             v-model="form.confirmPassword"
             :type="isPwd ? 'password' : 'text'"
@@ -83,7 +92,7 @@
 import { mapActions } from 'vuex';
 
 export default {
-  name: 'RegisterNewAdmin',
+  name: 'FormNewAdmin',
 
   props: {
 
@@ -108,7 +117,7 @@ export default {
         name: '',
         cpf: '',
         email: '',
-        password: '',
+        password: '123',
         confirmPassword: '',
       },
     };
@@ -120,15 +129,38 @@ export default {
 
   methods: {
 
-    ...mapActions('manageAdmin', ['addNewAdmin', 'changeAdmin']),
+    ...mapActions('manageAdmin', ['addNewAdmin', 'updateAdmin']),
+
+    // validate() {
+    //   this.$validator.validateAll();
+    // },
 
     confirmAdmin() {
-      if (this.formType === 'save') {
-        this.addNewAdmin(this.form);
+      // this.$validator.validateAll().then(async (result) => {
+      //   if (result) {
+      //     console.log('result', result);
+      //   } else {
+      //     console.log('não funcionou');
+      //   }
+      // });
+      if (this.form.name.length >= 3
+          && this.form.cpf.length === 14
+          && this.form.email.length >= 3) {
+        if (this.formType === 'save') {
+          this.addNewAdmin(this.form);
+        // } else if (this.formType === 'edit') {
+        //   if (this.form.password === this.form.confirmPassword &&
+        //      this.form.password.length >= 3) {
+        //     this.updateAdmin(this.form);
+        //   } else {
+        //     console.log('Senha incompatível');
+        //   }
+        } else {
+          this.updateAdmin(this.form);
+        }
         this.closeDialog();
       } else {
-        this.changeAdmin(this.form);
-        this.closeDialog();
+        console.log('Preencha os campos');
       }
     },
 

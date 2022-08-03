@@ -26,7 +26,7 @@
 
             <q-input
               outlined
-              v-model="form.value"
+              v-model="form.price"
               placeholder="Valor"
             />
 
@@ -56,7 +56,7 @@
 import { mapActions } from 'vuex';
 
 export default {
-  name: 'RegisterNewAdmin',
+  name: 'FormNewProduct',
 
   props: {
 
@@ -75,12 +75,11 @@ export default {
   data() {
     return {
       showDialog: false,
-      isPwd: true,
 
       form: this.$props.product || {
         name: '',
         category: '',
-        value: '',
+        price: '',
       },
     };
   },
@@ -91,15 +90,20 @@ export default {
 
   methods: {
 
-    ...mapActions('manageAdmin', ['addNewProduct', 'changeProduct']),
+    ...mapActions('manageAdmin', ['addNewProduct', 'updateProduct']),
 
     confirmProduct() {
-      if (this.formType === 'save') {
-        this.addNewProduct(this.form);
+      if (this.form.name.length >= 3
+          && this.form.category.length >= 3
+          && this.form.price >= '0,01') {
+        if (this.formType === 'save') {
+          this.addNewProduct(this.form);
+        } else {
+          this.updateProduct(this.form);
+        }
         this.closeDialog();
       } else {
-        this.changeProduct(this.form);
-        this.closeDialog();
+        console.log('Preencha os campos');
       }
     },
 

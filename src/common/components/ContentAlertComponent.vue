@@ -7,7 +7,9 @@
       class="q-ma-xl bg-grey-2"
       style="min-width:350px; max-width: 800px; max-height: 200px"
     >
-      <h5 class="q-ma-xl row justify-center"> {{ content }} </h5>
+      <q-card-section>
+        <h5 class="q-ma-xl"> {{ content }} </h5>
+      </q-card-section>
     </q-card>
   </div>
 </template>
@@ -25,7 +27,7 @@ export default {
     content: {
       type: String,
       required: false,
-      default: 'Não encontramos dados para essa página.',
+      default: 'Não encontramos resultados para este recurso.',
     },
   },
 };

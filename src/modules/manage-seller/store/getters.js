@@ -1,8 +1,8 @@
 const getLoading = (state) => state.loading;
 
-const getSellers = (state) => state.sellers;
+const getListSellers = (state) => state.sellers;
 
 export {
   getLoading,
-  getSellers,
+  getListSellers,
 };
