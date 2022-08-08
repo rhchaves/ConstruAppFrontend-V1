@@ -5,5 +5,6 @@ export default {
     email: '',
     password: '',
   },
+  client: {},
 
 };

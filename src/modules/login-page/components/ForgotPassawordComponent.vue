@@ -36,7 +36,7 @@
 
 <script>
 export default {
-  name: 'ForgotPasswordPage',
+  name: 'ForgotPasswordComponent',
 
   data() {
     return {

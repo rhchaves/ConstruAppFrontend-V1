@@ -2,7 +2,7 @@
   <q-page class="row justify-center items-center">
 
     <div
-      v-if="!btnForgotPassword"
+      v-if="!forgotPassword && !newAccount"
       class="row justify-center q-ma-lg">
       <div class="column size-custom-450">
         <p class="text-h6 text-center center-screen size-custom-300 q-pb-lg"
@@ -34,7 +34,7 @@
         </q-input>
 
         <q-btn class="column items-center sizeBtn4" type="text" flat
-          @click="btnForgotPassword = true">Esqueci a senha</q-btn>
+          @click="forgotPassword = true">Esqueci a senha</q-btn>
 
         <p class="text-center q-ma-lg"
         >
@@ -47,14 +47,19 @@
           <q-btn class="btnAmber q-mt-md sizeBtn6" type="text" rounded
             @click="loginAccount">Login</q-btn>
           <q-btn class="btnAmber q-mt-md sizeBtn6" type="text" rounded v-close-popup
-            to="register-client">Criar Conta</q-btn>
+            @click="createAccount">Criar Conta</q-btn>
         </div>
       </div>
     </div>
 
-    <ForgotPasswordPage
-      v-if="btnForgotPassword"
-      @loginEmit="loginEmit()"
+    <ForgotPasswordComponent
+      v-if="forgotPassword"
+      @loginEmit="backToLogin()"
+    />
+
+    <RegisterClientComponent
+      v-if="newAccount"
+      @backToLoginEmit="backToLogin()"
     />
   </q-page>
 </template>
@@ -62,13 +67,15 @@
 <script>
 
 import { mapActions, mapGetters } from 'vuex';
-import ForgotPasswordPage from '../components/ForgotPassawordPage.vue';
+import ForgotPasswordComponent from '../components/ForgotPassawordComponent.vue';
+import RegisterClientComponent from '../components/RegisterClientComponent.vue';
 
 export default {
   name: 'LoginPage',
 
   components: {
-    ForgotPasswordPage,
+    ForgotPasswordComponent,
+    RegisterClientComponent,
   },
 
   data() {
@@ -78,7 +85,8 @@ export default {
         password: '',
       },
       isPwd: true,
-      btnForgotPassword: false,
+      forgotPassword: false,
+      newAccount: false,
     };
   },
 
@@ -91,7 +99,7 @@ export default {
       if (this.user.email !== '' && this.user.password !== '') {
         console.log('logado');
         this.login(this.user);
-        if (this.user.email === 'admin' && this.user.password === 'admin') {
+        if (this.user.email === '123' && this.user.password === '123') {
           this.$router.push('admin-page');
         } else {
           this.$router.push('main-page');
@@ -101,8 +109,13 @@ export default {
       }
     },
 
-    loginEmit() {
-      this.btnForgotPassword = false;
+    backToLogin() {
+      this.forgotPassword = false;
+      this.newAccount = false;
+    },
+
+    createAccount() {
+      this.newAccount = true;
     },
 
   },

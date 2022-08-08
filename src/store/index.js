@@ -8,9 +8,6 @@ Vue.use(Vuex);
 import adminPage from '../modules/admin-page/store';
 import mainPage from '../modules/main-page/store';
 import productPage from '../modules/product-page/store';
-import registerProduct from '../modules/register-product/store';
-import registerClient from '../modules/register-client/store';
-import registerSeller from '../modules/resgister-seller/store';
 import addressPage from '../modules/address-page/store';
 import cartPage from '../modules/cart-page/store';
 import loginPage from '../modules/login-page/store';
@@ -34,9 +31,6 @@ export default function (/* { ssrContext } */) {
       adminPage,
       mainPage,
       productPage,
-      registerProduct,
-      registerClient,
-      registerSeller,
       addressPage,
       cartPage,
       loginPage,

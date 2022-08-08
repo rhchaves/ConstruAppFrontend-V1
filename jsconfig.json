@@ -21,7 +21,7 @@
         "src/assets/*"
       ],
       "boot/*": [
-        "src/common/boot/*/boot/*"
+        "src/boot/*"
       ],
       "vue$": [
         "node_modules/vue/dist/vue.esm.js"

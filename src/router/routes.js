@@ -1,9 +1,6 @@
 import AdminPageRoute from '../modules/admin-page/routes';
 import MainPageRoute from '../modules/main-page/routes';
 import ProductPageRoute from '../modules/product-page/routes';
-import RegisterProductRoute from '../modules/register-product/routes';
-import RegisterClientRoute from '../modules/register-client/routes';
-import RegisterSellerRoute from '../modules/resgister-seller/routes';
 import AddressPageRoute from '../modules/address-page/routes';
 import CartPageRoute from '../modules/cart-page/routes';
 import LoginPageRoute from '../modules/login-page/routes';
@@ -21,9 +18,6 @@ const routes = [
       ...AdminPageRoute,
       ...MainPageRoute,
       ...ProductPageRoute,
-      ...RegisterProductRoute,
-      ...RegisterClientRoute,
-      ...RegisterSellerRoute,
       ...AddressPageRoute,
       ...CartPageRoute,
       ...LoginPageRoute,
