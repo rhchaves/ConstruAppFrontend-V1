@@ -3,33 +3,20 @@
 
     <!-- Inicio do cabeçalho -->
     <q-header
-      class="bg-white text-grey-8 q-py-md"
+      class="bg-white text-grey-8 q-py-xs"
       height-hint="58"
       style="border-bottom: solid 1px #ccc;"
     >
 
       <q-toolbar class="" >
-        <div class="q-mr-xl">
-
-        </div>
-        <!-- Título do header logado -->
-        <q-toolbar-title shrink class="row items-center no-wrap"
-          v-if="getUserAddress || getLogado"
-        >
+        <!-- Título do header -->
+        <q-toolbar-title shrink class="row items-center no-wrap">
           <router-link to="/main" class="router-link" >
-            <q-img style="width: 150px" :src="urlLogo"></q-img>
+            <span class="q-ml-sm" v-if="getUserAddress || getLogado">ConstruApp </span>
           </router-link>
         </q-toolbar-title>
-
-        <!-- Título do header não logado -->
-        <q-toolbar-title shrink class="row items-center no-wrap"
-          v-if="!getUserAddress && !getLogado"
-        >
-          <q-img style="width: 150px" :src="urlLogo"></q-img>
-        </q-toolbar-title>
         <!-- Verificar se vamos deixar o endereço disponivel aqui -->
-        <div class="q-ml-xl"></div>
-        {{getUserAddress.street}}
+        {{getUserAddress.street}} -->
         {{getUserAddress.number}}
         <q-space />
 
@@ -99,19 +86,18 @@
 
           <!-- Carrinho -->
           <q-btn
-            class="q-mr-lg"
             flat
             icon="shopping_cart"
             to="shopping-cart"
             v-if="getUserAddress || getLogado">
             <q-badge rounded class="q-mr-sm q-mt-xs" color="red" text-color="white" floating>
               <!-- alterar para retorno da quantidade de itens no carrinho -->
-              {{ getCartList.length }}
+              {{ shoppingCartValue }}
             </q-badge>
           </q-btn>
 
           <!-- Notificações -->
-          <!-- <q-btn
+          <q-btn
             round
             dense
             flat
@@ -123,10 +109,7 @@
               2
             </q-badge>
             <q-tooltip>Notifications</q-tooltip>
-          </q-btn> -->
-
-        <div class="q-ml-xl">
-        </div>
+          </q-btn>
 
         </div>
 
@@ -149,14 +132,13 @@ export default {
   data() {
     return {
       search: '',
-      urlLogo: 'img/logo-contruApp-v1.png',
+      shoppingCartValue: 2,
     };
   },
 
   computed: {
     ...mapGetters('login', ['getLogado', 'getUser']),
     ...mapGetters('deliveryAddress', ['getUserAddress']),
-    ...mapGetters('shoppingCart', ['getCartList']),
   },
 
   // Funções

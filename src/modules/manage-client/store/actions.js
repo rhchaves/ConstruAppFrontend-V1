@@ -38,9 +38,23 @@ const deleteClient = async ({ commit }, payload) => {
   });
 };
 // //////////////////////////////////////////////////////
+const blockClient = async ({ commit }, payload) => {
+  commit('LOADING', true);
+
+  console.log('blockClient', payload);
+
+  return HttpClient.put(`/client/${payload[0].id}`, payload).then((response) => {
+    commit('DELETE_CLIENT', payload[0]);
+    return response;
+  }).finally(() => {
+    commit('LOADING', false);
+  });
+};
+// //////////////////////////////////////////////////////
 
 export {
   changeClient,
   listAllClients,
   deleteClient,
+  blockClient,
 };

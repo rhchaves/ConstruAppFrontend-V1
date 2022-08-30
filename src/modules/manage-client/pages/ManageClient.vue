@@ -29,14 +29,14 @@
             rounded
             @click="openDialog"
           >
-            Excluir Cadastro
+            Bloquear Cadastro
           </q-btn>
 
           <q-btn
             class="btnAmber q-ma-md"
             type="text"
             rounded
-            to="admin-page"
+            to="administrator"
           >
             Voltar
           </q-btn>
@@ -129,7 +129,7 @@ export default {
     },
 
     confirmDeletion() {
-      this.deleteClient(this.selected);
+      // this.deleteClient(this.selected);
       this.selected = [];
       this.openDeleteDialog = false;
     },

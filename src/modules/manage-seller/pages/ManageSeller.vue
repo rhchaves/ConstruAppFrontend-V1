@@ -35,7 +35,7 @@
             class="btnAmber q-ma-md"
             type="text"
             rounded
-            to="admin-page"
+            to="administrator"
           >
             Voltar
           </q-btn>

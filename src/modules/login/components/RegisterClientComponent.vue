@@ -2,41 +2,40 @@
   <q-page class="window-height window-width row justify-center items-center">
     <q-card>
       <q-card-section>
-        <!-- Bloco de inputs de dados do vendedor -->
+        <!-- Bloco de inputs de dados do cliente -->
         <q-input
           autofocus
           outlined
-          v-model="seller.corporateName"
+          v-model="client.name"
           type="text"
-          label="Razão social"
+          label="Nome completo"
           :rules="[val => !! val || 'Campo obrigatório']"
         />
-        <q-input
-          autofocus
+        <!-- <q-input
           outlined
-          v-model="seller.fantasyName"
+          v-model="client.nameLogin"
           type="text"
-          label="Nome fantasia"
+          label="Nome de login"
           :rules="[val => !! val || 'Campo obrigatório']"
-        />
+        /> -->
         <q-input
           outlined
-          v-model="seller.emailSeller"
+          v-model="client.email"
           type="email"
           label="E-mail"
           :rules="[val => !! val || 'Campo obrigatório']"
         />
         <q-input
           outlined
-          v-model="seller.cnpjSeller"
+          v-model="client.cpf"
           type="text"
-          label="CNPJ"
-          mask="##.###.###/####-##"
+          label="CPF"
+          mask="###.###.###-##"
           :rules="[val => !! val || 'Campo obrigatório']"
         />
         <q-input
           outlined
-          v-model="seller.phone"
+          v-model="client.phone"
           type="text"
           label="Celular"
           mask="(##) #####-####"
@@ -44,7 +43,7 @@
         />
         <q-input
           outlined
-          v-model="seller.address.cep"
+          v-model="client.cep"
           type="text"
           label="CEP"
           mask="#####-###"
@@ -55,14 +54,14 @@
         <div v-if="hasCep">
           <q-input
             outlined
-            v-model="seller.address.street"
+            v-model="client.street"
             type="text"
             label="Rua"
             :rules="[val => !! val || 'Campo obrigatório']"
           />
           <q-input
             outlined
-            v-model="seller.address.number"
+            v-model="client.number"
             type="text"
             label="Número"
             id="clientNumber"
@@ -70,13 +69,13 @@
           />
           <q-input
             outlined
-            v-model="seller.address.complement"
+            v-model="client.complement"
             type="text"
             label="Complemento"
           />
           <q-input
             outlined
-            v-model="seller.address.district"
+            v-model="client.district"
             type="text"
             label="Bairro"
             class="q-mt-md"
@@ -84,7 +83,7 @@
           />
           <q-input
             outlined
-            v-model="seller.address.city"
+            v-model="client.city"
             type="text"
             label="Cidade"
             disable
@@ -92,7 +91,7 @@
           />
           <q-input
             outlined
-            v-model="seller.address.state"
+            v-model="client.state"
             type="text"
             label="Estado"
             disable
@@ -101,7 +100,7 @@
         </div>
         <q-input
           outlined
-          v-model="seller.password"
+          v-model="client.password"
           :type="isPwd ? 'password' : 'text'"
           label="Senha"
           :rules="[val => !! val || 'Campo obrigatório']"
@@ -116,24 +115,28 @@
         </q-input>
         <q-input
           outlined
-          v-model="seller.confirmPassword"
+          v-model="client.confirmPassword"
           :type="isPwd ? 'password' : 'text'"
           label="Confirmar senha"
           :rules="[val => !! val || 'Campo obrigatório']"
         />
-        <!-- Fim do Bloco de inputs de dados do vendedor -->
+        <!-- Fim do Bloco de inputs de dados do cliente -->
 
       </q-card-section>
 
       <q-card-section>
 
+          <!-- Botão para confirmar dados -->
+        <q-btn class="btnCancel" label="Voltar" rounded
+          @click="cancelNewAccount"/>
+
         <!-- Botão para confirmar dados -->
         <q-btn class="btnAmber" label="Confirmar" rounded
-          @click="confirm"/>
+          @click="confirmNewAccount"/>
 
           <!-- Botão para excluir conta (visivel somente para atualização dos dados) -->
         <q-btn class="btnCancel" label="Excluir Conta" rounded
-          @click="deleteSeller" v-if="alterarDados"/>
+          @click="deleteClient" v-if="alterarDados"/>
 
       </q-card-section>
     </q-card>
@@ -146,27 +149,37 @@ import { mapActions, mapGetters } from 'vuex';
 import Swal from 'sweetalert2';
 
 export default {
-  name: 'RegisterSeller',
+  name: 'RegisterClientComponent',
 
   data() {
     return {
-      seller: {
-        corporateName: '',
-        fantasyName: '',
+      client: {
+        name: '',
+        // nameLogin: '',
         password: '',
         confirmPassword: '',
-        cnjpSeller: '',
-        emailSeller: '',
+        cpf: '',
+        email: '',
         phone: '',
-        address: {
-          cep: '',
-          street: '',
-          number: '',
-          complement: '',
-          district: '',
-          city: '',
-          state: '',
-        },
+
+        cep: '',
+        street: '',
+        number: '',
+        complement: '',
+        district: '',
+        city: '',
+        state: '',
+
+        // address: {
+        //   cep: '',
+        //   street: '',
+        //   number: '',
+        //   complement: '',
+        //   district: '',
+        //   city: '',
+        //   state: '',
+        // },
+
       },
       isPwd: true,
       hasCep: false,
@@ -186,19 +199,25 @@ export default {
 
   methods: {
     ...mapActions('deliveryAddress', ['searchAddress']),
+    ...mapActions('login', ['createAccountClient']),
 
-    confirm() {
-      console.log('Confirmou cadastro');
-      console.log(this.seller);
+    confirmNewAccount() {
+      // if (this.client.confirmPassword.length) {
+      console.log('this.client', this.client);
+      this.createAccountClient(this.client);
+      // }
+      // console.log('Preencha os dados');
     },
 
-    deleteSeller() {
+    deleteClient() {
       console.log('Confirmou exclusão');
     },
 
     searchCep() {
-      if (this.seller.address.cep.length === 8) {
-        this.searchAddress(this.seller.address.cep);
+      if (this.client.cep.length === 8) {
+      // if (this.client.address.cep.length === 8) {
+        this.searchAddress(this.client.cep);
+        // this.searchAddress(this.client.address.cep);
         this.hasCep = true;
         setTimeout(() => {
           this.fillAddress();
@@ -209,10 +228,19 @@ export default {
     },
     fillAddress() {
       const item = this.getSearchedAddress;
-      this.seller.address.street = item.logradouro;
-      this.seller.address.district = item.bairro;
-      this.seller.address.city = item.localidade;
-      this.seller.address.state = item.uf;
+      this.client.street = item.logradouro;
+      this.client.district = item.bairro;
+      this.client.city = item.localidade;
+      this.client.state = item.uf;
+
+      // this.client.address.street = item.logradouro;
+      // this.client.address.district = item.bairro;
+      // this.client.address.city = item.localidade;
+      // this.client.address.state = item.uf;
+    },
+
+    cancelNewAccount() {
+      this.$emit('backToLoginEmit');
     },
 
     msgCepFill() {

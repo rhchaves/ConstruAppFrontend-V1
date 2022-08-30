@@ -5,12 +5,12 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-import adminPage from '../modules/admin-page/store';
-import mainPage from '../modules/main-page/store';
-import productPage from '../modules/product-page/store';
-import addressPage from '../modules/address-page/store';
-import cartPage from '../modules/cart-page/store';
-import loginPage from '../modules/login-page/store';
+import administrator from '../modules/administrator/store';
+import main from '../modules/main/store';
+import product from '../modules/product/store';
+import deliveryAddress from '../modules/delivery-address/store';
+import shoppingCart from '../modules/shopping-cart/store';
+import login from '../modules/login/store';
 import manageAdmin from '../modules/manage-admin/store';
 import manageProduct from '../modules/manage-product/store';
 import manageSeller from '../modules/manage-seller/store';
@@ -28,12 +28,12 @@ import manageClient from '../modules/manage-client/store';
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      adminPage,
-      mainPage,
-      productPage,
-      addressPage,
-      cartPage,
-      loginPage,
+      administrator,
+      main,
+      product,
+      deliveryAddress,
+      shoppingCart,
+      login,
       manageAdmin,
       manageProduct,
       manageSeller,
