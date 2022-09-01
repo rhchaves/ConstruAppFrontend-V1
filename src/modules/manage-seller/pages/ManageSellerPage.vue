@@ -5,17 +5,16 @@
       <div class="row justify-center q-gutter-md q-mt-lg" v-if="!getLoading">
 
         <div class="col-12">
-          <h3 class="row justify-center">Gerenciar Clientes</h3>
+          <h3 class="row justify-center">Gerenciar Vendedores</h3>
         </div>
 
-        <div class="col-12" v-if="getClients.length">
+        <div class="col-12" v-if="getListSellers.length">
           <TableComponent
-            title="Lista de Clientes"
+            title="Lista de Vendedores"
             :columns="columns"
-            :data="getClients"
+            :data="getListSellers"
             rowKey="name"
-            selectionType="single"
-            @itemSelectedEmit="clientSelected"
+            @itemSelectedEmit="sellerSelected"
           />
         </div>
 
@@ -29,7 +28,7 @@
             rounded
             @click="openDialog"
           >
-            Bloquear Cadastro
+            Excluir Cadastro
           </q-btn>
 
           <q-btn
@@ -53,7 +52,6 @@
       <LoadingComponent
         :visible="getLoading"
       />
-
     </div>
 
   </q-page>
@@ -68,7 +66,7 @@ import ContentAlertComponent from 'src/common/components/ContentAlertComponent.v
 import ConfirmDeletionComponent from 'src/common/components/ConfirmDeletionComponent.vue';
 
 export default {
-  name: 'ManageClient',
+  name: 'ManageSellerPage',
 
   components: {
     TableComponent,
@@ -80,7 +78,7 @@ export default {
   data() {
     return {
 
-      client: [],
+      admin: [],
       formType: 'save',
       showDialog: false,
       selected: [],
@@ -93,9 +91,9 @@ export default {
           field: 'id',
         },
         {
-          name: 'name',
-          label: 'Nome',
-          field: 'name',
+          name: 'fantasyName',
+          label: 'Nome Fantasia',
+          field: 'fantasyName',
         },
         {
           name: 'createdIn',
@@ -113,23 +111,24 @@ export default {
   },
 
   created() {
-    this.listAllClients();
+    this.listAllSellers();
   },
 
   computed: {
-    ...mapGetters('manageClient', ['getClients', 'getLoading']),
+    ...mapGetters('manageSeller', ['getListSellers', 'getLoading']),
   },
 
   methods: {
 
-    ...mapActions('manageClient', ['listAllClients', 'deleteClient']),
+    ...mapActions('manageSeller', ['listAllSellers', 'deleteSeller']),
 
-    clientSelected(item) {
+    sellerSelected(item) {
       this.selected = item;
+      console.log('this.selected', this.selected);
     },
 
     confirmDeletion() {
-      // this.deleteClient(this.selected);
+      this.deleteSeller(this.selected);
       this.selected = [];
       this.openDeleteDialog = false;
     },

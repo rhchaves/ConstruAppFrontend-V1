@@ -5,40 +5,23 @@
       <div class="row justify-center q-gutter-md q-mt-lg" v-if="!getLoading">
 
         <div class="col-12">
-          <h3 class="row justify-center">Gerenciar Administradores</h3>
+          <h3 class="row justify-center">Gerenciar Clientes</h3>
         </div>
 
-        <div class="col-12" v-if="getListAdmins.length">
+        <div class="col-12" v-if="getClients.length">
           <TableComponent
-            title="Lista de Administradores"
+            title="Lista de Clientes"
             :columns="columns"
-            :data="getListAdmins"
+            :data="getClients"
             rowKey="name"
             selectionType="single"
-            @itemSelectedEmit="adminSelected"
+            @itemSelectedEmit="clientSelected"
           />
         </div>
 
         <ContentAlertComponent v-else/>
 
         <div class="q-ma-md">
-          <q-btn
-            class="btnAmber q-ma-md"
-            type="text"
-            rounded
-            @click="addNewAdmin"
-          >
-            Cadastrar novo Administrador
-          </q-btn>
-
-          <q-btn
-            class="btnAmber q-ma-md"
-            type="text"
-            rounded
-            @click="changeAdmin"
-          >
-            ?Alterar dados?
-          </q-btn>
 
           <q-btn
             class="btnAmber q-ma-md"
@@ -46,7 +29,7 @@
             rounded
             @click="openDialog"
           >
-            Excluir Cadastro
+            Bloquear Cadastro
           </q-btn>
 
           <q-btn
@@ -60,13 +43,6 @@
         </div>
 
       </div>
-
-      <FormNewAdmin
-        v-if="showDialog"
-        :adminUser="adminSelecte[0]"
-        :formType="formType"
-        @closeDialogEmit="closeDialog"
-      />
 
       <ConfirmDeletionComponent
         v-if="openDeleteDialog"
@@ -90,29 +66,25 @@ import TableComponent from 'src/common/components/TableComponent.vue';
 import LoadingComponent from 'src/common/components/LoadingComponent.vue';
 import ContentAlertComponent from 'src/common/components/ContentAlertComponent.vue';
 import ConfirmDeletionComponent from 'src/common/components/ConfirmDeletionComponent.vue';
-import FormNewAdmin from '../components/FormNewAdmin.vue';
 
 export default {
-  name: 'ManageAdmin',
+  name: 'ManageClientPage',
 
   components: {
     TableComponent,
-    ContentAlertComponent,
-    FormNewAdmin,
-    ConfirmDeletionComponent,
     LoadingComponent,
+    ContentAlertComponent,
+    ConfirmDeletionComponent,
   },
 
   data() {
     return {
 
-      admin: [],
+      client: [],
       formType: 'save',
       showDialog: false,
       selected: [],
       openDeleteDialog: false,
-
-      adminSelecte: [],
 
       columns: [
         {
@@ -126,17 +98,7 @@ export default {
           field: 'name',
         },
         {
-          name: 'cpf',
-          label: 'CPF',
-          field: 'cpf',
-        },
-        {
-          name: 'email',
-          label: 'E-mail',
-          field: 'email',
-        },
-        {
-          name: 'created_at',
+          name: 'createdIn',
           label: 'Criado em:',
           field: 'created_at',
         },
@@ -151,38 +113,23 @@ export default {
   },
 
   created() {
-    this.listAllAdmins();
+    this.listAllClients();
   },
 
   computed: {
-    ...mapGetters('manageAdmin', ['getListAdmins', 'getLoading']),
+    ...mapGetters('manageClient', ['getClients', 'getLoading']),
   },
 
   methods: {
 
-    ...mapActions('manageAdmin', ['listAllAdmins', 'deleteAdmin']),
+    ...mapActions('manageClient', ['listAllClients', 'deleteClient']),
 
-    addNewAdmin() {
-      this.formType = 'save';
-      this.admin = [];
-      this.showDialog = true;
-    },
-
-    changeAdmin() {
-      if (this.selected.length === 1) {
-        this.formType = 'edit';
-        this.adminSelecte = this.selected;
-        this.showDialog = true;
-        console.log('this.selected', this.selected);
-      }
-    },
-
-    adminSelected(item) {
+    clientSelected(item) {
       this.selected = item;
     },
 
     confirmDeletion() {
-      this.deleteAdmin(this.selected);
+      // this.deleteClient(this.selected);
       this.selected = [];
       this.openDeleteDialog = false;
     },

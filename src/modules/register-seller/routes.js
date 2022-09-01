@@ -1,10 +1,10 @@
-import RegisterSeller from './pages/RegisterSeller.vue';
+import RegisterSellerPage from './pages/RegisterSellerPage.vue';
 
 const routes = [
   {
     path: 'register-seller',
     name: 'register-seller',
-    component: RegisterSeller,
+    component: RegisterSellerPage,
   },
 ];
 

@@ -146,7 +146,7 @@ import { mapActions, mapGetters } from 'vuex';
 import Swal from 'sweetalert2';
 
 export default {
-  name: 'RegisterSeller',
+  name: 'RegisterSellerPage',
 
   data() {
     return {

@@ -6,15 +6,17 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 import administrator from '../modules/administrator/store';
-import main from '../modules/main/store';
-import product from '../modules/product/store';
 import deliveryAddress from '../modules/delivery-address/store';
-import shoppingCart from '../modules/shopping-cart/store';
 import login from '../modules/login/store';
+import main from '../modules/main/store';
 import manageAdmin from '../modules/manage-admin/store';
+import manageClient from '../modules/manage-client/store';
 import manageProduct from '../modules/manage-product/store';
 import manageSeller from '../modules/manage-seller/store';
-import manageClient from '../modules/manage-client/store';
+import product from '../modules/product/store';
+import registerClient from '../modules/register-client/store';
+import registerSeller from '../modules/register-seller/store';
+import shoppingCart from '../modules/shopping-cart/store';
 
 /*
  * If not building with SSR mode, you can
@@ -29,15 +31,17 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       administrator,
-      main,
-      product,
       deliveryAddress,
-      shoppingCart,
       login,
+      main,
       manageAdmin,
+      manageClient,
       manageProduct,
       manageSeller,
-      manageClient,
+      product,
+      registerClient,
+      registerSeller,
+      shoppingCart,
     },
 
     // enable strict mode (adds overhead!)

@@ -1,10 +1,10 @@
-import ManageAdmin from './pages/ManageAdmin.vue';
+import ManageAdminPage from './pages/ManageAdminPage.vue';
 
 const routes = [
   {
     path: 'manage-admin',
     name: 'manage-admin',
-    component: ManageAdmin,
+    component: ManageAdminPage,
   },
 ];
 

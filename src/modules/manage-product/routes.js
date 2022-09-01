@@ -1,10 +1,10 @@
-import ManageProduct from './pages/ManageProduct.vue';
+import ManageProductPage from './pages/ManageProductPage.vue';
 
 const routes = [
   {
     path: 'manage-product',
     name: 'manage-product',
-    component: ManageProduct,
+    component: ManageProductPage,
   },
 ];
 

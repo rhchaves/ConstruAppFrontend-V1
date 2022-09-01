@@ -1,10 +1,10 @@
-import ManageClient from './pages/ManageClient.vue';
+import ManageClientPage from './pages/ManageClientPage.vue';
 
 const routes = [
   {
     path: 'manage-client',
     name: 'manage-client',
-    component: ManageClient,
+    component: ManageClientPage,
   },
 ];
 

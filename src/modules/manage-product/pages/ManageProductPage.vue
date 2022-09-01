@@ -91,7 +91,7 @@ import ConfirmDeletionComponent from 'src/common/components/ConfirmDeletionCompo
 import FormNewProduct from '../components/FormNewProduct.vue';
 
 export default {
-  name: 'ManageProduct',
+  name: 'ManageProductPage',
 
   components: {
     TableComponent,
