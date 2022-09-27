@@ -4,7 +4,12 @@
     <div
       v-if="!forgotPassword && !newAccount"
       class="row justify-center q-ma-lg">
-      <div class="column size-custom-450">
+      <form
+        method="POST"
+        action=""
+        @submit.prevent="loginAccount($event)"
+        class="column size-custom-450"
+      >
         <p class="text-h6 text-center center-screen size-custom-300 q-pb-lg"
         >SUA CONTA PARA TUDO DA CONSTRUAPP</p>
         <q-input
@@ -45,11 +50,12 @@
 
         <div class="column items-center">
           <q-btn class="btnAmber q-mt-md sizeBtn6" type="text" rounded
-            @click="loginAccount">Login</q-btn>
+          >Login</q-btn>
+          <!-- @click="loginAccount" -->
           <q-btn class="btnAmber q-mt-md sizeBtn6" type="text" rounded v-close-popup
             @click="createAccount">Criar Conta</q-btn>
         </div>
-      </div>
+      </form>
     </div>
 
     <ForgotPasswordComponent
@@ -95,17 +101,40 @@ export default {
     ...mapActions('login', ['login']),
     ...mapGetters('login', ['getLogado', 'getUser']),
 
-    loginAccount() {
+    loginAccount(e) {
       if (this.user.email !== '' && this.user.password !== '') {
-        console.log('logado');
-        this.login(this.user);
-        if (this.user.email === 'rodolfo' && this.user.password === '123') {
-          this.$router.push('administrator');
-        } else {
-          this.$router.push('main');
-        }
-      } else {
-        console.log('Preencha os campos');
+        console.log('Chegamos', e);
+        // this.login(this.user);
+
+        const url = 'http://localhost:8000/api/login';
+        const config = {
+          method: 'post',
+          body: new URLSearchParams({
+            email: this.user.email,
+            password: this.user.password,
+          }),
+        };
+
+        fetch(url, config)
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.token) {
+              document.cookie = `token=${data.token},SameSite=Lax`;
+              console.log(data.token);
+            }
+            // segue con o envio do formulário
+            // e.target.submit();
+          });
+
+      //   console.log('logado');
+      //   this.login(this.user);
+      //   if (this.user.email === 'rodolfo' && this.user.password === '123') {
+      //     this.$router.push('administrator');
+      //   } else {
+      //     this.$router.push('main');
+      //   }
+      // } else {
+      //   console.log('Preencha os campos');
       }
     },
 
