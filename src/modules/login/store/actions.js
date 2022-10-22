@@ -1,13 +1,14 @@
 import HttpClient from 'src/boot/HttpClient';
+import { LocalStorage } from 'quasar';
 
 // //////////////////////////////////////////////////////
 const login = async ({ commit }, payload) => {
   commit('LOADING', true);
-  console.log('está logado');
-  commit('LOGAR', true);
-  commit('LOGIN_USER', payload);
-
-  commit('LOADING', false);
+  const loginData = await HttpClient.post('login', payload);
+  LocalStorage.set('user', loginData.data.user);
+  LocalStorage.set('construapp_user_token', loginData.data.token);
+  commit('LOGIN_USER', loginData.data.user);
+  commit('SETAR_TOKEN', loginData.data.token);
 };
 // //////////////////////////////////////////////////////
 const logout = async ({ commit }) => {

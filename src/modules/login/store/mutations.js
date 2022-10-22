@@ -7,8 +7,12 @@ const LOGAR = (state, payload) => {
 };
 
 const LOGIN_USER = (state, payload) => {
-  state.user.email = payload.email;
-  state.user.password = payload.password;
+  state.user = payload;
+};
+
+const SETAR_TOKEN = (state, payload) => {
+  state.token = payload;
+  state.logado = true;
 };
 
 const INSERT_NEW_CLIENT = (state, payload) => {
@@ -20,4 +24,5 @@ export {
   LOGAR,
   LOGIN_USER,
   INSERT_NEW_CLIENT,
+  SETAR_TOKEN,
 };
