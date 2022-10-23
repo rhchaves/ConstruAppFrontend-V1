@@ -87,25 +87,39 @@ export default {
       isPwd: true,
       forgotPassword: false,
       newAccount: false,
+      userTypeEnum: {
+        admin: 1,
+        seller: 2,
+        client: 3,
+      },
     };
+  },
+
+  computed: {
+    ...mapGetters('login', ['getLogado', 'getUser']),
   },
 
   methods: {
 
     ...mapActions('login', ['login']),
-    ...mapGetters('login', ['getLogado', 'getUser']),
 
-    loginAccount() {
-      if (this.user.email !== '' && this.user.password !== '') {
-        console.log('logado');
-        this.login(this.user);
-        if (this.user.email === 'rodolfo' && this.user.password === '123') {
+    async loginAccount() {
+      await this.login(this.user);
+
+      console.log(this.getLogado, this.getUser);
+
+      if (this.getLogado) {
+        if (this.getUser.userType === this.userTypeEnum.admin) {
           this.$router.push('administrator');
-        } else {
+        }
+
+        if (this.getUser.userType === this.userTypeEnum.seller) {
           this.$router.push('main');
         }
-      } else {
-        console.log('Preencha os campos');
+
+        if (this.getUser.userType === this.userTypeEnum.client) {
+          this.$router.push('main');
+        }
       }
     },
 
