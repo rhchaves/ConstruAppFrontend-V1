@@ -71,11 +71,11 @@
           @closeDialogEmit="closeDialog"
         />
 
-        <LoadingComponent
-          :visible="getLoading"
-        />
-
       </div>
+
+      <LoadingComponent
+        :visible="getLoading"
+      />
     </div>
 
   </q-page>
