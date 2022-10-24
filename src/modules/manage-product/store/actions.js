@@ -1,4 +1,4 @@
-import HttpClient from 'src/common/boot/HttpClient';
+import HttpClient from 'src/boot/HttpClient';
 
 // //////////////////////////////////////////////////////
 const addNewProduct = async ({ commit }, payload) => {
