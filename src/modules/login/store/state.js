@@ -1,10 +1,7 @@
 export default {
   loading: false,
   logado: false,
-  user: {
-    email: '',
-    password: '',
-  },
+  token: null,
+  user: {},
   client: {},
-
 };

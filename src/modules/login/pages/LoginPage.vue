@@ -7,7 +7,7 @@
       <form
         method="POST"
         action=""
-        @submit.prevent="loginAccount($event)"
+        @submit.prevent="loginAccount()"
         class="column size-custom-450"
       >
         <p class="text-h6 text-center center-screen size-custom-300 q-pb-lg"
@@ -93,48 +93,39 @@ export default {
       isPwd: true,
       forgotPassword: false,
       newAccount: false,
+      userTypeEnum: {
+        admin: 1,
+        seller: 2,
+        client: 3,
+      },
     };
+  },
+
+  computed: {
+    ...mapGetters('login', ['getLogado', 'getUser']),
   },
 
   methods: {
 
     ...mapActions('login', ['login']),
-    ...mapGetters('login', ['getLogado', 'getUser']),
 
-    loginAccount(e) {
-      if (this.user.email !== '' && this.user.password !== '') {
-        console.log('Chegamos', e);
-        // this.login(this.user);
+    async loginAccount() {
+      await this.login(this.user);
 
-        const url = 'http://localhost:8000/api/login';
-        const config = {
-          method: 'post',
-          body: new URLSearchParams({
-            email: this.user.email,
-            password: this.user.password,
-          }),
-        };
+      console.log(this.getLogado, this.getUser);
 
-        fetch(url, config)
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.token) {
-              document.cookie = `token=${data.token},SameSite=Lax`;
-              console.log(data.token);
-            }
-            // segue con o envio do formulário
-            // e.target.submit();
-          });
+      if (this.getLogado) {
+        if (this.getUser.userType === this.userTypeEnum.admin) {
+          this.$router.push('administrator');
+        }
 
-      //   console.log('logado');
-      //   this.login(this.user);
-      //   if (this.user.email === 'rodolfo' && this.user.password === '123') {
-      //     this.$router.push('administrator');
-      //   } else {
-      //     this.$router.push('main');
-      //   }
-      // } else {
-      //   console.log('Preencha os campos');
+        if (this.getUser.userType === this.userTypeEnum.seller) {
+          this.$router.push('main');
+        }
+
+        if (this.getUser.userType === this.userTypeEnum.client) {
+          this.$router.push('main');
+        }
       }
     },
 

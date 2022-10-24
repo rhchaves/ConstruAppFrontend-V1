@@ -45,6 +45,7 @@ export default {
 
   created() {
     this.listAllProducts();
+    console.log('this.getListProducts', this.getListProducts);
   },
 
   computed: {
