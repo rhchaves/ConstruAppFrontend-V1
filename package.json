@@ -1,9 +1,9 @@
 {
   "name": "constru-app-frontend",
   "version": "0.0.1",
-  "description": "A Quasar Framework app",
+  "description": "A Sua Loja de Construção em Casa",
   "productName": "Constru App",
-  "author": "rhchaves <rodolfohenriquechaves@gmail.com>",
+  "author": "Rodolfo Chaves",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
@@ -15,12 +15,14 @@
     "core-js": "^3.6.5",
     "quasar": "^1.0.0",
     "sweetalert2": "^11.4.9",
-    "vee-validate": "^3.4.14",
+    "vee-validate": "^2.2.15",
+    "vue-cookies": "^1.8.1",
     "vue-i18n": "^8.0.0"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",
     "babel-eslint": "^10.0.1",
+    "@quasar/quasar-app-extension-dotenv": "^1.1.0",
     "eslint": "^7.21.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.20.1",

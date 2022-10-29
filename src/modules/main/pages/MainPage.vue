@@ -22,12 +22,7 @@ export default {
   data() {
     return {
       search: '',
-
-      // /////////////////////////////////////////////////////////
-      // Alterar a exibição da página
-      // showPage: false,
       showPage: true,
-      // /////////////////////////////////////////////////////////
     };
   },
 
@@ -49,16 +44,18 @@ export default {
     ...mapActions('deliveryAddress', ['searchAddress', 'saveAddress']),
 
     showPageFunc() {
-      console.log('Show page', this.showPage);
       if (this.getUserAddress) {
         this.showPage = true;
+        console.log('Show page', this.showPage);
       }
 
-      if (this.showPage === false && !this.getLogado) {
+      if (!this.showPage && !this.getLogado) {
         this.showPage = true;
         this.$router.push('/');
+        console.log('Show page', this.showPage);
       } else {
         this.showPage = false;
+        console.log('Show page', this.showPage);
       }
     },
 

@@ -13,8 +13,7 @@
             title="Lista de Administradores"
             :columns="columns"
             :data="getListAdmins"
-            rowKey="name"
-            selectionType="single"
+            rowKey="id"
             @itemSelectedEmit="adminSelected"
           />
         </div>
@@ -121,9 +120,9 @@ export default {
           field: 'id',
         },
         {
-          name: 'name',
+          name: 'full_name',
           label: 'Nome',
-          field: 'name',
+          field: 'full_name',
         },
         {
           name: 'cpf',

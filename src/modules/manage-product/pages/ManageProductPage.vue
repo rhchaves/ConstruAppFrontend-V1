@@ -12,8 +12,8 @@
             title="Lista de Produtos"
             :columns="columns"
             :data="getListProducts"
-            rowKey="name"
-            selectionType="single"
+            rowKey="id"
+            selectionType="multiple"
             @itemSelectedEmit="productSelected"
           />
         </div>
@@ -71,11 +71,11 @@
           @closeDialogEmit="closeDialog"
         />
 
-        <LoadingComponent
-          :visible="getLoading"
-        />
-
       </div>
+
+      <LoadingComponent
+        :visible="getLoading"
+      />
     </div>
 
   </q-page>
@@ -112,13 +112,13 @@ export default {
 
       columns: [
         {
-          name: 'name',
-          label: 'Nome do Produto',
-          field: 'name',
+          name: 'id',
+          label: 'ID',
+          field: 'id',
         },
         {
           name: 'label',
-          label: 'Label do Produto',
+          label: 'Nome do Produto',
           field: 'label',
         },
         {
@@ -127,9 +127,9 @@ export default {
           field: 'category',
         },
         {
-          name: 'details',
-          label: 'Detalhes',
-          field: 'details',
+          name: 'product_mark',
+          label: 'Marca',
+          field: 'product_mark',
         },
         {
           name: 'price',

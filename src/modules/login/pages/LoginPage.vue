@@ -4,7 +4,12 @@
     <div
       v-if="!forgotPassword && !newAccount"
       class="row justify-center q-ma-lg">
-      <div class="column size-custom-450">
+      <form
+        method="POST"
+        action=""
+        @submit.prevent="loginAccount()"
+        class="column size-custom-450"
+      >
         <p class="text-h6 text-center center-screen size-custom-300 q-pb-lg"
         >SUA CONTA PARA TUDO DA CONSTRUAPP</p>
         <q-input
@@ -45,11 +50,12 @@
 
         <div class="column items-center">
           <q-btn class="btnAmber q-mt-md sizeBtn6" type="text" rounded
-            @click="loginAccount">Login</q-btn>
+          >Login</q-btn>
+          <!-- @click="loginAccount" -->
           <q-btn class="btnAmber q-mt-md sizeBtn6" type="text" rounded v-close-popup
             @click="createAccount">Criar Conta</q-btn>
         </div>
-      </div>
+      </form>
     </div>
 
     <ForgotPasswordComponent

@@ -62,9 +62,7 @@
             <q-avatar class="q-ml-sm q-mr-sm" v-if="getLogado" size="26px">
               <img src="https://cdn.quasar.dev/img/boy-avatar.png">
             </q-avatar>
-            <!-- alterar para nome do usuário -->
-            {{ getUser.email }}
-
+              {{ getUser.name.split(' ').slice(0, 1).join(' ') }}
             </div>
             <q-btn flat to="/login" v-if="!getLogado">
               Entrar
@@ -176,9 +174,10 @@ export default {
 
     // função para realizar o logout do usuário
     clickLogout() {
-      console.log('Deslogar');
-      // 'função' carregada do mapActions
       this.logout();
+      if (!this.getLogado) {
+        this.$router.push('/');
+      }
     },
   },
 };
