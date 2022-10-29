@@ -13,7 +13,7 @@
             title="Lista de Vendedores"
             :columns="columns"
             :data="getListSellers"
-            rowKey="name"
+            rowKey="id"
             @itemSelectedEmit="sellerSelected"
           />
         </div>
