@@ -1,21 +1,57 @@
-import HttpClient from '../../../boot/HttpClient';
-
-// Apenas para exemplo de requisição
+import HttpClient from 'src/boot/HttpClient';
 
 // //////////////////////////////////////////////////////
-const teste = async ({ commit }, payload) => {
-  commit('SEARCHING', true);
+const addNewProduct = async ({ commit }, payload) => {
+  commit('LOADING', true);
 
-  await HttpClient.get('/app/menus', payload).then((response) => {
-    commit('LIST_DATA', response.data.data);
-    return response;
-  })
-    .finally(() => {
-      commit('SEARCHING', false);
-    });
+  commit('INSERT_NEW_PRODUCT', payload);
+
+  commit('LOADING', false);
 };
+
+// //////////////////////////////////////////////////////
+const listAllProducts = async ({ commit }) => {
+  commit('LOADING', true);
+
+  HttpClient.get('/product').then((response) => {
+    commit('INSERT_LIST_PRODUCTS', response.data);
+    console.log('listAllProducts', response.data);
+    return response;
+  }).catch((error) => {
+    console.log('Erro na requisição da lista', error);
+  }).finally(() => {
+    commit('LOADING', false);
+  });
+};
+
+// //////////////////////////////////////////////////////
+const updateProduct = async ({ commit }, payload) => {
+  commit('LOADING', true);
+
+  commit('CHANGE_PRODUCT', payload);
+
+  commit('LOADING', false);
+};
+
+// //////////////////////////////////////////////////////
+const deleteProduct = async ({ commit }, payload) => {
+  commit('LOADING', true);
+
+  console.log('deleteProduct', payload);
+
+  return HttpClient.delete(`/product/${payload[0].id}`).then((response) => {
+    commit('DELETE_PRODUCT', payload[0]);
+    return response;
+  }).finally(() => {
+    commit('LOADING', false);
+  });
+};
+
 // //////////////////////////////////////////////////////
 
 export {
-  teste,
+  addNewProduct,
+  listAllProducts,
+  updateProduct,
+  deleteProduct,
 };

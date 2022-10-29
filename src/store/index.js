@@ -5,18 +5,18 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-import adminPage from '../modules/admin-page/store';
-import mainPage from '../modules/main-page/store';
-import productPage from '../modules/product-page/store';
-import registerProduct from '../modules/register-product/store';
-import registerClient from '../modules/register-client/store';
-import registerSeller from '../modules/resgister-seller/store';
-import addressPage from '../modules/address-page/store';
-import cartPage from '../modules/cart-page/store';
-import loginPage from '../modules/login-page/store';
+import administrator from '../modules/administrator/store';
+import deliveryAddress from '../modules/delivery-address/store';
+import login from '../modules/login/store';
+import main from '../modules/main/store';
 import manageAdmin from '../modules/manage-admin/store';
+import manageClient from '../modules/manage-client/store';
 import manageProduct from '../modules/manage-product/store';
 import manageSeller from '../modules/manage-seller/store';
+import product from '../modules/product/store';
+import registerClient from '../modules/register-client/store';
+import registerSeller from '../modules/register-seller/store';
+import shoppingCart from '../modules/shopping-cart/store';
 
 /*
  * If not building with SSR mode, you can
@@ -30,18 +30,18 @@ import manageSeller from '../modules/manage-seller/store';
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      adminPage,
-      mainPage,
-      productPage,
-      registerProduct,
-      registerClient,
-      registerSeller,
-      addressPage,
-      cartPage,
-      loginPage,
+      administrator,
+      deliveryAddress,
+      login,
+      main,
       manageAdmin,
+      manageClient,
       manageProduct,
       manageSeller,
+      product,
+      registerClient,
+      registerSeller,
+      shoppingCart,
     },
 
     // enable strict mode (adds overhead!)

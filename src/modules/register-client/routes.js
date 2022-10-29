@@ -1,10 +1,10 @@
-import RegisterClient from './pages/RegisterClient.vue';
+import RegisterClientPage from './pages/RegisterClientPage.vue';
 
 const routes = [
   {
     path: 'register-client',
     name: 'register-client',
-    component: RegisterClient,
+    component: RegisterClientPage,
   },
 ];
 
