@@ -1,8 +1,8 @@
 const getLoading = (state) => state.loading;
 
-const getClients = (state) => state.clients;
+const getListClients = (state) => state.clients;
 
 export {
   getLoading,
-  getClients,
+  getListClients,
 };

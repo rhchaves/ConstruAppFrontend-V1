@@ -10,12 +10,12 @@
       :selected.sync="selected"
       style="max-width: 1300px"
     >
-      <template v-slot:header-cell-fat="props">
+      <!-- <template v-slot:header-cell-fat="props">
         <q-th :props="props">
           <q-icon name="delete" size="1.5em" />
           {{ props.col.label }}
         </q-th>
-      </template>
+      </template> -->
     </q-table>
   </div>
 </template>
@@ -44,7 +44,7 @@ export default {
     selectionType: {
       type: String,
       required: false,
-      default: 'multiple',
+      default: 'single',
     },
 
     rowKey: {

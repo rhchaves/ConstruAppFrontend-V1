@@ -8,13 +8,12 @@
           <h3 class="row justify-center">Gerenciar Clientes</h3>
         </div>
 
-        <div class="col-12" v-if="getClients.length">
+        <div class="col-12" v-if="getListClients.length">
           <TableComponent
             title="Lista de Clientes"
             :columns="columns"
-            :data="getClients"
-            rowKey="name"
-            selectionType="single"
+            :data="getListClients"
+            rowKey="id"
             @itemSelectedEmit="clientSelected"
           />
         </div>
@@ -93,9 +92,9 @@ export default {
           field: 'id',
         },
         {
-          name: 'name',
+          name: 'full_name',
           label: 'Nome',
-          field: 'name',
+          field: 'full_name',
         },
         {
           name: 'createdIn',
@@ -117,7 +116,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters('manageClient', ['getClients', 'getLoading']),
+    ...mapGetters('manageClient', ['getListClients', 'getLoading']),
   },
 
   methods: {
