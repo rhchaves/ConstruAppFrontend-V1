@@ -120,7 +120,7 @@ export default {
         }
 
         if (this.getUser.userType === this.userTypeEnum.seller) {
-          this.$router.push('main');
+          this.$router.push('seller');
         }
 
         if (this.getUser.userType === this.userTypeEnum.client) {
