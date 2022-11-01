@@ -9,6 +9,7 @@ const login = async ({ commit }, payload) => {
   LocalStorage.set('construapp_user_token', loginData.data.token);
   commit('LOGIN_USER', loginData.data.user);
   commit('SETAR_TOKEN', loginData.data.token);
+  commit('LOADING', false);
 };
 // //////////////////////////////////////////////////////
 const logout = async ({ commit }) => {
