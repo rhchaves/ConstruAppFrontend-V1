@@ -1,15 +1,30 @@
 import HttpClient from 'src/boot/HttpClient';
 import { LocalStorage } from 'quasar';
+import Swal from 'sweetalert2';
 
 // //////////////////////////////////////////////////////
 const login = async ({ commit }, payload) => {
   commit('LOADING', true);
-  const loginData = await HttpClient.post('login', payload);
-  LocalStorage.set('user', loginData.data.user);
-  LocalStorage.set('construapp_user_token', loginData.data.token);
-  commit('LOGIN_USER', loginData.data.user);
-  commit('SETAR_TOKEN', loginData.data.token);
+  try {
+    const loginData = await HttpClient.post('login', payload);
+    LocalStorage.set('user', loginData.data.user);
+    LocalStorage.set('construapp_user_token', loginData.data.token);
+    commit('LOGIN_USER', loginData.data.user);
+    commit('SETAR_TOKEN', loginData.data.token);
+  } catch (error) {
+    console.log('Este erro', error.code);
+    if (error.message === 'Request failed with status code 403') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Usuário ou senha não identificado',
+      });
+    }
+  } finally {
+    commit('LOADING', false);
+  }
 };
+
 // //////////////////////////////////////////////////////
 const logout = async ({ commit }) => {
   commit('LOADING', true);
