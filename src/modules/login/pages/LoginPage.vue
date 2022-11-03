@@ -112,7 +112,7 @@ export default {
     async loginAccount() {
       await this.login(this.user);
 
-      console.log(this.getLogado, this.getUser);
+      // console.log(this.getLogado, this.getUser);
 
       if (this.getLogado) {
         if (this.getUser.userType === this.userTypeEnum.admin) {
