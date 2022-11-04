@@ -19,6 +19,8 @@ const login = async ({ commit }, payload) => {
         icon: 'error',
         title: 'Oops...',
         text: 'Usuário ou senha incorreto',
+        showConfirmButton: false,
+        timer: 3000,
       });
     }
   } finally {

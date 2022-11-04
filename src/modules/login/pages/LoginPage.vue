@@ -4,7 +4,7 @@
     <div
       v-if="!forgotPassword && !newAccount"
       class="row justify-center q-ma-lg">
-      <form
+      <q-form
         method="POST"
         action=""
         @submit.prevent="loginAccount()"
@@ -18,7 +18,8 @@
           type="text"
           label="Email"
           lazy-rules
-          :rules="[ val => val && val !== '' || 'Preencha o email']"
+          :rules="[ val => val !== null && val != '' && val.length > 5 ||
+          'Preencha o email corretamente']"
         />
 
         <q-input
@@ -27,7 +28,8 @@
           :type="isPwd ? 'password' : 'text'"
           label="Senha"
           lazy-rules
-          :rules="[ val => val && val !== '' || 'Preencha a senha']"
+          :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+          'Preencha a senha corretamente']"
         >
           <template v-slot:append>
             <q-icon
@@ -55,7 +57,7 @@
           <q-btn class="btnAmber q-mt-md sizeBtn6" type="text" rounded v-close-popup
             @click="createAccount">Criar Conta</q-btn>
         </div>
-      </form>
+      </q-form>
     </div>
 
     <ForgotPasswordComponent

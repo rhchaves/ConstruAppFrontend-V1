@@ -1,7 +1,8 @@
 <template>
   <q-page class="window-height window-width row justify-center items-center">
-    <q-card>
-      <q-card-section>
+    <q-form @submit.prevent="confirm()">
+      <q-card>
+        <q-card-section>
         <!-- Bloco de inputs de dados do cliente -->
         <q-input
           autofocus
@@ -9,14 +10,18 @@
           v-model="client.nameClient"
           type="text"
           label="Nome completo"
-          :rules="[val => !! val || 'Campo obrigatório']"
+          lazy-rules
+          :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+          'Mínimo 3 caracteres']"
         />
         <q-input
           outlined
           v-model="client.emailClient"
           type="email"
           label="E-mail"
-          :rules="[val => !! val || 'Campo obrigatório']"
+          lazy-rules
+          :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+          'Mínimo 3 caracteres']"
         />
         <q-input
           outlined
@@ -24,7 +29,9 @@
           type="text"
           label="CPF"
           mask="###.###.###-##"
-          :rules="[val => !! val || 'Campo obrigatório']"
+          lazy-rules
+          :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+          'Mínimo 3 caracteres']"
         />
         <q-input
           outlined
@@ -32,7 +39,9 @@
           type="text"
           label="Celular"
           mask="(##) #####-####"
-          :rules="[val => !! val || 'Campo obrigatório']"
+          lazy-rules
+          :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+          'Mínimo 3 caracteres']"
         />
         <q-input
           outlined
@@ -42,7 +51,9 @@
           mask="#####-###"
           unmasked-value
           @blur="searchCep"
-          :rules="[val => !! val || 'Campo obrigatório']"
+          lazy-rules
+          :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+          'Mínimo 3 caracteres']"
         />
         <div v-if="hasCep">
           <q-input
@@ -50,7 +61,9 @@
             v-model="client.address.street"
             type="text"
             label="Rua"
-            :rules="[val => !! val || 'Campo obrigatório']"
+            lazy-rules
+            :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+            'Mínimo 3 caracteres']"
           />
           <q-input
             outlined
@@ -58,7 +71,9 @@
             type="text"
             label="Número"
             id="clientNumber"
-            :rules="[val => !! val || 'Campo obrigatório']"
+            lazy-rules
+            :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+            'Mínimo 3 caracteres']"
           />
           <q-input
             outlined
@@ -72,7 +87,9 @@
             type="text"
             label="Bairro"
             class="q-mt-md"
-            :rules="[val => !! val || 'Campo obrigatório']"
+            lazy-rules
+            :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+            'Mínimo 3 caracteres']"
           />
           <q-input
             outlined
@@ -80,7 +97,9 @@
             type="text"
             label="Cidade"
             disable
-            :rules="[val => !! val || 'Campo obrigatório']"
+            lazy-rules
+            :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+            'Mínimo 3 caracteres']"
           />
           <q-input
             outlined
@@ -88,7 +107,9 @@
             type="text"
             label="Estado"
             disable
-            :rules="[val => !! val || 'Campo obrigatório']"
+            lazy-rules
+            :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+            'Mínimo 3 caracteres']"
           />
         </div>
         <q-input
@@ -96,7 +117,9 @@
           v-model="client.password"
           :type="isPwd ? 'password' : 'text'"
           label="Senha"
-          :rules="[val => !! val || 'Campo obrigatório']"
+          lazy-rules
+          :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+          'Mínimo 3 caracteres']"
         >
           <template v-slot:append>
             <q-icon
@@ -111,24 +134,26 @@
           v-model="client.confirmPassword"
           :type="isPwd ? 'password' : 'text'"
           label="Confirmar senha"
-          :rules="[val => !! val || 'Campo obrigatório']"
+          lazy-rules
+          :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+          'Mínimo 3 caracteres']"
         />
         <!-- Fim do Bloco de inputs de dados do cliente -->
-
       </q-card-section>
 
       <q-card-section>
 
         <!-- Botão para confirmar dados -->
         <q-btn class="btnAmber" label="Confirmar" rounded
-          @click="confirm"/>
+          type="submit"/>
 
-          <!-- Botão para excluir conta (visivel somente para atualização dos dados) -->
+        <!-- Botão para excluir conta (visivel somente para atualização dos dados) -->
         <q-btn class="btnCancel" label="Excluir Conta" rounded
           @click="deleteClient" v-if="alterarDados"/>
 
-      </q-card-section>
-    </q-card>
+        </q-card-section>
+      </q-card>
+    </q-form>
   </q-page>
 </template>
 
@@ -207,11 +232,13 @@ export default {
     },
 
     msgCepFill() {
-      Swal.fire(
-        'Atenção!',
-        'Preencha o CEP corretamente',
-        'warning',
-      );
+      Swal.fire({
+        icon: 'warning',
+        title: 'Atenção!',
+        text: 'Preencha o CEP',
+        showConfirmButton: false,
+        timer: 3000,
+      });
     },
 
   },
