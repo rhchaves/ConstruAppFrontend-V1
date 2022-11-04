@@ -14,27 +14,41 @@
         </div>
         <!-- Título do header logado -->
         <q-toolbar-title shrink class="row items-center no-wrap"
-          v-if="getUserAddress || getLogado"
+        >
+        <q-btn
+        unelevated
+        >
+
+          <q-img
+          :src="urlLogo"
+          @click="redirectLogo"
+          style="width: 150px"
+          ></q-img>
+        </q-btn>
+        </q-toolbar-title>
+
+        <!-- <q-toolbar-title shrink class="row items-center no-wrap"
+          v-if="getUserAddress || getUser.userType === 3"
         >
           <router-link to="/main" class="router-link" >
             <q-img style="width: 150px" :src="urlLogo"></q-img>
           </router-link>
-        </q-toolbar-title>
+        </q-toolbar-title> -->
 
         <!-- Título do header não logado -->
-        <q-toolbar-title shrink class="row items-center no-wrap"
-          v-if="!getUserAddress && !getLogado"
+        <!-- <q-toolbar-title shrink class="row items-center no-wrap"
+          v-if="!getUserAddress && getUser.userType !== 3"
         >
           <q-img style="width: 150px" :src="urlLogo"></q-img>
-        </q-toolbar-title>
+        </q-toolbar-title> -->
         <!-- Verificar se vamos deixar o endereço disponivel aqui -->
         <div class="q-ml-xl"></div>
-        {{getUserAddress.street}}
-        {{getUserAddress.number}}
+          {{getUserAddress.street}}
+          {{getUserAddress.number}}
         <q-space />
 
         <!-- Input de pesquisa -->
-        <div class="row items-center no-wrap" v-if="getUserAddress || getLogado">
+        <div class="row items-center no-wrap" v-if="getUserAddress || getUser.userType === 3">
           <q-input
             outlined
             v-model="search"
@@ -77,7 +91,7 @@
             >
               <q-menu class="">
                 <q-list class="btnAmber" style="min-width: 100px">
-                  <q-item clickable v-close-popup>
+                  <q-item clickable v-close-popup v-if="getUser.userType === 3">
                     <q-item-section >Minhas compras</q-item-section>
                   </q-item>
                   <q-item clickable v-close-popup>
@@ -101,7 +115,7 @@
             flat
             icon="shopping_cart"
             to="shopping-cart"
-            v-if="getUserAddress || getLogado">
+            v-if="getUserAddress || getUser.userType === 3">
             <q-badge rounded class="q-mr-sm q-mt-xs" color="red" text-color="white" floating>
               <!-- alterar para retorno da quantidade de itens no carrinho -->
               {{ getCartList.length }}
@@ -143,11 +157,24 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'HeaderComponent',
 
+  props: {
+    linkHome: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
+
   // Local para definir as variáveis da página
   data() {
     return {
       search: '',
       urlLogo: 'img/logo-contruApp-v1.png',
+      userTypeEnum: {
+        admin: 1,
+        seller: 2,
+        client: 3,
+      },
     };
   },
 
@@ -160,6 +187,22 @@ export default {
   // Funções
   methods: {
     ...mapActions('login', ['logout']),
+
+    redirectLogo() {
+      if (this.getLogado) {
+        if (this.getUser.userType === this.userTypeEnum.admin) {
+          this.$router.push('administrator');
+        }
+
+        if (this.getUser.userType === this.userTypeEnum.seller) {
+          this.$router.push('seller');
+        }
+
+        if (this.getUser.userType === this.userTypeEnum.client) {
+          this.$router.push('main');
+        }
+      }
+    },
 
     // abrir e fechar o menu lateral esquerdo
     toggleLeftDrawer() {
