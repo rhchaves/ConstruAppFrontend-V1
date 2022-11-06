@@ -43,12 +43,15 @@
         </q-toolbar-title> -->
         <!-- Verificar se vamos deixar o endereço disponivel aqui -->
         <div class="q-ml-xl"></div>
-          {{getUserAddress.street}}
-          {{getUserAddress.number}}
+          {{getUserAddress.logradouro}}
+          {{getUserAddress.numero}}
         <q-space />
 
         <!-- Input de pesquisa -->
-        <div class="row items-center no-wrap" v-if="getUserAddress || getUser.userType === 3">
+        <!-- Mudar a lógica para carregar o endereço do login -->
+        <div class="row items-center no-wrap"
+          v-if="!getUserAddress && getUser.userType === 3 ||
+                getUserAddress && getUser.userType !== 3">
           <q-input
             outlined
             v-model="search"

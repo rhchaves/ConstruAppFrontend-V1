@@ -50,14 +50,14 @@
 
               </div>
 
-              <q-input outlined v-model="address.street" type="text" label="Rua"
+              <q-input outlined v-model="address.logradouro" type="text" label="Rua"
                 :rules="[val => !! val || 'Campo obrigatório']"/>
 
               <div class="row">
                 <q-input
                   class="size-custom-110 q-mr-md"
                   outlined
-                  v-model="address.number"
+                  v-model="address.numero"
                   type="text"
                   label="Número"
                   :rules="[val => !! val || 'Campo obrigatório']"
@@ -65,9 +65,9 @@
                 <q-input
                   class="size-custom-410"
                   outlined
-                  v-model="address.complement"
+                  v-model="address.complemento"
                   type="text"
-                  label="Complemento"
+                  label="complementoo"
                 />
               </div>
 
@@ -75,7 +75,7 @@
                 <q-input
                   class="size-custom-250 q-mr-md"
                   outlined
-                  v-model="address.district"
+                  v-model="address.bairro"
                   type="text"
                   label="Bairro"
                   :rules="[val => !! val || 'Campo obrigatório']"
@@ -83,7 +83,7 @@
                 <q-input
                   class="q-mr-md"
                   outlined
-                  v-model="address.city"
+                  v-model="address.localidade"
                   type="text"
                   label="Cidade"
                   readonly
@@ -92,7 +92,7 @@
                 <q-input
                   class="q-mr-md size-custom-50"
                   outlined
-                  v-model="address.state"
+                  v-model="address.uf"
                   type="text"
                   label="UF"
                   readonly
@@ -124,15 +124,15 @@ export default {
 
   data() {
     return {
-      // Objeto endereço
+      // Objeto endereço que recebe dados da API de busca de cep
       address: {
         cep: '',
-        street: '',
-        number: '',
-        complement: '',
-        district: '',
-        city: '',
-        state: '',
+        logradouro: '',
+        numero: '',
+        complemento: '',
+        bairro: '',
+        localidade: '',
+        uf: '',
       },
     };
   },
@@ -146,20 +146,17 @@ export default {
     ...mapActions('deliveryAddress', ['searchAddress', 'saveAddress']),
 
     // função para procurar o cep informado
-    searchForCep() {
+    async searchForCep() {
       if (this.address.cep.length === 8) {
         this.searchAddress(this.address.cep);
-        const data = this.getSearchedAddress;
-
-        this.address.street = data.logradouro;
-        this.address.district = data.bairro;
-        this.address.city = data.localidade;
-        this.address.state = data.uf;
+        setTimeout(() => {
+          this.address = this.getSearchedAddress;
+        }, 1000);
       }
     },
 
     confirmedAddress() {
-      if (this.address.city.length) {
+      if (this.address.localidade.length) {
         this.$router.push('/main');
         this.saveAddress(this.address);
       } else {
@@ -169,41 +166,45 @@ export default {
 
     close() {
       this.$emit('close');
-      console.log('fechou no dialogo');
     },
 
     confirm() {
-      if (this.address.number.length && this.address.city.length) {
+      if (this.address.numero.length && this.address.localidade.length) {
         this.$emit('close');
         this.confirmedAddress();
-        console.log('fechou no dialogo');
       } else {
         this.msgFillCepNumber();
       }
     },
 
     msgFillCepNumber() {
-      Swal.fire(
-        'Atenção!',
-        'Preencha o CEP e o Número',
-        'warning',
-      );
+      Swal.fire({
+        icon: 'warning',
+        title: 'Atenção!',
+        text: 'Preencha o CEP e o Número',
+        showConfirmButton: false,
+        timer: 3000,
+      });
     },
 
     msgCepNotfound() {
-      Swal.fire(
-        'Atenção!',
-        `O CEP ${this.address.cep} não foi encontrado`,
-        'error',
-      );
+      Swal.fire({
+        icon: 'error',
+        title: 'Atenção!',
+        text: `O CEP ${this.address.cep} não foi encontrado`,
+        showConfirmButton: false,
+        timer: 3000,
+      });
     },
 
     msgCepFill() {
-      Swal.fire(
-        'Atenção!',
-        'Preencha o CEP corretamente',
-        'warning',
-      );
+      Swal.fire({
+        icon: 'warning',
+        title: 'Atenção!',
+        text: 'Preencha o CEP',
+        showConfirmButton: false,
+        timer: 3000,
+      });
     },
 
   },
