@@ -8,7 +8,9 @@
         <div class="" >
           <q-form @submit.prevent="confirmAdmin()">
             <q-card-section class="row justify-center q-gutter-md">
-              <span class="title">Cadastrar Novo Administrador</span>
+              <span class="title-custom text-center size-custom-400">
+                Cadastrar Novo Administrador
+              </span>
             </q-card-section>
 
             <q-card-section class="q-gutter-md">
@@ -16,7 +18,7 @@
               <q-input
                 outlined
                 v-model="form.name"
-                placeholder="Nome do Administrador"
+                label="Nome do Administrador"
                 lazy-rules
                 :rules="[ val => val !== null && val != '' && val.length >= 3 ||
                 'Mínimo 3 caracteres']"
@@ -36,7 +38,7 @@
               <q-input
                 outlined
                 v-model="form.email"
-                placeholder="E-mail"
+                label="E-mail"
                 type="email"
                 lazy-rules
                 :rules="[ val => val !== null && val != '' && val.length > 5 ||
@@ -82,8 +84,16 @@
             </q-card-section>
 
             <q-card-actions align="right" class="row justify-center">
-              <q-btn class="btnCancel sizeBtn3 q-ma-md" label="Cancel" @click="closeDialog" />
-              <q-btn class="btnAmber sizeBtn3 q-ma-md" type="submit">
+              <q-btn
+                class="btnCancel sizeBtn3 q-ma-md"
+                rounded
+                label="Cancel" @click="closeDialog"
+              />
+              <q-btn
+                class="btnAmber sizeBtn3 q-ma-md"
+                rounded
+                type="submit"
+              >
                 {{ formType === 'save' ? 'Salvar' : 'Atualizar' }}
               </q-btn>
             </q-card-actions>

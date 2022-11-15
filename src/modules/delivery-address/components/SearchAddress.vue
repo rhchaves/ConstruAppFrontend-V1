@@ -1,16 +1,19 @@
 <template>
-  <q-page class="window-height window-width row justify-center items-center">
-      <div class="colun">
-        <div class="ro">
+  <!-- <q-page class="window-height window-width row justify-center items-center"> -->
+      <!-- <div class="colun"> -->
+        <!-- <div class="ro"> -->
           <q-card square bordered class="q-pl-lg q-pr-lg q-pb-lg shadow-1">
 
+            <q-card-section class="q-gutter-md">
               <div class="row justify-end">
-                <q-btn class="q-pt-md" icon="close" flat round v-close-popup
+                <q-btn
+                  icon="close"
+                  flat
+                  round
+                  v-close-popup
                   @click="close"
                 ></q-btn>
               </div>
-
-            <q-card-section class="q-gutter-md">
 
               <div class="row justify-center">
                 <p class="title-custom text-center size-custom-400">Endereço de Entrega</p>
@@ -67,7 +70,7 @@
                   outlined
                   v-model="address.complemento"
                   type="text"
-                  label="complementoo"
+                  label="complemento"
                 />
               </div>
 
@@ -108,9 +111,9 @@
             </q-card-actions>
 
           </q-card>
-        </div>
-      </div>
-    </q-page>
+        <!-- </div> -->
+      <!-- </div> -->
+    <!-- </q-page> -->
 
 </template>
 

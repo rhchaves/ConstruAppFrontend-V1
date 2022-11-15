@@ -35,7 +35,7 @@
           <q-input
             outlined
             v-model="search"
-            placeholder="O que você procura?"
+            label="O que você procura?"
             dense
           >
             <q-btn flat @click="searchProduct(search)">
