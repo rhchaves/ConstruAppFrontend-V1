@@ -21,7 +21,6 @@
 </template>
 
 <script>
-
 import HeaderComponent from 'src/common/components/HeaderComponent.vue';
 import FooterComponent from 'src/common/components/FooterComponent.vue';
 
