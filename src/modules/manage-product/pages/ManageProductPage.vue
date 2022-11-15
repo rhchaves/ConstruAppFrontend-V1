@@ -66,7 +66,7 @@
         />
 
         <ModalConfirmComponent
-          v-if="openDeleteDialog"
+          v-if="openConfirmDialog"
           @confirmDialogEmit="confirmDeletion"
           @closeDialogEmit="closeDialog"
         />
@@ -108,7 +108,7 @@ export default {
       formType: 'save',
       showDialog: false,
       selected: [],
-      openDeleteDialog: false,
+      openConfirmDialog: false,
 
       columns: [
         {
@@ -183,18 +183,18 @@ export default {
     confirmDeletion() {
       this.deleteProduct(this.selected);
       this.selected = [];
-      this.openDeleteDialog = false;
+      this.openConfirmDialog = false;
     },
 
     openDialog() {
       if (this.selected.length === 1) {
-        this.openDeleteDialog = true;
+        this.openConfirmDialog = true;
       }
     },
 
     closeDialog() {
       this.showDialog = false;
-      this.openDeleteDialog = false;
+      this.openConfirmDialog = false;
     },
   },
 
