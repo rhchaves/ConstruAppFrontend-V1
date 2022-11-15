@@ -21,9 +21,8 @@
 </template>
 
 <script>
-
-import HeaderComponent from 'src/common/HeaderComponent.vue';
-import FooterComponent from 'src/common/FooterComponent.vue';
+import HeaderComponent from 'src/common/components/HeaderComponent.vue';
+import FooterComponent from 'src/common/components/FooterComponent.vue';
 
 export default {
   name: 'MainLayout',

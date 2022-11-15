@@ -1,4 +1,4 @@
-import HttpClient from '../../../boot/HttpClient';
+import HttpClient from '../../../common/boot/HttpClient';
 
 // Apenas para exemplo de requisição
 
