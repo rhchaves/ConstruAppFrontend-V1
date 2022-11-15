@@ -27,6 +27,7 @@ const login = async ({ commit }, payload) => {
     commit('LOADING', false);
   }
 };
+
 // //////////////////////////////////////////////////////
 const logout = async ({ commit }) => {
   commit('LOADING', true);

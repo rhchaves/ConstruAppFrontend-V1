@@ -112,6 +112,7 @@ export default {
     ...mapActions('login', ['login']),
 
     async loginAccount() {
+      console.log('Tentou logar');
       await this.login(this.user);
 
       // console.log(this.getLogado, this.getUser);
