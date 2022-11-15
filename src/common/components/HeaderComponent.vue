@@ -52,7 +52,7 @@
           <div class="btnAmber rounded-item row items-center no-wrap" >
 
             <!-- Conta do usuário -->
-            <div v-if="getLogado">
+            <div v-if="getLogado" class="q-mr-sm">
               <q-avatar class="q-ml-sm q-mr-sm" v-if="getLogado" size="26px">
                 <img src="https://cdn.quasar.dev/img/boy-avatar.png">
               </q-avatar>
