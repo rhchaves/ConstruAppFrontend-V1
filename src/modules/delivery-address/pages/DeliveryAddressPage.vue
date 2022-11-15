@@ -61,12 +61,10 @@ export default {
 
     open() {
       this.changeSearchAddress = true;
-      console.log('Abriu');
     },
 
     close() {
       this.changeSearchAddress = false;
-      console.log('fechou na página');
     },
   },
 };

@@ -19,8 +19,8 @@
 
           <q-item-label v-model="product.name"><b>Nome do item:</b> {{product.name}} </q-item-label>
           <q-item-label
-            v-model="product.shortDescription"
-            ><b>Descrição breve do item:</b> {{ product.shortDescription}}
+            v-model="product.description"
+            ><b>Descrição breve do item:</b> {{ product.description}}
           </q-item-label>
           <q-item-label v-model="product.price"><b>Valor:</b> R$ {{ product.price }}</q-item-label>
         </q-item-section>
@@ -105,21 +105,33 @@ export default {
 
   data() {
     return {
-      name: '',
+      product: {
+        category: '',
+        name: '',
+        label: '',
+        description: '',
+        price: '',
+        product_mark: '',
+        image: '',
+      },
+
       deletedItem: '',
       model: null,
-      options: [
-        'Dinheiro', 'Cartão de Crédito', 'Cartão de Débito',
-      ],
+      options: ['Dinheiro', 'Cartão de Crédito', 'Cartão de Débito'],
       deliveryAddress: {
         street: 'Rua teste',
         number: '',
         district: '',
       },
+
       deliveryValue: 'A calcular',
       totalValue: 0,
       qtd: 5,
     };
+  },
+
+  created() {
+    this.listProductCart();
   },
 
   computed: {
@@ -128,7 +140,7 @@ export default {
 
   methods: {
 
-    ...mapActions('shoppingCart', ['addQtdCart']),
+    ...mapActions('shoppingCart', ['listProductCart', 'addQtdCart']),
 
     deleteItem() {
       console.log('Apagar Item:', this.deletedItem);

@@ -1,142 +1,170 @@
 <template>
   <q-page class="window-height window-width row justify-center items-center">
-    <q-card>
-      <q-card-section>
-        <!-- Bloco de inputs de dados do vendedor -->
-        <q-input
-          autofocus
-          outlined
-          v-model="seller.corporateName"
-          type="text"
-          label="Razão social"
-          :rules="[val => !! val || 'Campo obrigatório']"
-        />
-        <q-input
-          autofocus
-          outlined
-          v-model="seller.fantasyName"
-          type="text"
-          label="Nome fantasia"
-          :rules="[val => !! val || 'Campo obrigatório']"
-        />
-        <q-input
-          outlined
-          v-model="seller.emailSeller"
-          type="email"
-          label="E-mail"
-          :rules="[val => !! val || 'Campo obrigatório']"
-        />
-        <q-input
-          outlined
-          v-model="seller.cnpjSeller"
-          type="text"
-          label="CNPJ"
-          mask="##.###.###/####-##"
-          :rules="[val => !! val || 'Campo obrigatório']"
-        />
-        <q-input
-          outlined
-          v-model="seller.phone"
-          type="text"
-          label="Celular"
-          mask="(##) #####-####"
-          :rules="[val => !! val || 'Campo obrigatório']"
-        />
-        <q-input
-          outlined
-          v-model="seller.address.cep"
-          type="text"
-          label="CEP"
-          mask="#####-###"
-          unmasked-value
-          @blur="searchCep"
-          :rules="[val => !! val || 'Campo obrigatório']"
-        />
-        <div v-if="hasCep">
+    <q-form @submit.prevent="confirm()">
+      <q-card>
+        <q-card-section>
+          <!-- Bloco de inputs de dados do vendedor -->
           <q-input
+            autofocus
             outlined
-            v-model="seller.address.street"
+            v-model="seller.corporateName"
             type="text"
-            label="Rua"
-            :rules="[val => !! val || 'Campo obrigatório']"
+            label="Razão social"
+            lazy-rules
+            :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+            'Mínimo 3 caracteres']"
+          />
+          <q-input
+            autofocus
+            outlined
+            v-model="seller.fantasyName"
+            type="text"
+            label="Nome fantasia"
+            lazy-rules
+            :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+            'Mínimo 3 caracteres']"
           />
           <q-input
             outlined
-            v-model="seller.address.number"
-            type="text"
-            label="Número"
-            id="clientNumber"
-            :rules="[val => !! val || 'Campo obrigatório']"
+            v-model="seller.emailSeller"
+            type="email"
+            label="E-mail"
+            lazy-rules
+            :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+            'Mínimo 3 caracteres']"
           />
           <q-input
             outlined
-            v-model="seller.address.complement"
+            v-model="seller.cnpjSeller"
             type="text"
-            label="Complemento"
+            label="CNPJ"
+            mask="##.###.###/####-##"
+            lazy-rules
+            :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+            'Mínimo 3 caracteres']"
           />
           <q-input
             outlined
-            v-model="seller.address.district"
+            v-model="seller.phone"
             type="text"
-            label="Bairro"
-            class="q-mt-md"
-            :rules="[val => !! val || 'Campo obrigatório']"
+            label="Celular"
+            mask="(##) #####-####"
+            lazy-rules
+            :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+            'Mínimo 3 caracteres']"
           />
           <q-input
             outlined
-            v-model="seller.address.city"
+            v-model="seller.address.cep"
             type="text"
-            label="Cidade"
-            disable
-            :rules="[val => !! val || 'Campo obrigatório']"
+            label="CEP"
+            mask="#####-###"
+            unmasked-value
+            @blur="searchCep"
+            lazy-rules
+            :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+            'Mínimo 3 caracteres']"
           />
-          <q-input
-            outlined
-            v-model="seller.address.state"
-            type="text"
-            label="Estado"
-            disable
-            :rules="[val => !! val || 'Campo obrigatório']"
-          />
-        </div>
-        <q-input
-          outlined
-          v-model="seller.password"
-          :type="isPwd ? 'password' : 'text'"
-          label="Senha"
-          :rules="[val => !! val || 'Campo obrigatório']"
-        >
-          <template v-slot:append>
-            <q-icon
-              :name="isPwd ? 'visibility_off' : 'visibility'"
-              class="cursor-pointer"
-              @click="isPwd = !isPwd"
+          <div v-if="hasCep">
+            <q-input
+              outlined
+              v-model="seller.address.street"
+              type="text"
+              label="Rua"
+              lazy-rules
+              :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+              'Mínimo 3 caracteres']"
             />
-          </template>
-        </q-input>
-        <q-input
-          outlined
-          v-model="seller.confirmPassword"
-          :type="isPwd ? 'password' : 'text'"
-          label="Confirmar senha"
-          :rules="[val => !! val || 'Campo obrigatório']"
-        />
-        <!-- Fim do Bloco de inputs de dados do vendedor -->
+            <q-input
+              outlined
+              v-model="seller.address.number"
+              type="text"
+              label="Número"
+              id="clientNumber"
+              lazy-rules
+              :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+              'Mínimo 3 caracteres']"
+            />
+            <q-input
+              outlined
+              v-model="seller.address.complement"
+              type="text"
+              label="Complemento"
+            />
+            <q-input
+              outlined
+              v-model="seller.address.district"
+              type="text"
+              label="Bairro"
+              class="q-mt-md"
+              lazy-rules
+              :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+              'Mínimo 3 caracteres']"
+            />
+            <q-input
+              outlined
+              v-model="seller.address.city"
+              type="text"
+              label="Cidade"
+              disable
+              lazy-rules
+              :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+              'Mínimo 3 caracteres']"
+            />
+            <q-input
+              outlined
+              v-model="seller.address.state"
+              type="text"
+              label="Estado"
+              disable
+              lazy-rules
+              :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+              'Mínimo 3 caracteres']"
+            />
+          </div>
+          <q-input
+            outlined
+            v-model="seller.password"
+            :type="isPwd ? 'password' : 'text'"
+            label="Senha"
+            lazy-rules
+            :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+            'Mínimo 3 caracteres']"
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="isPwd ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd = !isPwd"
+              />
+            </template>
+          </q-input>
+          <q-input
+            outlined
+            v-model="seller.confirmPassword"
+            :type="isPwd ? 'password' : 'text'"
+            label="Confirmar senha"
+            lazy-rules
+            :rules="[ val => val !== null && val != '' && val.length >= 3 ||
+            'Mínimo 3 caracteres']"
+          />
+          <!-- Fim do Bloco de inputs de dados do vendedor -->
 
-      </q-card-section>
+        </q-card-section>
 
-      <q-card-section>
+        <q-card-section>
 
-        <!-- Botão para confirmar dados -->
-        <q-btn class="btnAmber" label="Confirmar" rounded
-          @click="confirm"/>
+          <!-- Botão para confirmar dados -->
+          <q-btn class="btnAmber" label="Confirmar" rounded
+            type="submit"/>
 
-          <!-- Botão para excluir conta (visivel somente para atualização dos dados) -->
-        <q-btn class="btnCancel" label="Excluir Conta" rounded
-          @click="deleteSeller" v-if="alterarDados"/>
+            <!-- Botão para excluir conta (visivel somente para atualização dos dados) -->
+          <q-btn class="btnCancel" label="Excluir Conta" rounded
+            @click="deleteSeller" v-if="alterarDados"/>
 
-      </q-card-section>
-    </q-card>
+        </q-card-section>
+      </q-card>
+    </q-form>
   </q-page>
 </template>
 
@@ -216,11 +244,13 @@ export default {
     },
 
     msgCepFill() {
-      Swal.fire(
-        'Atenção!',
-        'Preencha o CEP corretamente',
-        'warning',
-      );
+      Swal.fire({
+        icon: 'warning',
+        title: 'Atenção!',
+        text: 'Preencha o CEP',
+        showConfirmButton: false,
+        timer: 3000,
+      });
     },
 
   },
