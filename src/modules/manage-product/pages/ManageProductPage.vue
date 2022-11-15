@@ -65,7 +65,7 @@
           @closeDialogEmit="closeDialog"
         />
 
-        <ConfirmDeletionComponent
+        <ModalConfirmComponent
           v-if="openDeleteDialog"
           @confirmDialogEmit="confirmDeletion"
           @closeDialogEmit="closeDialog"
@@ -87,7 +87,7 @@ import { mapActions, mapGetters } from 'vuex';
 import TableComponent from 'src/common/components/TableComponent.vue';
 import LoadingComponent from 'src/common/components/LoadingComponent.vue';
 import ContentAlertComponent from 'src/common/components/ContentAlertComponent.vue';
-import ConfirmDeletionComponent from 'src/common/components/ConfirmDeletionComponent.vue';
+import ModalConfirmComponent from 'src/common/components/ModalConfirmComponent.vue';
 import FormNewProduct from '../components/FormNewProduct.vue';
 
 export default {
@@ -97,7 +97,7 @@ export default {
     TableComponent,
     ContentAlertComponent,
     FormNewProduct,
-    ConfirmDeletionComponent,
+    ModalConfirmComponent,
     LoadingComponent,
   },
 
