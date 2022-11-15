@@ -43,9 +43,9 @@
 
       </div>
 
-      <ConfirmDeletionComponent
+      <ModalConfirmComponent
         v-if="openDeleteDialog"
-        @confirmDialogEmit="confirmDeletion"
+        @confirmDialogEmit="confirmBlock"
         @closeDialogEmit="closeDialog"
       />
 
@@ -63,7 +63,7 @@ import { mapGetters, mapActions } from 'vuex';
 import TableComponent from 'src/common/components/TableComponent.vue';
 import LoadingComponent from 'src/common/components/LoadingComponent.vue';
 import ContentAlertComponent from 'src/common/components/ContentAlertComponent.vue';
-import ConfirmDeletionComponent from 'src/common/components/ConfirmDeletionComponent.vue';
+import ModalConfirmComponent from 'src/common/components/ModalConfirmComponent.vue';
 
 export default {
   name: 'ManageSellerPage',
@@ -72,7 +72,7 @@ export default {
     TableComponent,
     LoadingComponent,
     ContentAlertComponent,
-    ConfirmDeletionComponent,
+    ModalConfirmComponent,
   },
 
   data() {
@@ -127,7 +127,7 @@ export default {
       console.log('this.selected', this.selected);
     },
 
-    confirmDeletion() {
+    confirmBlock() {
       this.deleteSeller(this.selected);
       this.selected = [];
       this.openDeleteDialog = false;
