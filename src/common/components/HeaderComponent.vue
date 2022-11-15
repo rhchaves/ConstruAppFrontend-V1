@@ -91,18 +91,35 @@
           </div>
 
           <!-- Carrinho -->
-          <q-btn
-            class="q-mr-lg"
-            flat
-            icon="shopping_cart"
-            to="shopping-cart"
-            v-if="getUserAddress.logradouro || getUser.userType === 3"
-          >
-            <q-badge rounded class="q-mr-sm q-mt-xs" color="red" text-color="white" floating>
-              <!-- alterar para retorno da quantidade de itens no carrinho -->
-              {{ getCartList.length }}
-            </q-badge>
-          </q-btn>
+
+          <div v-if="getCartList">
+            <q-btn
+              class="q-mr-lg"
+              flat
+              icon="shopping_cart"
+              to="shopping-cart"
+              v-if="getUserAddress.logradouro || getUser.userType === 3"
+              >
+              <q-badge rounded class="q-mr-sm q-mt-xs" color="red" text-color="white" floating>
+                <!-- alterar para retorno da quantidade de itens no carrinho -->
+                {{ getCartList.length }}
+              </q-badge>
+            </q-btn>
+          </div>
+
+          <div v-if="!getCartList">
+            <q-btn
+              class="q-mr-lg"
+              flat
+              icon="shopping_cart"
+              v-if="getUserAddress.logradouro || getUser.userType === 3"
+              >
+              <q-badge rounded class="q-mr-sm q-mt-xs" color="red" text-color="white" floating>
+                <!-- alterar para retorno da quantidade de itens no carrinho -->
+                {{ getCartList.length }}
+              </q-badge>
+            </q-btn>
+          </div>
 
           <div class="q-ml-xl"></div>
 
