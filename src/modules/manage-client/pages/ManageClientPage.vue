@@ -43,9 +43,9 @@
 
       </div>
 
-      <ConfirmDeletionComponent
-        v-if="openDeleteDialog"
-        @confirmDialogEmit="confirmDeletion"
+      <ModalConfirmComponent
+        v-if="openConfirmDialog"
+        @confirmDialogEmit="confirmBlock"
         @closeDialogEmit="closeDialog"
       />
 
@@ -64,7 +64,7 @@ import { mapGetters, mapActions } from 'vuex';
 import TableComponent from 'src/common/components/TableComponent.vue';
 import LoadingComponent from 'src/common/components/LoadingComponent.vue';
 import ContentAlertComponent from 'src/common/components/ContentAlertComponent.vue';
-import ConfirmDeletionComponent from 'src/common/components/ConfirmDeletionComponent.vue';
+import ModalConfirmComponent from 'src/common/components/ModalConfirmComponent.vue';
 
 export default {
   name: 'ManageClientPage',
@@ -73,7 +73,7 @@ export default {
     TableComponent,
     LoadingComponent,
     ContentAlertComponent,
-    ConfirmDeletionComponent,
+    ModalConfirmComponent,
   },
 
   data() {
@@ -83,7 +83,7 @@ export default {
       formType: 'save',
       showDialog: false,
       selected: [],
-      openDeleteDialog: false,
+      openConfirmDialog: false,
 
       columns: [
         {
@@ -127,21 +127,21 @@ export default {
       this.selected = item;
     },
 
-    confirmDeletion() {
+    confirmBlock() {
       // this.deleteClient(this.selected);
       this.selected = [];
-      this.openDeleteDialog = false;
+      this.openConfirmDialog = false;
     },
 
     openDialog() {
       if (this.selected.length === 1) {
-        this.openDeleteDialog = true;
+        this.openConfirmDialog = true;
       }
     },
 
     closeDialog() {
       this.showDialog = false;
-      this.openDeleteDialog = false;
+      this.openConfirmDialog = false;
     },
   },
 

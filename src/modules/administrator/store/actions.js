@@ -1,21 +1,19 @@
 import HttpClient from 'src/common/boot/HttpClient';
 
-// Apenas para exemplo de requisição
-
 // //////////////////////////////////////////////////////
-const teste = async ({ commit }, payload) => {
-  commit('SEARCHING', true);
+const listAdmins = async ({ commit }, payload) => {
+  commit('LOADING', true);
 
-  await HttpClient.get('/app/menus', payload).then((response) => {
-    commit('LIST_DATA', response.data.data);
+  await HttpClient.get('administrator', payload).then((response) => {
+    console.log('este response', response.data);
+    commit('LIST_ADMIN', response.data);
     return response;
-  })
-    .finally(() => {
-      commit('SEARCHING', false);
-    });
+  }).finally(() => {
+    commit('LOADING', false);
+  });
 };
 // //////////////////////////////////////////////////////
 
 export {
-  teste,
+  listAdmins,
 };

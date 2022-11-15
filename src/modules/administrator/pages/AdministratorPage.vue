@@ -6,7 +6,8 @@
     </div>
 
     <section class="justify-center">
-      <div class="col q-ma-xl">
+      <div class="col q-ma-xl"
+        v-if="this.typeAdmin === 1">
         <q-btn
           class="btnAmber"
           type="text"
@@ -19,7 +20,8 @@
         </q-btn>
       </div>
 
-      <div class="col q-ma-xl">
+      <div class="col q-ma-xl"
+        v-if="this.typeAdmin === 1 || this.typeAdmin === 2 || this.typeAdmin === 3">
         <q-btn
           class="btnAmber"
           type="text"
@@ -32,7 +34,8 @@
         </q-btn>
       </div>
 
-      <div class="col q-ma-xl">
+      <div class="col q-ma-xl"
+        v-if="this.typeAdmin === 1 || this.typeAdmin === 2 || this.typeAdmin === 4">
         <q-btn
           class="btnAmber"
           type="text"
@@ -45,7 +48,8 @@
         </q-btn>
       </div>
 
-      <div class="col q-ma-xl">
+      <div class="col q-ma-xl"
+        v-if="this.typeAdmin === 1 || this.typeAdmin === 2 || this.typeAdmin === 5">
         <q-btn
           class="btnAmber"
           type="text"
@@ -63,31 +67,51 @@
 </template>
 
 <script>
+
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
   name: 'AdministratorPage',
 
   data() {
     return {
-
+      admin: 0,
+      typeAdmin: 0,
+      adminTypeEnum: {
+        masterAdmin: 1,
+        geralAdmin: 2,
+        productAdmin: 3,
+        sellerAdmin: 4,
+        clientAdmin: 5,
+      },
     };
   },
 
+  created() {
+    this.listAdmins();
+    this.administrator();
+  },
+
+  computed: {
+    ...mapGetters('administrator', ['getAdmins', 'getTypeAdmin']),
+    ...mapGetters('login', ['getUser']),
+  },
+
   methods: {
-    manageAdmin() {
-      console.log('Gerenciar Admin');
+
+    ...mapActions('administrator', ['listAdmins']),
+
+    administrator() {
+      setTimeout(() => {
+        this.getAdmins.forEach((item) => {
+          if (item.id === this.getUser.id) {
+            console.log('item', item);
+            this.typeAdmin = item.type_admin;
+          }
+        });
+      }, 2000);
     },
 
-    manageProduct() {
-      console.log('Gerenciar Produto');
-    },
-
-    manageSeller() {
-      console.log('Gerenciar Vendedor');
-    },
-
-    manageClient() {
-      console.log('Gerenciar Cliente');
-    },
   },
 
 };

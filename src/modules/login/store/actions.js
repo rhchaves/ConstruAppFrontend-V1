@@ -12,12 +12,15 @@ const login = async ({ commit }, payload) => {
     commit('LOGIN_USER', loginData.data.user);
     commit('SETAR_TOKEN', loginData.data.token);
   } catch (error) {
-    console.log('Este erro', error.code);
+    console.log('Este erro', error.message);
+
     if (error.message === 'Request failed with status code 403') {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Usuário ou senha não identificado',
+        text: 'Usuário ou senha incorreto',
+        showConfirmButton: false,
+        timer: 3000,
       });
     }
   } finally {

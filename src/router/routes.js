@@ -9,6 +9,7 @@ import ManageSellerRoute from '../modules/manage-seller/routes';
 import ProductRoute from '../modules/product/routes';
 import RegisterClientRoute from '../modules/register-client/routes';
 import RegisterSellerRoute from '../modules/register-seller/routes';
+import SellerRoute from '../modules/seller/routes';
 import ShoppingCartRoute from '../modules/shopping-cart/routes';
 
 const routes = [
@@ -28,6 +29,7 @@ const routes = [
       ...ProductRoute,
       ...RegisterClientRoute,
       ...RegisterSellerRoute,
+      ...SellerRoute,
       ...ShoppingCartRoute,
     ],
   },

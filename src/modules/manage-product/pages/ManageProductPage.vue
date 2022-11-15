@@ -65,8 +65,8 @@
           @closeDialogEmit="closeDialog"
         />
 
-        <ConfirmDeletionComponent
-          v-if="openDeleteDialog"
+        <ModalConfirmComponent
+          v-if="openConfirmDialog"
           @confirmDialogEmit="confirmDeletion"
           @closeDialogEmit="closeDialog"
         />
@@ -87,7 +87,7 @@ import { mapActions, mapGetters } from 'vuex';
 import TableComponent from 'src/common/components/TableComponent.vue';
 import LoadingComponent from 'src/common/components/LoadingComponent.vue';
 import ContentAlertComponent from 'src/common/components/ContentAlertComponent.vue';
-import ConfirmDeletionComponent from 'src/common/components/ConfirmDeletionComponent.vue';
+import ModalConfirmComponent from 'src/common/components/ModalConfirmComponent.vue';
 import FormNewProduct from '../components/FormNewProduct.vue';
 
 export default {
@@ -97,7 +97,7 @@ export default {
     TableComponent,
     ContentAlertComponent,
     FormNewProduct,
-    ConfirmDeletionComponent,
+    ModalConfirmComponent,
     LoadingComponent,
   },
 
@@ -108,7 +108,7 @@ export default {
       formType: 'save',
       showDialog: false,
       selected: [],
-      openDeleteDialog: false,
+      openConfirmDialog: false,
 
       columns: [
         {
@@ -183,18 +183,18 @@ export default {
     confirmDeletion() {
       this.deleteProduct(this.selected);
       this.selected = [];
-      this.openDeleteDialog = false;
+      this.openConfirmDialog = false;
     },
 
     openDialog() {
       if (this.selected.length === 1) {
-        this.openDeleteDialog = true;
+        this.openConfirmDialog = true;
       }
     },
 
     closeDialog() {
       this.showDialog = false;
-      this.openDeleteDialog = false;
+      this.openConfirmDialog = false;
     },
   },
 

@@ -1,5 +1,5 @@
 export default {
   searching: false,
-  searchedAddress: '',
-  userAddress: '',
+  searchedAddress: {},
+  userAddress: {},
 };

@@ -14,8 +14,19 @@
         </q-card-section>
 
         <q-card-section class="row justify-center q-gutter-md">
-          <q-btn class="btnCancel sizeBtn3 q-ma-md" @click="closeDialog"> Cancelar </q-btn>
-          <q-btn class="btnAmber sizeBtn3 q-ma-md" @click="confirmDialog"> Confirmar </q-btn>
+          <q-btn
+            class="btnCancel sizeBtn3 q-ma-md"
+            rounded
+            @click="closeDialog"
+          >Cancelar
+          </q-btn>
+
+          <q-btn
+            class="btnAmber sizeBtn3 q-ma-md"
+            rounded
+            @click="confirmDialog"
+          >Confirmar
+          </q-btn>
         </q-card-section>
 
       </q-card>
@@ -26,7 +37,7 @@
 
 <script>
 export default {
-  name: 'ConfirmDeletionComponent',
+  name: 'ModalConfirmComponent',
 
   props: {
     title: {

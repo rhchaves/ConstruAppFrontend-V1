@@ -16,6 +16,7 @@ import manageSeller from '../modules/manage-seller/store';
 import product from '../modules/product/store';
 import registerClient from '../modules/register-client/store';
 import registerSeller from '../modules/register-seller/store';
+import seller from '../modules/seller/store';
 import shoppingCart from '../modules/shopping-cart/store';
 
 /*
@@ -41,6 +42,7 @@ export default function (/* { ssrContext } */) {
       product,
       registerClient,
       registerSeller,
+      seller,
       shoppingCart,
     },
 

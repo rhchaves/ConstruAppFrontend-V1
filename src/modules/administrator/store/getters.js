@@ -1,5 +1,11 @@
-const searchingTeste = (state) => state.searching;
+const getLoading = (state) => state.loading;
+
+const getAdmins = (state) => state.admins;
+
+const getTypeAdmin = (state) => state.typeAdmin;
 
 export {
-  searchingTeste,
+  getLoading,
+  getAdmins,
+  getTypeAdmin,
 };

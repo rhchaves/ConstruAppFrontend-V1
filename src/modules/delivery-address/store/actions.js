@@ -6,7 +6,6 @@ const searchAddress = ({ commit }, payload) => {
 
   axios.get(`https://viacep.com.br/ws/${payload}/json`).then((response) => {
     commit('SEARCHED_ADDRESS', response.data);
-    console.log('Print da actions', response.data);
     return response.data;
   }).catch((error) => {
     console.log('Erro na requisição', error);
