@@ -38,9 +38,32 @@ const deleteSeller = async ({ commit }, payload) => {
   });
 };
 // //////////////////////////////////////////////////////
+const blockSeller = async ({ commit }, payload) => {
+  commit('LOADING', true);
+
+  const seller = payload[0];
+
+  if (seller.status === 0) {
+    seller.status = 1;
+  } else {
+    seller.status = 0;
+  }
+
+  console.log('blockSeller', payload);
+
+  return HttpClient.put(`/seller/${payload[0].id}`, seller).then((response) => {
+    console.log('response.data', response.data);
+    // commit('BLOCK_SELLER', seller);
+    return response;
+  }).finally(() => {
+    commit('LOADING', false);
+  });
+};
+// //////////////////////////////////////////////////////
 
 export {
   changeSeller,
   listAllSellers,
   deleteSeller,
+  blockSeller,
 };

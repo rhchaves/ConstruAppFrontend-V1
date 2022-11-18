@@ -6,7 +6,7 @@ const listAllAdmins = async ({ commit }) => {
 
   HttpClient.get('/administrator').then((response) => {
     commit('INSERT_LIST_ADMINS', response.data);
-    console.log('listAllAdmin', response.data);
+    console.log('listAllAdmins', response.data);
     return response;
   }).catch((error) => {
     console.log('Erro na requisição', error);
@@ -56,10 +56,31 @@ const deleteAdmin = async ({ commit }, payload) => {
   });
 };
 // //////////////////////////////////////////////////////
+const blockAdmin = async ({ commit }, payload) => {
+  commit('LOADING', true);
+
+  const admin = payload[0];
+
+  if (admin.status === 0) {
+    admin.status = 1;
+  } else {
+    admin.status = 0;
+  }
+
+  return HttpClient.patch(`/administrator/${payload[0].id}`, admin).then((response) => {
+    console.log('response.data', response.data);
+    // commit('BLOCK_ADMIN', admin);
+    return response;
+  }).finally(() => {
+    commit('LOADING', false);
+  });
+};
+// //////////////////////////////////////////////////////
 
 export {
   listAllAdmins,
   addNewAdmin,
   updateAdmin,
   deleteAdmin,
+  blockAdmin,
 };

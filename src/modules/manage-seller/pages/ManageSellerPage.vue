@@ -28,7 +28,7 @@
             rounded
             @click="openDialog"
           >
-            Excluir Cadastro
+            Bloquear/Desbloquear
           </q-btn>
 
           <q-btn
@@ -120,7 +120,7 @@ export default {
 
   methods: {
 
-    ...mapActions('manageSeller', ['listAllSellers', 'deleteSeller']),
+    ...mapActions('manageSeller', ['listAllSellers', 'deleteSeller', 'blockSeller']),
 
     sellerSelected(item) {
       this.selected = item;
@@ -128,7 +128,7 @@ export default {
     },
 
     confirmBlock() {
-      this.deleteSeller(this.selected);
+      this.blockSeller(this.selected);
       this.selected = [];
       this.openConfirmDialog = false;
     },

@@ -30,21 +30,30 @@
             Cadastrar Novo Produto
           </q-btn>
 
-          <q-btn
+          <!-- <q-btn
             class="btnAmber q-ma-md"
             type="text"
             rounded
           >
             Confirmar itens à venda
+          </q-btn> -->
+
+          <q-btn
+            class="btnAmber q-ma-md"
+            type="text"
+            rounded
+            @click="deleteDialog"
+          >
+            Excluir Produto
           </q-btn>
 
           <q-btn
             class="btnAmber q-ma-md"
             type="text"
             rounded
-            @click="openDialog"
+            @click="confirmDialog"
           >
-            Excluir Produto
+            Bloquear/Desbloquear
           </q-btn>
 
           <q-btn
@@ -67,6 +76,14 @@
 
         <ModalConfirmComponent
           v-if="openConfirmDialog"
+          title="Confirmar bloqueio do Produto"
+          @confirmDialogEmit="confirmBlock"
+          @closeDialogEmit="closeDialog"
+        />
+
+        <ModalConfirmComponent
+          v-if="openDeleteDialog"
+          title="Confirmar deleção do Produto"
           @confirmDialogEmit="confirmDeletion"
           @closeDialogEmit="closeDialog"
         />
@@ -103,12 +120,12 @@ export default {
 
   data() {
     return {
-
       product: [],
       formType: 'save',
       showDialog: false,
       selected: [],
       openConfirmDialog: false,
+      openDeleteDialog: false,
 
       columns: [
         {
@@ -160,7 +177,7 @@ export default {
 
   methods: {
 
-    ...mapActions('manageProduct', ['listAllProducts', 'deleteProduct']),
+    ...mapActions('manageProduct', ['listAllProducts', 'deleteProduct', 'blockProduct']),
 
     addNewProduct() {
       this.formType = 'save';
@@ -181,20 +198,32 @@ export default {
     },
 
     confirmDeletion() {
+      console.log('this.selected', this.selected);
       this.deleteProduct(this.selected);
+      this.selected = [];
+      this.openDeleteDialog = false;
+    },
+
+    confirmBlock() {
+      this.blockProduct(this.selected);
       this.selected = [];
       this.openConfirmDialog = false;
     },
 
-    openDialog() {
+    confirmDialog() {
       if (this.selected.length === 1) {
         this.openConfirmDialog = true;
       }
     },
 
+    deleteDialog() {
+      this.openDeleteDialog = true;
+    },
+
     closeDialog() {
       this.showDialog = false;
       this.openConfirmDialog = false;
+      this.openDeleteDialog = false;
     },
   },
 

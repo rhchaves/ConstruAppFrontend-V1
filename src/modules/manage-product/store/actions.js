@@ -37,16 +37,34 @@ const updateProduct = async ({ commit }, payload) => {
 const deleteProduct = async ({ commit }, payload) => {
   commit('LOADING', true);
 
-  console.log('deleteProduct', payload);
+  payload.forEach((product) => HttpClient.delete(`/product/${product.id}`).then((response) => {
+    commit('DELETE_PRODUCT', product);
+    return response;
+  }).finally(() => {
+    commit('LOADING', false);
+  }));
+};
 
-  return HttpClient.delete(`/product/${payload[0].id}`).then((response) => {
-    commit('DELETE_PRODUCT', payload[0]);
+// //////////////////////////////////////////////////////
+const blockProduct = async ({ commit }, payload) => {
+  commit('LOADING', true);
+
+  const product = payload[0];
+
+  if (product.status === 0) {
+    product.status = 1;
+  } else {
+    product.status = 0;
+  }
+
+  return HttpClient.patch(`/product/${payload[0].id}`, product).then((response) => {
+    console.log('response.data', response.data);
+    // commit('BLOCK_PRODUCT', product);
     return response;
   }).finally(() => {
     commit('LOADING', false);
   });
 };
-
 // //////////////////////////////////////////////////////
 
 export {
@@ -54,4 +72,5 @@ export {
   listAllProducts,
   updateProduct,
   deleteProduct,
+  blockProduct,
 };
