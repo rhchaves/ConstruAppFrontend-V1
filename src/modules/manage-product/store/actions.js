@@ -25,12 +25,32 @@ const listAllProducts = async ({ commit }) => {
 };
 
 // //////////////////////////////////////////////////////
-const updateProduct = async ({ commit }, payload) => {
+const updateProduct = async ({ commit }, payload, user) => {
   commit('LOADING', true);
 
-  commit('CHANGE_PRODUCT', payload);
+  console.log('payload', payload, user);
+  console.log('payload e user', user);
+  const payloadData = {
+    id: payload.id,
+    category: payload.category,
+    name: payload.name,
+    label: payload.label,
+    description: payload.description,
+    price: payload.price,
+    product_mark: payload.product_mark,
+    image: payload.image,
+    update_by: user,
+  };
 
-  commit('LOADING', false);
+  console.log('payloadData', payloadData);
+
+  await HttpClient.patch(`/product/${payload.id}`, payloadData).then((response) => {
+    console.log(payloadData);
+    commit('CHANGE_PRODUCT', payload);
+    return response;
+  }).finally(() => {
+    commit('LOADING', false);
+  });
 };
 
 // //////////////////////////////////////////////////////

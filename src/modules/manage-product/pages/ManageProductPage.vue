@@ -27,16 +27,17 @@
             rounded
             @click="addNewProduct"
           >
-            Cadastrar Novo Produto
+            Cadastrar
           </q-btn>
 
-          <!-- <q-btn
+          <q-btn
             class="btnAmber q-ma-md"
             type="text"
             rounded
+            @click="updateDialog"
           >
-            Confirmar itens à venda
-          </q-btn> -->
+            Alterar
+          </q-btn>
 
           <q-btn
             class="btnAmber q-ma-md"
@@ -44,7 +45,7 @@
             rounded
             @click="deleteDialog"
           >
-            Excluir Produto
+            Excluir
           </q-btn>
 
           <q-btn
@@ -68,8 +69,15 @@
         </div>
 
         <FormNewProduct
-          v-if="showDialog"
-          :adminUser="product[0]"
+          v-if="newProductDialog"
+          :product="product[0]"
+          :formType="formType"
+          @closeDialogEmit="closeDialog"
+        />
+
+        <FormNewProduct
+          v-if="updateProductDialog"
+          :product="product[0]"
           :formType="formType"
           @closeDialogEmit="closeDialog"
         />
@@ -122,8 +130,9 @@ export default {
     return {
       product: [],
       formType: 'save',
-      showDialog: false,
       selected: [],
+      newProductDialog: false,
+      updateProductDialog: false,
       openConfirmDialog: false,
       openDeleteDialog: false,
 
@@ -182,14 +191,15 @@ export default {
     addNewProduct() {
       this.formType = 'save';
       this.product = [];
-      this.showDialog = true;
+      this.newProductDialog = true;
     },
 
-    changeProduct() {
+    updateDialog() {
       if (this.selected.length === 1) {
         this.formType = 'edit';
+        console.log('this.selected', this.selected);
         this.product = this.selected;
-        this.showDialog = true;
+        this.updateProductDialog = true;
       }
     },
 
@@ -198,7 +208,6 @@ export default {
     },
 
     confirmDeletion() {
-      console.log('this.selected', this.selected);
       this.deleteProduct(this.selected);
       this.selected = [];
       this.openDeleteDialog = false;
@@ -221,7 +230,8 @@ export default {
     },
 
     closeDialog() {
-      this.showDialog = false;
+      this.newProductDialog = false;
+      this.updateProductDialog = false;
       this.openConfirmDialog = false;
       this.openDeleteDialog = false;
     },
