@@ -1,6 +1,8 @@
 <template>
   <q-page class="row justify-center">
-    <section class="row justify-center" style="max-width: 1300px">
+    <section class="row justify-center" style="max-width: 1300px"
+      v-if="getListProducts.length && !getListProductsFilter.length"
+    >
       <CardProductComponent
         v-for="product in getListProducts"
         :key="product.id"
@@ -12,6 +14,23 @@
         @addFavoriteItemEmit="addFavoriteProduct(product)"
         @shareItemEmit="shareProduct(product)"
         @buyItemEmit="buyProduct(product)"
+      />
+    </section>
+
+    <section class="row justify-center" style="max-width: 1300px"
+      v-if="getListProductsFilter.length"
+    >
+      <CardProductComponent
+        v-for="productFilter in getListProductsFilter"
+        :key="productFilter.id"
+        :idItem="productFilter.id"
+        :labelItem="productFilter.label"
+        :priceItem="productFilter.price"
+        :imageItem="productFilter.image"
+        @addCartItemEmit="addProduct(productFilter)"
+        @addFavoriteItemEmit="addFavoriteProduct(productFilter)"
+        @shareItemEmit="shareProduct(productFilter)"
+        @buyItemEmit="buyProduct(productFilter)"
       />
     </section>
 
@@ -45,11 +64,10 @@ export default {
 
   created() {
     this.listAllProducts();
-    console.log('this.getListProducts', this.getListProducts);
   },
 
   computed: {
-    ...mapGetters('manageProduct', ['getListProducts']),
+    ...mapGetters('manageProduct', ['getListProducts', 'getListProductsFilter']),
     ...mapGetters('shoppingCart', ['getCartList']),
   },
 

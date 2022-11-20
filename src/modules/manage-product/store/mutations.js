@@ -23,10 +23,20 @@ const DELETE_PRODUCT = (state, payload) => {
   state.products = state.products.filter((products) => products.id !== payload.id);
 };
 
+const LIST_FILTER_PRODUCTS = (state, payload) => {
+  state.filteredProducts.push(payload);
+};
+
+const CLEAR_LIST_FILTER_PRODUCTS = (state) => {
+  state.filteredProducts = [];
+};
+
 export {
   LOADING,
   INSERT_NEW_PRODUCT,
   INSERT_LIST_PRODUCTS,
   CHANGE_PRODUCT,
   DELETE_PRODUCT,
+  LIST_FILTER_PRODUCTS,
+  CLEAR_LIST_FILTER_PRODUCTS,
 };

@@ -1,6 +1,8 @@
 <template>
   <q-page>
-    <CategoriesComponent />
+    <CategoriesComponent
+      @categoriesEmit="filterCategories"
+    />
     <ContentMainPage />
   </q-page>
 </template>
@@ -42,6 +44,7 @@ export default {
 
   methods: {
     ...mapActions('deliveryAddress', ['searchAddress', 'saveAddress']),
+    ...mapActions('manageProduct', ['listAllFilteredProducts']),
 
     showPageFunc() {
       if (this.getUserAddress) {
@@ -57,6 +60,10 @@ export default {
         this.showPage = false;
         console.log('Show page', this.showPage);
       }
+    },
+
+    filterCategories(categories) {
+      this.listAllFilteredProducts(categories);
     },
 
   },

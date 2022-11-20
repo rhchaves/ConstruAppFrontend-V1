@@ -6,7 +6,7 @@
         :key="category.name"
         class="btnAmber categories"
         :label="category.label"
-        @click="categories(category.name)"
+        @click="filterCategories(category.name)"
       />
 
       <!-- <q-toolbar class="btnAmber">
@@ -47,8 +47,8 @@ export default {
   },
 
   methods: {
-    categories(item) {
-      console.log('Clicou na categoria: ', item);
+    filterCategories(categories) {
+      this.$emit('categoriesEmit', categories);
     },
   },
 };

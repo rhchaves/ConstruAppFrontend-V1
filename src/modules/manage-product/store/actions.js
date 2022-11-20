@@ -25,6 +25,20 @@ const listAllProducts = async ({ commit }) => {
 };
 
 // //////////////////////////////////////////////////////
+const listAllFilteredProducts = async ({ commit, state }, payload) => {
+  commit('LOADING', true);
+  commit('CLEAR_LIST_FILTER_PRODUCTS');
+  const productsList = state.products;
+  productsList.filter((item) => {
+    if (item.category === payload) {
+      commit('LIST_FILTER_PRODUCTS', item);
+    }
+    return item;
+  });
+  commit('LOADING', false);
+};
+
+// //////////////////////////////////////////////////////
 const updateProduct = async ({ commit }, payload) => {
   commit('LOADING', true);
 
@@ -52,6 +66,7 @@ const deleteProduct = async ({ commit }, payload) => {
 export {
   addNewProduct,
   listAllProducts,
+  listAllFilteredProducts,
   updateProduct,
   deleteProduct,
 };
