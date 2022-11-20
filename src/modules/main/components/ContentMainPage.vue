@@ -1,10 +1,10 @@
 <template>
   <q-page class="row justify-center">
     <section class="row justify-center" style="max-width: 1300px"
-      v-if="getListProducts.length && !getListProductsFilter.length"
+      v-if="getTopSellingProducts.length && !getListProductsFilter.length"
     >
       <CardProductComponent
-        v-for="product in getListProducts"
+        v-for="product in getTopSellingProducts"
         :key="product.id"
         :idItem="product.id"
         :labelItem="product.label"
@@ -35,7 +35,7 @@
     </section>
 
     <ContentAlertComponent
-      v-if="!getListProducts.length"
+      v-if="!getTopSellingProducts.length"
     />
   </q-page>
 </template>
@@ -64,10 +64,13 @@ export default {
 
   created() {
     this.listAllProducts();
+    setTimeout(() => {
+      this.listTopSellingProducts();
+    }, 1000);
   },
 
   computed: {
-    ...mapGetters('manageProduct', ['getListProducts', 'getListProductsFilter']),
+    ...mapGetters('manageProduct', ['getListProducts', 'getListProductsFilter', 'getTopSellingProducts']),
     ...mapGetters('shoppingCart', ['getCartList']),
   },
 
@@ -75,7 +78,7 @@ export default {
     ...mapActions('main', ['listCep']),
     ...mapActions('shoppingCart', ['addProductCart']),
     ...mapActions('product', ['insertProductPage']),
-    ...mapActions('manageProduct', ['listAllProducts']),
+    ...mapActions('manageProduct', ['listAllProducts', 'listTopSellingProducts']),
 
     onSubmit() {
       console.log('Clicou em buscar:', this.search);

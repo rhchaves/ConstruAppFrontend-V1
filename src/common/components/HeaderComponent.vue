@@ -167,6 +167,7 @@ export default {
   // Funções
   methods: {
     ...mapActions('login', ['logout']),
+    ...mapActions('product', ['filterProduct']),
 
     redirectLogo() {
       if (this.getLogado) {
@@ -191,7 +192,8 @@ export default {
 
     // enviar palavra chave da pesquisa
     searchProduct(item) {
-      console.log('Clicou em pesquisar o item: ', item);
+      this.filterProduct(item);
+      this.$router.push('product');
       this.search = '';
     },
 

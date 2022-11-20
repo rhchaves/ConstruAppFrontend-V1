@@ -39,6 +39,20 @@ const listAllFilteredProducts = async ({ commit, state }, payload) => {
 };
 
 // //////////////////////////////////////////////////////
+const listTopSellingProducts = async ({ commit, state }) => {
+  commit('LOADING', true);
+  commit('CLEAR_TOP_SELLING_PRODUCTS');
+  const productsList = state.products;
+  productsList.filter((item) => {
+    if (item.id <= 8) {
+      commit('TOP_SELLER_PRODUCTS', item);
+    }
+    return item;
+  });
+  commit('LOADING', false);
+};
+
+// //////////////////////////////////////////////////////
 const updateProduct = async ({ commit }, payload) => {
   commit('LOADING', true);
 
@@ -67,6 +81,7 @@ export {
   addNewProduct,
   listAllProducts,
   listAllFilteredProducts,
+  listTopSellingProducts,
   updateProduct,
   deleteProduct,
 };
