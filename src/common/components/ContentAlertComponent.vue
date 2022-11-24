@@ -27,7 +27,7 @@ export default {
     content: {
       type: String,
       required: false,
-      default: 'Não encontramos resultados para este recurso.',
+      default: 'Não encontramos nenhum resultado para essa busca.',
     },
   },
 };

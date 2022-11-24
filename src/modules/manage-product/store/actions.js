@@ -14,9 +14,17 @@ const listAllProducts = async ({ commit }) => {
   commit('LOADING', true);
 
   HttpClient.get('/product').then((response) => {
-    commit('INSERT_LIST_PRODUCTS', response.data);
-    console.log('listAllProducts', response.data);
-    return response;
+    const products = response.data;
+
+    products.forEach((item) => {
+      // item.image = `src/assets/img/${item.name}`;
+      item.image = `public/img/${item.name}`;
+      commit('INSERT_LIST_PRODUCTS', item);
+      console.log('listAllProducts', item);
+    });
+    // commit('INSERT_LIST_PRODUCTS', response.data);
+    // console.log('listAllProducts', response.data);
+    return products;
   }).catch((error) => {
     console.log('Erro na requisição da lista', error);
   }).finally(() => {

@@ -7,7 +7,8 @@ const INSERT_NEW_PRODUCT = (state, payload) => {
 };
 
 const INSERT_LIST_PRODUCTS = (state, payload) => {
-  state.products = payload;
+  // state.products = payload;
+  state.products.push(payload);
 };
 
 const CHANGE_PRODUCT = (state, payload) => {

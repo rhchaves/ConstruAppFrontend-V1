@@ -9,11 +9,14 @@
           :src="imageItem"
           :alt="altImageItem"
         />
+
+        <!-- src="~/img/fita-isolante.jpg" -->
+
         <!-- exibir botões -->
         <q-card-actions vertical class="justify-aroun">
           <q-btn class="btnAmber" icon="add_shopping_cart" @click="addCartItem(idItem)"/>
-          <q-btn class="btnAmber" icon="favorite_border" @click="addFavoriteItem(idItem)"/>
-          <q-btn class="btnAmber" icon="share" @click="shareItem(idItem)"/>
+          <!-- <q-btn class="btnAmber" icon="favorite_border" @click="addFavoriteItem(idItem)"/> -->
+          <!-- <q-btn class="btnAmber" icon="share" @click="shareItem(idItem)"/> -->
         </q-card-actions>
 
       </q-card-section>

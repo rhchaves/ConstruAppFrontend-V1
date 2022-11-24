@@ -8,7 +8,7 @@
       :selected-rows-label="getSelectedString"
       :selection="selectionType"
       :selected.sync="selected"
-      style="max-width: 1300px"
+      style="max-width: 1000px"
     >
       <!-- <template v-slot:header-cell-fat="props">
         <q-th :props="props">
