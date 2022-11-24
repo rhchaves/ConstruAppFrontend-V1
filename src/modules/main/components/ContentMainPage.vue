@@ -9,7 +9,7 @@
         :idItem="product.id"
         :labelItem="product.label"
         :priceItem="product.price"
-        imageItem="/public/img/fita-isolante"
+        :imageItem="product.image"
         @addCartItemEmit="addProduct(product)"
         @addFavoriteItemEmit="addFavoriteProduct(product)"
         @shareItemEmit="shareProduct(product)"

@@ -17,13 +17,12 @@ const listAllProducts = async ({ commit }) => {
     const products = response.data;
 
     products.forEach((item) => {
-      // item.image = `src/assets/img/${item.name}`;
-      item.image = `public/img/${item.name}`;
+      item.image = `~/assets/img/${item.name}.jpg`;
       commit('INSERT_LIST_PRODUCTS', item);
-      console.log('listAllProducts', item);
+      // console.log('Inserido produto: ', item);
     });
     // commit('INSERT_LIST_PRODUCTS', response.data);
-    // console.log('listAllProducts', response.data);
+    console.log('listAllProducts', products);
     return products;
   }).catch((error) => {
     console.log('Erro na requisição da lista', error);

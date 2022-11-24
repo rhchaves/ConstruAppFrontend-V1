@@ -6,11 +6,13 @@
         <!-- carrega a imagem do card -->
         <q-img
           class="col q-ma-sm"
-          :src="imageItem"
-          :alt="altImageItem"
-        />
-
-        <!-- src="~/img/fita-isolante.jpg" -->
+          src="~/assets/img/alicate-universal-gedore.jpg"
+          alt="altImageItem"
+          />
+          <!-- {{imageItem}} -->
+          <!-- src="~/assets/img/alicate-universal-gedore.jpg" -->
+          <!-- src="~/assets/img/fita-isolante.jpg" -->
+          <!-- {{imageItem}} -->
 
         <!-- exibir botões -->
         <q-card-actions vertical class="justify-aroun">
