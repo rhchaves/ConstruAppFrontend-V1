@@ -168,6 +168,7 @@ export default {
   methods: {
     ...mapActions('login', ['logout']),
     ...mapActions('product', ['filterProduct']),
+    ...mapActions('manageProduct', ['resetCategoryProduct']),
 
     redirectLogo() {
       if (this.getLogado) {
@@ -180,7 +181,10 @@ export default {
         }
 
         if (this.getUser.userType === this.userTypeEnum.client) {
-          this.$router.push('main');
+          if (this.$route.name !== 'main') {
+            this.$router.push('main');
+          }
+          this.resetCategoryProduct();
         }
       }
     },

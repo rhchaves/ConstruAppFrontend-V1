@@ -45,7 +45,7 @@ const listAllFilteredProducts = async ({ commit }, payload) => {
     }).finally(() => {
       commit('LOADING', false);
     });
-  }, 1500);
+  }, 800);
 };
 
 // //////////////////////////////////////////////////////
@@ -86,6 +86,13 @@ const deleteProduct = async ({ commit }, payload) => {
 };
 
 // //////////////////////////////////////////////////////
+const resetCategoryProduct = async ({ commit }) => {
+  commit('LOADING', true);
+  commit('CLEAR_LIST_FILTER_PRODUCTS');
+  commit('LOADING', false);
+};
+
+// //////////////////////////////////////////////////////
 
 export {
   addNewProduct,
@@ -94,4 +101,5 @@ export {
   listTopSellingProducts,
   updateProduct,
   deleteProduct,
+  resetCategoryProduct,
 };

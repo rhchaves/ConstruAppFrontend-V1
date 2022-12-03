@@ -1,6 +1,6 @@
 <template>
   <q-page class="row justify-center">
-    <section class="row justify-center" style="max-width: 1300px"
+    <section class="row justify-center q-mt-xl" style="max-width: 1300px; max-height: 750px"
       v-if="getTopSellingProducts.length && !getListProductsFilter.length"
     >
       <CardProductComponent
@@ -17,7 +17,7 @@
       />
     </section>
 
-    <section class="row justify-center" style="max-width: 1300px"
+    <section class="row justify-center q-mt-xl" style="max-width: 1300px; max-height: 750px"
       v-if="getListProductsFilter.length"
     >
       <CardProductComponent
@@ -35,7 +35,8 @@
     </section>
 
     <ContentAlertComponent
-      v-if="!getTopSellingProducts.length"
+      v-if="(!getTopSellingProducts.length && !getLoading) ||
+        (!getListProductsFilter && !getLoading)"
     />
 
     <LoadingComponent
@@ -71,13 +72,16 @@ export default {
 
   created() {
     this.listAllProducts();
-    setTimeout(() => {
-      this.listTopSellingProducts();
-    }, 1000);
+    this.listarProdutosPrincipais();
   },
 
   computed: {
-    ...mapGetters('manageProduct', ['getLoading', 'getListProducts', 'getListProductsFilter', 'getTopSellingProducts']),
+    ...mapGetters('manageProduct', [
+      'getLoading',
+      'getListProducts',
+      'getListProductsFilter',
+      'getTopSellingProducts',
+    ]),
     ...mapGetters('shoppingCart', ['getCartList']),
   },
 
@@ -110,6 +114,15 @@ export default {
       this.insertProductPage(item);
       this.$router.push('product');
       console.log('Clicou em Comprar:', item);
+    },
+
+    listarProdutosPrincipais() {
+      if (!this.getTopSellingProducts.length) {
+        console.log('entrou');
+        setTimeout(() => {
+          this.listTopSellingProducts();
+        }, 1000);
+      }
     },
   },
 };
