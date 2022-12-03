@@ -29,7 +29,7 @@ const TOP_SELLER_PRODUCTS = (state, payload) => {
 };
 
 const LIST_FILTER_PRODUCTS = (state, payload) => {
-  state.filteredProducts.push(payload);
+  state.filteredProducts = payload;
 };
 
 const CLEAR_LIST_FILTER_PRODUCTS = (state) => {

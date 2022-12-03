@@ -37,6 +37,11 @@
     <ContentAlertComponent
       v-if="!getTopSellingProducts.length"
     />
+
+    <LoadingComponent
+      :visible="getLoading"
+    />
+
   </q-page>
 </template>
 
@@ -44,6 +49,7 @@
 
 import CardProductComponent from 'src/common/components/CardProductComponent.vue';
 import ContentAlertComponent from 'src/common/components/ContentAlertComponent.vue';
+import LoadingComponent from 'src/common/components/LoadingComponent.vue';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -52,6 +58,7 @@ export default {
   components: {
     CardProductComponent,
     ContentAlertComponent,
+    LoadingComponent,
   },
 
   data() {
@@ -70,7 +77,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters('manageProduct', ['getListProducts', 'getListProductsFilter', 'getTopSellingProducts']),
+    ...mapGetters('manageProduct', ['getLoading', 'getListProducts', 'getListProductsFilter', 'getTopSellingProducts']),
     ...mapGetters('shoppingCart', ['getCartList']),
   },
 

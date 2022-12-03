@@ -3,10 +3,10 @@
     <div class="btnAmber q-pa-xs row justify-center">
       <q-btn
         v-for="category in listCategories"
-        :key="category.name"
+        :key="category.id"
         class="btnAmber categories"
         :label="category.label"
-        @click="filterCategories(category.name)"
+        @click="filterCategories(category)"
       />
 
       <!-- <q-toolbar class="btnAmber">
@@ -36,12 +36,12 @@ export default {
   data() {
     return {
       listCategories: [
-        { name: 'construcao', label: 'Construção' },
-        { name: 'eletrica', label: 'Elétrica' },
-        { name: 'hidraulica', label: 'Hidráulica' },
-        { name: 'ferragens', label: 'Ferragens' },
-        { name: 'tintas', label: 'Tintas' },
-        { name: 'ferramentas', label: 'Ferramentas' },
+        { id: 1, name: 'construcao', label: 'Construção' },
+        { id: 2, name: 'eletrica', label: 'Elétrica' },
+        { id: 3, name: 'hidraulica', label: 'Hidráulica' },
+        { id: 4, name: 'ferragens', label: 'Ferragens' },
+        { id: 5, name: 'tintas', label: 'Tintas' },
+        { id: 6, name: 'ferramentas', label: 'Ferramentas' },
       ],
     };
   },

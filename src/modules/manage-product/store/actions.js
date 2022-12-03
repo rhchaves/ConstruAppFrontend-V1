@@ -32,17 +32,20 @@ const listAllProducts = async ({ commit }) => {
 };
 
 // //////////////////////////////////////////////////////
-const listAllFilteredProducts = async ({ commit, state }, payload) => {
+const listAllFilteredProducts = async ({ commit }, payload) => {
   commit('LOADING', true);
-  commit('CLEAR_LIST_FILTER_PRODUCTS');
-  const productsList = state.products;
-  productsList.filter((item) => {
-    if (item.category === payload) {
-      commit('LIST_FILTER_PRODUCTS', item);
-    }
-    return item;
-  });
-  commit('LOADING', false);
+
+  setTimeout(() => {
+    HttpClient.get(`/categories/${payload.id}/products`).then((response) => {
+      const categoryProducts = response.data.categories;
+      console.log('categoryProducts', categoryProducts);
+      commit('LIST_FILTER_PRODUCTS', categoryProducts);
+    }).catch((error) => {
+      console.log('Erro na requisição da lista', error);
+    }).finally(() => {
+      commit('LOADING', false);
+    });
+  }, 1500);
 };
 
 // //////////////////////////////////////////////////////
