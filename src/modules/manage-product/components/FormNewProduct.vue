@@ -44,7 +44,7 @@
 
               <q-input
                 outlined
-                v-model="form.mark"
+                v-model="form.product_mark"
                 label="Fabricante/Marca"
                 lazy-rules
                 :rules="[ val => val !== null && val != '' && val.length >= 3 ||
@@ -95,7 +95,7 @@
 
 <script>
 
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'FormNewProduct',
@@ -143,15 +143,19 @@ export default {
     this.showDialog = true;
   },
 
+  computed: {
+    ...mapGetters('login', ['getUser']),
+  },
+
   methods: {
 
-    ...mapActions('manageAdmin', ['addNewProduct', 'updateProduct']),
+    ...mapActions('manageProduct', ['addNewProduct', 'updateProduct']),
 
     confirmProduct() {
       if (this.formType === 'save') {
         this.addNewProduct(this.form);
       } else {
-        this.updateProduct(this.form);
+        this.updateProduct(this.form && this.getUser.id);
       }
       this.closeDialog();
     },

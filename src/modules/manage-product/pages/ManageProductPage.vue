@@ -27,24 +27,34 @@
             rounded
             @click="addNewProduct"
           >
-            Cadastrar Novo Produto
+            Cadastrar
           </q-btn>
 
           <q-btn
             class="btnAmber q-ma-md"
             type="text"
             rounded
+            @click="updateDialog"
           >
-            Confirmar itens à venda
+            Alterar
           </q-btn>
 
           <q-btn
             class="btnAmber q-ma-md"
             type="text"
             rounded
-            @click="openDialog"
+            @click="deleteDialog"
           >
-            Excluir Produto
+            Excluir
+          </q-btn>
+
+          <q-btn
+            class="btnAmber q-ma-md"
+            type="text"
+            rounded
+            @click="confirmDialog"
+          >
+            Bloquear/Desbloquear
           </q-btn>
 
           <q-btn
@@ -59,14 +69,29 @@
         </div>
 
         <FormNewProduct
-          v-if="showDialog"
-          :adminUser="product[0]"
+          v-if="newProductDialog"
+          :product="product[0]"
+          :formType="formType"
+          @closeDialogEmit="closeDialog"
+        />
+
+        <FormNewProduct
+          v-if="updateProductDialog"
+          :product="product[0]"
           :formType="formType"
           @closeDialogEmit="closeDialog"
         />
 
         <ModalConfirmComponent
           v-if="openConfirmDialog"
+          title="Confirmar bloqueio do Produto"
+          @confirmDialogEmit="confirmBlock"
+          @closeDialogEmit="closeDialog"
+        />
+
+        <ModalConfirmComponent
+          v-if="openDeleteDialog"
+          title="Confirmar deleção do Produto"
           @confirmDialogEmit="confirmDeletion"
           @closeDialogEmit="closeDialog"
         />
@@ -103,12 +128,13 @@ export default {
 
   data() {
     return {
-
       product: [],
       formType: 'save',
-      showDialog: false,
       selected: [],
+      newProductDialog: false,
+      updateProductDialog: false,
       openConfirmDialog: false,
+      openDeleteDialog: false,
 
       columns: [
         {
@@ -160,19 +186,20 @@ export default {
 
   methods: {
 
-    ...mapActions('manageProduct', ['listAllProducts', 'deleteProduct']),
+    ...mapActions('manageProduct', ['listAllProducts', 'deleteProduct', 'blockProduct']),
 
     addNewProduct() {
       this.formType = 'save';
       this.product = [];
-      this.showDialog = true;
+      this.newProductDialog = true;
     },
 
-    changeProduct() {
+    updateDialog() {
       if (this.selected.length === 1) {
         this.formType = 'edit';
+        console.log('this.selected', this.selected);
         this.product = this.selected;
-        this.showDialog = true;
+        this.updateProductDialog = true;
       }
     },
 
@@ -183,18 +210,30 @@ export default {
     confirmDeletion() {
       this.deleteProduct(this.selected);
       this.selected = [];
+      this.openDeleteDialog = false;
+    },
+
+    confirmBlock() {
+      this.blockProduct(this.selected);
+      this.selected = [];
       this.openConfirmDialog = false;
     },
 
-    openDialog() {
+    confirmDialog() {
       if (this.selected.length === 1) {
         this.openConfirmDialog = true;
       }
     },
 
+    deleteDialog() {
+      this.openDeleteDialog = true;
+    },
+
     closeDialog() {
-      this.showDialog = false;
+      this.newProductDialog = false;
+      this.updateProductDialog = false;
       this.openConfirmDialog = false;
+      this.openDeleteDialog = false;
     },
   },
 

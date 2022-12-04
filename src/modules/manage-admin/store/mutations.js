@@ -23,10 +23,15 @@ const DELETE_ADMIN = (state, payload) => {
   state.admins = state.admins.filter((admin) => admin.id !== payload.id);
 };
 
+// const BLOCK_ADMIN = (state, payload) => {
+// state.admins = state.admins.map((admin) => admin.id === payload.id);
+// };
+
 export {
   LOADING,
   INSERT_NEW_ADMIN,
   INSERT_LIST_ADMINS,
   UPDATE_ADMIN,
   DELETE_ADMIN,
+  // BLOCK_ADMIN,
 };

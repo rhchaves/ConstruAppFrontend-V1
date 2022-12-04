@@ -6,7 +6,7 @@
         style="max-width: 500px"
       >
         <q-card-section class="row justify-center q-gutter-md">
-            <h4 class="title"> {{ title }} </h4>
+            <h4 class="title text-center"> {{ title }} </h4>
         </q-card-section>
 
         <q-card-section class="row justify-center q-gutter-md">
@@ -43,7 +43,7 @@ export default {
     title: {
       type: String,
       required: false,
-      default: 'Confirmar deleção',
+      default: 'Confirmar',
     },
 
     message: {

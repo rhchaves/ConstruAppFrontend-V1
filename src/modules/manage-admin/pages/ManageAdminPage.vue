@@ -27,7 +27,7 @@
             rounded
             @click="addNewAdmin"
           >
-            Cadastrar novo Administrador
+            Cadastrar novo Admin
           </q-btn>
 
           <q-btn
@@ -36,7 +36,7 @@
             rounded
             @click="changeAdmin"
           >
-            ?Alterar dados?
+            Alterar Admin
           </q-btn>
 
           <q-btn
@@ -45,7 +45,7 @@
             rounded
             @click="openDialog"
           >
-            Bloquear Cadastro
+            Bloquear/Desbloquear
           </q-btn>
 
           <q-btn
@@ -69,6 +69,7 @@
 
       <ModalConfirmComponent
         v-if="openConfirmDialog"
+        title="Confirmar bloqueio do Administrador"
         @confirmDialogEmit="confirmBlock"
         @closeDialogEmit="closeDialog"
       />
@@ -104,14 +105,19 @@ export default {
 
   data() {
     return {
-
       admin: [],
       formType: 'save',
       showDialog: false,
       selected: [],
       openConfirmDialog: false,
+      listAdmins: [],
 
       adminSelecte: [],
+
+      // statusEnum: {
+      //   Inativo: 0,
+      //   Ativo: 1,
+      // },
 
       columns: [
         {
@@ -150,7 +156,8 @@ export default {
   },
 
   created() {
-    this.listAllAdmins();
+    // this.listAllAdmins();
+    this.listAllAdminsEnum();
   },
 
   computed: {
@@ -159,7 +166,27 @@ export default {
 
   methods: {
 
-    ...mapActions('manageAdmin', ['listAllAdmins', 'deleteAdmin']),
+    ...mapActions('manageAdmin', ['listAllAdmins', 'deleteAdmin', 'blockAdmin']),
+
+    listAllAdminsEnum() {
+      this.listAllAdmins();
+
+      setTimeout(() => {
+        this.listAdmins = this.getListAdmins;
+      //   this.listAdmins.map((item) => {
+      //     if (item.status === 0) {
+      //       // item.status = this.statusEnum.Inativo;
+      //       item.status = 'Inativo';
+      //       console.log('item.status', item.status);
+      //     } else {
+      //       // item.status = this.statusEnum.Ativo;
+      //       item.status = 'Ativo';
+      //     }
+      //     return item;
+      //   });
+      //   console.log('this.listAdmins', this.listAdmins);
+      }, 1000);
+    },
 
     addNewAdmin() {
       this.formType = 'save';
@@ -170,7 +197,7 @@ export default {
     changeAdmin() {
       if (this.selected.length === 1) {
         this.formType = 'edit';
-        this.adminSelecte = this.selected;
+        this.admin = this.selected;
         this.showDialog = true;
         console.log('this.selected', this.selected);
       }
@@ -181,7 +208,7 @@ export default {
     },
 
     confirmBlock() {
-      this.deleteAdmin(this.selected);
+      this.blockAdmin(this.selected);
       this.selected = [];
       this.openConfirmDialog = false;
     },

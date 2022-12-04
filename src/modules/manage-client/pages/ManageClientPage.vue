@@ -28,7 +28,7 @@
             rounded
             @click="openDialog"
           >
-            Bloquear Cadastro
+            Bloquear/Desbloquear
           </q-btn>
 
           <q-btn
@@ -45,6 +45,7 @@
 
       <ModalConfirmComponent
         v-if="openConfirmDialog"
+        title="Confirmar bloqueio do Cliente"
         @confirmDialogEmit="confirmBlock"
         @closeDialogEmit="closeDialog"
       />
@@ -121,14 +122,14 @@ export default {
 
   methods: {
 
-    ...mapActions('manageClient', ['listAllClients', 'deleteClient']),
+    ...mapActions('manageClient', ['listAllClients', 'deleteClient', 'blockClient']),
 
     clientSelected(item) {
       this.selected = item;
     },
 
     confirmBlock() {
-      // this.deleteClient(this.selected);
+      this.blockClient(this.selected);
       this.selected = [];
       this.openConfirmDialog = false;
     },
