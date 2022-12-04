@@ -30,7 +30,7 @@
         <!-- Input de pesquisa -->
         <!-- Mudar a lógica para carregar o endereço do login -->
         <div class="row items-center no-wrap"
-          v-if="getUserAddress.logradouro || getUser.userType === 3"
+          v-if="(getUserAddress.logradouro || (getUser.userType === 3 && getLogado))"
         >
           <q-input
             outlined
@@ -94,12 +94,12 @@
 
           <div v-if="getCartList">
             <q-btn
+              v-if="(getUserAddress.logradouro || (getUser.userType === 3 && getLogado))"
               class="q-mr-lg"
               flat
               icon="shopping_cart"
               to="shopping-cart"
-              v-if="getUserAddress.logradouro || getUser.userType === 3"
-              >
+            >
               <q-badge rounded class="q-mr-sm q-mt-xs" color="red" text-color="white" floating>
                 <!-- alterar para retorno da quantidade de itens no carrinho -->
                 {{ getCartList.length }}
@@ -109,11 +109,11 @@
 
           <div v-if="!getCartList">
             <q-btn
+              v-if="(getUserAddress.logradouro || (getUser.userType === 3 && getLogado))"
               class="q-mr-lg"
               flat
               icon="shopping_cart"
-              v-if="getUserAddress.logradouro || getUser.userType === 3"
-              >
+            >
               <q-badge rounded class="q-mr-sm q-mt-xs" color="red" text-color="white" floating>
                 <!-- alterar para retorno da quantidade de itens no carrinho -->
                 {{ getCartList.length }}
@@ -186,6 +186,13 @@ export default {
           }
           this.resetCategoryProduct();
         }
+      }
+
+      if (this.getUserAddress.cep > 0) {
+        if (this.$route.name !== 'main') {
+          this.$router.push('main');
+        }
+        this.resetCategoryProduct();
       }
     },
 

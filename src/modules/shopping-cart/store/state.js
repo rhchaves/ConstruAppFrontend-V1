@@ -1,7 +1,7 @@
 export default {
   loading: false,
   cartProductList: [],
-
+  productList: [],
   // cartProductList: [
   //   {
   //     id: 1,

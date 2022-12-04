@@ -1,18 +1,83 @@
 import HttpClient from 'src/common/boot/HttpClient';
+import Swal from 'sweetalert2';
 
+let shoppingCart = {};
 // //////////////////////////////////////////////////////
-const listProductCart = async ({ commit }) => {
+const listProductCart = async ({ commit }, payload) => {
   commit('LOADING', true);
 
-  HttpClient.get('/shopping_cart').then((response) => {
-    console.log('listProductCart', response.data);
-    commit('ADD_PRODUCT_CART', response.data);
+  const user = payload;
+  HttpClient.get('/shopping_cart').then((shopping) => {
+    shopping.data.filter((item) => {
+      if (item.user_id === user.id) {
+        shoppingCart = item;
+      }
+      return shoppingCart;
+    });
+    console.log('shoppingCart', shoppingCart);
+
+    HttpClient.get(`/shopping_cart/${shoppingCart.id}/items`).then((response) => {
+      console.log('shoppingCart itens', response.data.shopping_cart_items);
+      const data = response.data.shopping_cart_items;
+      commit('ADD_PRODUCT_CART', data);
+      return response;
+    });
+    return shopping;
+  });
+
+  //   return response;
+  // }).catch((error) => {
+  //   console.log('Erro na requisição', error);
+  // }).finally(() => {
+  commit('LOADING', false);
+};
+
+// //////////////////////////////////////////////////////
+const deleteCart = async ({ commit }) => {
+  commit('LOADING', true);
+
+  HttpClient.delete(`/shopping_cart/${shoppingCart.id}`).then((response) => {
+    console.log('Delete shoppingCart', response);
+    commit('RESET_CART');
+    Swal.fire({
+      icon: 'success',
+      title: 'Concluído',
+      text: 'Itens removidos com sucesso',
+      showConfirmButton: false,
+      timer: 3000,
+    });
     return response;
   }).catch((error) => {
     console.log('Erro na requisição', error);
   }).finally(() => {
     commit('LOADING', false);
   });
+};
+
+// //////////////////////////////////////////////////////
+const updateProductsCart = async ({ commit, state }, payload) => {
+  commit('LOADING', true);
+  state.productList = [];
+  setTimeout(() => {
+    const productList = payload;
+    const cartList = state.cartProductList;
+
+    console.log('productList no update', productList);
+    console.log('cartList no update', cartList);
+
+    cartList.forEach((item) => {
+      console.log('item', item);
+      // return item;
+      productList.forEach((product) => {
+        if (item.product_id === product.id) {
+          console.log('Entrou', product);
+          commit('UPDATE_PRODUCTS_CART', product);
+        }
+      });
+    });
+  }, 2000);
+
+  commit('LOADING', false);
 };
 
 // //////////////////////////////////////////////////////
@@ -51,4 +116,6 @@ export {
   addProductCart,
   removeProductCart,
   addQtdCart,
+  deleteCart,
+  updateProductsCart,
 };

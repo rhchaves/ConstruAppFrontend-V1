@@ -30,6 +30,8 @@ export default {
 
   created() {
     this.showPageFunc();
+    this.listProductCart(this.getUser);
+    this.updateProductsCart(this.getListProducts);
   },
 
   updated() {
@@ -38,20 +40,25 @@ export default {
 
   computed: {
     ...mapGetters('deliveryAddress', ['getUserAddress']),
-    ...mapGetters('login', ['getLogado']),
+    ...mapGetters('login', ['getLogado', 'getUser']),
+    ...mapGetters('shoppingCart', ['getCartList', 'getShoppingCartList']),
+    ...mapGetters('manageProduct', ['getListProducts']),
 
   },
 
   methods: {
     ...mapActions('deliveryAddress', ['searchAddress', 'saveAddress']),
     ...mapActions('manageProduct', ['listAllFilteredProducts']),
+    ...mapActions('shoppingCart', [
+      'listProductCart',
+      'updateProductsCart',
+    ]),
 
     showPageFunc() {
       if (this.getUserAddress) {
         this.showPage = true;
         console.log('Show page', this.showPage);
       }
-
       if (!this.showPage && !this.getLogado) {
         this.showPage = true;
         this.$router.push('/');

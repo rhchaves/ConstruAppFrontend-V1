@@ -71,7 +71,7 @@ export default {
   },
 
   created() {
-    this.listAllProducts();
+    this.listarTodosProdutos();
     this.listarProdutosPrincipais();
   },
 
@@ -87,7 +87,7 @@ export default {
 
   methods: {
     ...mapActions('main', ['listCep']),
-    ...mapActions('shoppingCart', ['addProductCart']),
+    ...mapActions('shoppingCart', ['addProductCart', 'listProductCart', 'updateProductsCart']),
     ...mapActions('product', ['insertProductPage']),
     ...mapActions('manageProduct', ['listAllProducts', 'listTopSellingProducts']),
 
@@ -124,6 +124,13 @@ export default {
         }, 1000);
       }
     },
+
+    listarTodosProdutos() {
+      if (!this.getListProducts.length) {
+        this.listAllProducts();
+      }
+    },
+
   },
 };
 </script>
