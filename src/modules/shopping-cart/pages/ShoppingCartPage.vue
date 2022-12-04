@@ -1,12 +1,16 @@
 <template>
   <q-page class="q-ma-md ro justify-cente items-cente">
 
-    <section class="q-ma-md row justify-center items-center">
+    <section class="q-ma-md row justify-center items-center" >
 
-      <q-list bordered padding class="q-mt-xl " style="max-width: 800px"
+      <CartlistItem
+        v-for="product in getShoppingCartList"
+        :key="product.id"
+        :productCart="product"
+      />
+      <!-- <q-list bordered padding class="q-mt-xl " style="max-width: 800px"
         v-if="getCartList.length"
       >
-      {{getShoppingCartList}}
         <q-item
           v-for="product in getShoppingCartList"
           :key="product.id"
@@ -40,13 +44,6 @@
           </q-item-section>
           <q-item-section class=" " >
 
-            <!-- <q-input
-              v-model.number="qtd"
-              type="number"
-              filled
-              style="max-width: 200px"
-            /> -->
-
             <InputQtdComponent
               @addQuantityEmit="addQuantity(product)"
               @removeQuantityEmit="removeQuantity(product)"
@@ -59,7 +56,7 @@
           </q-item-section>
         </q-item>
         <q-separator />
-      </q-list>
+      </q-list> -->
 
     </section>
 
@@ -67,7 +64,7 @@
 
       <q-section class="q-ma-lg col-12">
         <h5 class="q-ma-lg">Forma de pagamento:</h5>
-        <q-select class="q-ma-lg" rounded v-model="model" :options="options" :name="name"
+        <q-select class="q-ma-lg" rounded v-model="model" :options="options"
           style="max-width: 300px" label="Opção de pagamento" />
       </q-section>
 
@@ -139,7 +136,7 @@
 
 <script>
 
-import InputQtdComponent from 'src/common/components/InputQtdComponent.vue';
+// import InputQtdComponent from 'src/common/components/InputQtdComponent.vue';
 import ContentAlertComponent from 'src/common/components/ContentAlertComponent.vue';
 import LoadingComponent from 'src/common/components/LoadingComponent.vue';
 import ModalConfirmComponent from 'src/common/components/ModalConfirmComponent.vue';
@@ -149,7 +146,7 @@ export default {
   name: 'ShoppingCartPage',
 
   components: {
-    InputQtdComponent,
+    // InputQtdComponent,
     ContentAlertComponent,
     LoadingComponent,
     ModalConfirmComponent,
@@ -157,16 +154,6 @@ export default {
 
   data() {
     return {
-      product: {
-        category: '',
-        name: '',
-        label: '',
-        description: '',
-        price: '',
-        product_mark: '',
-        image: '',
-      },
-
       deletedItem: '',
       model: null,
       options: ['Dinheiro', 'Cartão de Crédito', 'Cartão de Débito'],
@@ -187,7 +174,7 @@ export default {
 
   created() {
     this.listProductCart(this.getUser);
-    this.updateProductsCart(this.getListProducts);
+    // this.updateProductsCart(this.getListProducts);
   },
 
   updated() {

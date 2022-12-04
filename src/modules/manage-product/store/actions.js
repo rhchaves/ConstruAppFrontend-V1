@@ -144,4 +144,5 @@ export {
   updateProduct,
   deleteProduct,
   blockProduct,
+  resetCategoryProduct,
 };

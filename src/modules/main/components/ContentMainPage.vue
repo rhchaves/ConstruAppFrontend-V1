@@ -35,8 +35,7 @@
     </section>
 
     <ContentAlertComponent
-      v-if="(!getTopSellingProducts.length && !getLoading) ||
-        (!getListProductsFilter && !getLoading)"
+      v-if="!getTopSellingProducts.length || !getListProductsFilter"
     />
 
     <LoadingComponent
