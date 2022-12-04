@@ -1,17 +1,18 @@
 <template>
-  <div
-    class="row justify-center q-gutter-md"
-    style="width: 2000px; height: 300px"
-  >
-    <q-card
-      class="q-ma-xl bg-grey-2"
-      style="min-width:350px; max-width: 800px; max-height: 200px"
-    >
-      <q-card-section>
-        <h5 class="q-ma-xl"> {{ content }} </h5>
-      </q-card-section>
-    </q-card>
-  </div>
+  <q-page class="row justify-center items-center">
+
+    <div class="row justify-center">
+      <q-card
+        class="bg-grey-2 column justify-center"
+        style="min-width:350px; min-height: 200px; max-width: 800px"
+      >
+        <q-card-section>
+          <h5 class="text-center"> {{ title }} </h5>
+        </q-card-section>
+      </q-card>
+    </div>
+
+  </q-page>
 </template>
 
 <script>
@@ -24,10 +25,10 @@ export default {
       required: false,
       default: 'danger',
     },
-    content: {
+    title: {
       type: String,
       required: false,
-      default: 'Não encontramos resultados para este recurso.',
+      default: 'Não encontramos nenhum resultado para essa busca.',
     },
   },
 };

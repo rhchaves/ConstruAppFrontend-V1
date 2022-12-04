@@ -1,7 +1,8 @@
 export default {
   loading: true,
   products: [],
-
+  filteredProducts: [],
+  topSellingProducts: [],
   // products: [
   //   {
   //     id: 1,

@@ -3,7 +3,7 @@ const LOADING = (state, payload) => {
 };
 
 const ADD_PRODUCT_CART = (state, payload) => {
-  state.cartProductList.push(payload);
+  state.cartProductList = payload;
 };
 
 const REMOVE_PRODUCT_CART = (state, payload) => {
@@ -19,9 +19,19 @@ const ADD_QTD_PRODUCT = (state, payload, qtd) => {
   });
 };
 
+const DELETE_CART = (state) => {
+  state.cartProductList = [];
+};
+
+const UPDATE_PRODUCTS_CART = (state, payload) => {
+  state.productList.push(payload);
+};
+
 export {
   LOADING,
   ADD_PRODUCT_CART,
   REMOVE_PRODUCT_CART,
   ADD_QTD_PRODUCT,
+  DELETE_CART,
+  UPDATE_PRODUCTS_CART,
 };

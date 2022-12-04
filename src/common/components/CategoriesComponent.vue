@@ -3,26 +3,11 @@
     <div class="btnAmber q-pa-xs row justify-center">
       <q-btn
         v-for="category in listCategories"
-        :key="category.name"
+        :key="category.id"
         class="btnAmber categories"
         :label="category.label"
-        @click="categories(category.name)"
+        @click="filterCategories(category)"
       />
-
-      <!-- <q-toolbar class="btnAmber">
-        <q-tabs
-          v-model="listCategories"
-          inline-label
-          shrink
-          stretch
-        >
-          <q-btn
-            class="btnAmber categories"
-            v-for="category in listCategories"
-            :key="category.name"
-            v-bind="category" />
-        </q-tabs>
-      </q-toolbar> -->
 
     </div>
 
@@ -36,19 +21,19 @@ export default {
   data() {
     return {
       listCategories: [
-        { name: 'construcao', label: 'Construção' },
-        { name: 'eletrica', label: 'Elétrica' },
-        { name: 'hidraulica', label: 'Hidráulica' },
-        { name: 'ferragens', label: 'Ferragens' },
-        { name: 'tintas', label: 'Tintas' },
-        { name: 'ferramentas', label: 'Ferramentas' },
+        { id: 1, name: 'construcao', label: 'Construção' },
+        { id: 2, name: 'eletrica', label: 'Elétrica' },
+        { id: 3, name: 'hidraulica', label: 'Hidráulica' },
+        { id: 4, name: 'ferragens', label: 'Ferragens' },
+        { id: 5, name: 'tintas', label: 'Tintas' },
+        { id: 6, name: 'ferramentas', label: 'Ferramentas' },
       ],
     };
   },
 
   methods: {
-    categories(item) {
-      console.log('Clicou na categoria: ', item);
+    filterCategories(categories) {
+      this.$emit('categoriesEmit', categories);
     },
   },
 };

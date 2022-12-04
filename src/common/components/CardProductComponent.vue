@@ -6,14 +6,14 @@
         <!-- carrega a imagem do card -->
         <q-img
           class="col q-ma-sm"
-          :src="imageItem"
-          :alt="altImageItem"
-        />
+          :src='imageItem'
+          />
+
         <!-- exibir botões -->
         <q-card-actions vertical class="justify-aroun">
           <q-btn class="btnAmber" icon="add_shopping_cart" @click="addCartItem(idItem)"/>
-          <q-btn class="btnAmber" icon="favorite_border" @click="addFavoriteItem(idItem)"/>
-          <q-btn class="btnAmber" icon="share" @click="shareItem(idItem)"/>
+          <!-- <q-btn class="btnAmber" icon="favorite_border" @click="addFavoriteItem(idItem)"/> -->
+          <!-- <q-btn class="btnAmber" icon="share" @click="shareItem(idItem)"/> -->
         </q-card-actions>
 
       </q-card-section>
@@ -68,7 +68,6 @@ export default {
 
   data() {
     return {
-
     };
   },
 

@@ -45,7 +45,7 @@
             rounded
             @click="openDialog"
           >
-            Excluir Cadastro
+            Bloquear Cadastro
           </q-btn>
 
           <q-btn
