@@ -7,17 +7,16 @@
 
     <!-- seção principal da página -->
     <section class="row justify-center q-mt-xl"
-      v-for="product in getProductPage" :key="product">
-        {{product}}
+    >
         <!-- imagem do produto -->
         <div class="product-img ">
-          <!-- <img :src="product[index].image" alt="" class="my-card"> -->
+          <img :src="product.image" alt="" class="my-card">
         </div>
         <!-- area de titulo e demais informações -->
         <div class="q-ma-lg">
           <h2 class="q-ma-lg">{{ product.label }}</h2>
-          <h5 class="q-ma-lg">{{ product.shortDescription }}</h5>
-          <h4 class="q-ma-lg">R${{ product.price }}</h4>
+          <h5 class="q-ma-lg">{{ product.description }}</h5>
+          <h4 class="q-ma-lg">Preço R${{ product.price}}</h4>
           <!-- botão de adicionar ao carrinho -->
           <div class="col col-md-5">
             <q-btn class="btnAmber q-ma-lg q-mt-xl"
@@ -49,48 +48,13 @@ export default {
     ContentAlertComponent,
   },
 
-  // props: {
-  //   title: {
-  //     type: String,
-  //     required: true,
-  //     default: 'Nome do Produto',
-  //   },
-  //   shortDescription: {
-  //     type: String,
-  //     required: true,
-  //     default: 'Descrição Breve do Produto',
-  //   },
-  //   // Fabricante
-  //   brand: {
-  //     type: String,
-  //     required: true,
-  //     default: 'Marca do Produto',
-  //   },
-  //   priceProduct: {
-  //     type: String,
-  //     required: true,
-  //     default: '0',
-  //   },
-  // },
-
   data() {
     return {
-      product: {
-        category: '',
-        created_at: '',
-        created_by: '',
-        description: '',
-        id: '',
-        image: '',
-        label: '',
-        name: '',
-        price: '',
-        product_mark: '',
-        status: '',
-        updated_at: '',
-        updated_by: '',
-      },
+      product: '',
     };
+  },
+  created() {
+    this.recuperarProduto();
   },
 
   computed: {
@@ -108,6 +72,10 @@ export default {
     filterCategories(categories) {
       this.listAllFilteredProducts(categories);
       this.$router.push('/main');
+    },
+
+    recuperarProduto() {
+      this.product = this.getProductPage;
     },
 
   },

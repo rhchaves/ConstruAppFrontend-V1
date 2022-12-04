@@ -3,6 +3,7 @@ import HttpClient from 'src/boot/HttpClient';
 // //////////////////////////////////////////////////////
 const insertProductPage = async ({ commit }, payload) => {
   commit('LOADING', true);
+  console.log('payload', payload);
 
   commit('INSERT_PRODUCT_PAGE', payload);
 
