@@ -8,9 +8,8 @@
       style="border-bottom: solid 1px #ccc;"
     >
 
-      <q-toolbar class="" >
-        <div class="q-mr-xl"></div>
-
+    <q-toolbar class="" >
+      <div class="q-mr-xl"></div>
         <!-- Título do header logado -->
         <q-toolbar-title shrink class="row items-center no-wrap">
           <q-btn unelevated>
@@ -149,7 +148,7 @@ export default {
   data() {
     return {
       search: '',
-      urlLogo: 'img/logo-contruApp-v1.png',
+      urlLogo: 'logo-contruApp-v1.png',
       userTypeEnum: {
         admin: 1,
         seller: 2,
@@ -168,7 +167,7 @@ export default {
   methods: {
     ...mapActions('login', ['logout']),
     ...mapActions('product', ['filterProduct']),
-    ...mapActions('manageProduct', ['resetCategoryProduct']),
+    ...mapActions('manageProduct', ['resetCategoryProduct', 'listAllProducts']),
 
     redirectLogo() {
       if (this.getLogado) {
@@ -192,6 +191,7 @@ export default {
         if (this.$route.name !== 'main') {
           this.$router.push('main');
         }
+        this.listAllProducts();
         this.resetCategoryProduct();
       }
     },

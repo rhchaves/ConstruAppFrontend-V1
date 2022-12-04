@@ -5,25 +5,26 @@ let shoppingCart = {};
 // //////////////////////////////////////////////////////
 const listProductCart = async ({ commit }, payload) => {
   commit('LOADING', true);
+  setTimeout(() => {
+    const user = payload;
+    HttpClient.get('/shopping_cart').then((shopping) => {
+      shopping.data.filter((item) => {
+        if (item.user_id === user.id) {
+          shoppingCart = item;
+        }
+        return shoppingCart;
+      });
+      // console.log('shoppingCart', shoppingCart);
 
-  const user = payload;
-  HttpClient.get('/shopping_cart').then((shopping) => {
-    shopping.data.filter((item) => {
-      if (item.user_id === user.id) {
-        shoppingCart = item;
-      }
-      return shoppingCart;
+      HttpClient.get(`/shopping_cart/${shoppingCart.id}/items`).then((response) => {
+      // console.log('shoppingCart itens', response.data.shopping_cart_items);
+        const data = response.data.shopping_cart_items;
+        commit('ADD_PRODUCT_CART', data);
+        return response;
+      });
+      return shopping;
     });
-    console.log('shoppingCart', shoppingCart);
-
-    HttpClient.get(`/shopping_cart/${shoppingCart.id}/items`).then((response) => {
-      console.log('shoppingCart itens', response.data.shopping_cart_items);
-      const data = response.data.shopping_cart_items;
-      commit('ADD_PRODUCT_CART', data);
-      return response;
-    });
-    return shopping;
-  });
+  }, 1000);
 
   //   return response;
   // }).catch((error) => {
@@ -62,15 +63,15 @@ const updateProductsCart = async ({ commit, state }, payload) => {
     const productList = payload;
     const cartList = state.cartProductList;
 
-    console.log('productList no update', productList);
-    console.log('cartList no update', cartList);
+    // console.log('productList no update', productList);
+    // console.log('cartList no update', cartList);
 
     cartList.forEach((item) => {
-      console.log('item', item);
+      // console.log('item', item);
       // return item;
       productList.forEach((product) => {
         if (item.product_id === product.id) {
-          console.log('Entrou', product);
+          // console.log('Entrou', product);
           commit('UPDATE_PRODUCTS_CART', product);
         }
       });

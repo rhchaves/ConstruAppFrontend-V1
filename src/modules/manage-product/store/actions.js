@@ -12,23 +12,23 @@ const addNewProduct = async ({ commit }, payload) => {
 // //////////////////////////////////////////////////////
 const listAllProducts = async ({ commit }) => {
   commit('LOADING', true);
+  setTimeout(() => {
+    HttpClient.get('/product').then((response) => {
+      const products = response.data;
 
-  HttpClient.get('/product').then((response) => {
-    const products = response.data;
-
-    products.forEach((item) => {
-      item.image = `~/assets/img/${item.name}.jpg`;
-      commit('INSERT_LIST_PRODUCTS', item);
-      // console.log('Inserido produto: ', item);
+      products.forEach((item) => {
+        item.image = `/image/${item.image}`;
+        console.log('Erro item', item);
+      // item.image = `/image/originais/${item.name}.jpg`;
+      });
+      commit('INSERT_LIST_PRODUCTS', products);
+      return products;
+    }).catch((error) => {
+      console.log('Erro na requisição da lista', error);
+    }).finally(() => {
+      commit('LOADING', false);
     });
-    // commit('INSERT_LIST_PRODUCTS', response.data);
-    console.log('listAllProducts', products);
-    return products;
-  }).catch((error) => {
-    console.log('Erro na requisição da lista', error);
-  }).finally(() => {
-    commit('LOADING', false);
-  });
+  }, 1000);
 };
 
 // //////////////////////////////////////////////////////
@@ -38,14 +38,17 @@ const listAllFilteredProducts = async ({ commit }, payload) => {
   setTimeout(() => {
     HttpClient.get(`/categories/${payload.id}/products`).then((response) => {
       const categoryProducts = response.data.categories;
-      console.log('categoryProducts', categoryProducts);
+      categoryProducts.forEach((item) => {
+        item.image = `/image/${item.image}`;
+        // item.image = `/image/originais/${item.name}.jpg`;
+      });
       commit('LIST_FILTER_PRODUCTS', categoryProducts);
     }).catch((error) => {
       console.log('Erro na requisição da lista', error);
     }).finally(() => {
       commit('LOADING', false);
     });
-  }, 800);
+  }, 1000);
 };
 
 // //////////////////////////////////////////////////////
@@ -88,8 +91,11 @@ const deleteProduct = async ({ commit }, payload) => {
 // //////////////////////////////////////////////////////
 const resetCategoryProduct = async ({ commit }) => {
   commit('LOADING', true);
-  commit('CLEAR_LIST_FILTER_PRODUCTS');
-  commit('LOADING', false);
+  setTimeout(() => {
+    commit('CLEAR_LIST_FILTER_PRODUCTS');
+    commit('LOADING', false);
+    listAllProducts();
+  }, 1000);
 };
 
 // //////////////////////////////////////////////////////
