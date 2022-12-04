@@ -1,8 +1,10 @@
 <template>
   <q-page class="row justify-center">
-    <section class="row justify-center" style="max-width: 1300px">
+    <section class="row justify-center q-mt-xl" style="max-width: 1300px; max-height: 750px"
+      v-if="getTopSellingProducts.length && !getListProductsFilter.length"
+    >
       <CardProductComponent
-        v-for="product in getListProducts"
+        v-for="product in getTopSellingProducts"
         :key="product.id"
         :idItem="product.id"
         :labelItem="product.label"
@@ -15,9 +17,32 @@
       />
     </section>
 
+    <section class="row justify-center q-mt-xl" style="max-width: 1300px; max-height: 750px"
+      v-if="getListProductsFilter.length"
+    >
+      <CardProductComponent
+        v-for="productFilter in getListProductsFilter"
+        :key="productFilter.id"
+        :idItem="productFilter.id"
+        :labelItem="productFilter.label"
+        :priceItem="productFilter.price"
+        :imageItem="productFilter.image"
+        @addCartItemEmit="addProduct(productFilter)"
+        @addFavoriteItemEmit="addFavoriteProduct(productFilter)"
+        @shareItemEmit="shareProduct(productFilter)"
+        @buyItemEmit="buyProduct(productFilter)"
+      />
+    </section>
+
     <ContentAlertComponent
-      v-if="!getListProducts.length"
+      v-if="(!getTopSellingProducts.length && !getLoading) ||
+        (!getListProductsFilter && !getLoading)"
     />
+
+    <LoadingComponent
+      :visible="getLoading"
+    />
+
   </q-page>
 </template>
 
@@ -25,6 +50,7 @@
 
 import CardProductComponent from 'src/common/components/CardProductComponent.vue';
 import ContentAlertComponent from 'src/common/components/ContentAlertComponent.vue';
+import LoadingComponent from 'src/common/components/LoadingComponent.vue';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -33,6 +59,7 @@ export default {
   components: {
     CardProductComponent,
     ContentAlertComponent,
+    LoadingComponent,
   },
 
   data() {
@@ -44,20 +71,25 @@ export default {
   },
 
   created() {
-    this.listAllProducts();
-    console.log('this.getListProducts', this.getListProducts);
+    this.listarTodosProdutos();
+    this.listarProdutosPrincipais();
   },
 
   computed: {
-    ...mapGetters('manageProduct', ['getListProducts']),
+    ...mapGetters('manageProduct', [
+      'getLoading',
+      'getListProducts',
+      'getListProductsFilter',
+      'getTopSellingProducts',
+    ]),
     ...mapGetters('shoppingCart', ['getCartList']),
   },
 
   methods: {
     ...mapActions('main', ['listCep']),
-    ...mapActions('shoppingCart', ['addProductCart']),
+    ...mapActions('shoppingCart', ['addProductCart', 'listProductCart', 'updateProductsCart']),
     ...mapActions('product', ['insertProductPage']),
-    ...mapActions('manageProduct', ['listAllProducts']),
+    ...mapActions('manageProduct', ['listAllProducts', 'listTopSellingProducts']),
 
     onSubmit() {
       console.log('Clicou em buscar:', this.search);
@@ -83,6 +115,22 @@ export default {
       this.$router.push('product');
       console.log('Clicou em Comprar:', item);
     },
+
+    listarProdutosPrincipais() {
+      if (!this.getTopSellingProducts.length) {
+        console.log('entrou');
+        setTimeout(() => {
+          this.listTopSellingProducts();
+        }, 1000);
+      }
+    },
+
+    listarTodosProdutos() {
+      if (!this.getListProducts.length) {
+        this.listAllProducts();
+      }
+    },
+
   },
 };
 </script>

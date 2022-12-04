@@ -84,6 +84,12 @@ export default {
       selected: [],
       openConfirmDialog: false,
 
+      sellerConditionEnum: {
+        aguardandoAprovação: 1,
+        aprovado: 2,
+        bloqueado: 3,
+      },
+
       columns: [
         {
           name: 'id',

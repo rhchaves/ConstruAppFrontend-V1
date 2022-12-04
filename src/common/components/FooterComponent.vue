@@ -26,7 +26,7 @@ export default {
 
   data() {
     return {
-      urlLogo: 'img/logo-contruApp-v1.png',
+      urlLogo: 'logo-contruApp-v1.png',
     };
   },
 };

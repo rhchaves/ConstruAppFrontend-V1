@@ -8,9 +8,8 @@
       style="border-bottom: solid 1px #ccc;"
     >
 
-      <q-toolbar class="" >
-        <div class="q-mr-xl"></div>
-
+    <q-toolbar class="" >
+      <div class="q-mr-xl"></div>
         <!-- Título do header logado -->
         <q-toolbar-title shrink class="row items-center no-wrap">
           <q-btn unelevated>
@@ -30,7 +29,7 @@
         <!-- Input de pesquisa -->
         <!-- Mudar a lógica para carregar o endereço do login -->
         <div class="row items-center no-wrap"
-          v-if="getUserAddress.logradouro || getUser.userType === 3"
+          v-if="(getUserAddress.logradouro || (getUser.userType === 3 && getLogado))"
         >
           <q-input
             outlined
@@ -94,12 +93,12 @@
 
           <div v-if="getCartList">
             <q-btn
+              v-if="(getUserAddress.logradouro || (getUser.userType === 3 && getLogado))"
               class="q-mr-lg"
               flat
               icon="shopping_cart"
               to="shopping-cart"
-              v-if="getUserAddress.logradouro || getUser.userType === 3"
-              >
+            >
               <q-badge rounded class="q-mr-sm q-mt-xs" color="red" text-color="white" floating>
                 <!-- alterar para retorno da quantidade de itens no carrinho -->
                 {{ getCartList.length }}
@@ -109,11 +108,11 @@
 
           <div v-if="!getCartList">
             <q-btn
+              v-if="(getUserAddress.logradouro || (getUser.userType === 3 && getLogado))"
               class="q-mr-lg"
               flat
               icon="shopping_cart"
-              v-if="getUserAddress.logradouro || getUser.userType === 3"
-              >
+            >
               <q-badge rounded class="q-mr-sm q-mt-xs" color="red" text-color="white" floating>
                 <!-- alterar para retorno da quantidade de itens no carrinho -->
                 {{ getCartList.length }}
@@ -149,7 +148,7 @@ export default {
   data() {
     return {
       search: '',
-      urlLogo: 'img/logo-contruApp-v1.png',
+      urlLogo: 'logo-contruApp-v1.png',
       userTypeEnum: {
         admin: 1,
         seller: 2,
@@ -167,6 +166,8 @@ export default {
   // Funções
   methods: {
     ...mapActions('login', ['logout']),
+    ...mapActions('product', ['filterProduct']),
+    ...mapActions('manageProduct', ['resetCategoryProduct', 'listAllProducts']),
 
     redirectLogo() {
       if (this.getLogado) {
@@ -179,8 +180,19 @@ export default {
         }
 
         if (this.getUser.userType === this.userTypeEnum.client) {
+          if (this.$route.name !== 'main') {
+            this.$router.push('main');
+          }
+          this.resetCategoryProduct();
+        }
+      }
+
+      if (this.getUserAddress.cep > 0) {
+        if (this.$route.name !== 'main') {
           this.$router.push('main');
         }
+        this.listAllProducts();
+        this.resetCategoryProduct();
       }
     },
 
@@ -191,7 +203,8 @@ export default {
 
     // enviar palavra chave da pesquisa
     searchProduct(item) {
-      console.log('Clicou em pesquisar o item: ', item);
+      this.filterProduct(item);
+      this.$router.push('product');
       this.search = '';
     },
 
