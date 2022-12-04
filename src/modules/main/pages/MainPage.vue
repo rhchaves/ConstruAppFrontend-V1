@@ -31,7 +31,7 @@ export default {
   created() {
     this.showPageFunc();
     this.listProductCart(this.getUser);
-    this.updateProductsCart(this.getListProducts);
+    // this.updateProductsCart(this.getListProducts);
   },
 
   updated() {

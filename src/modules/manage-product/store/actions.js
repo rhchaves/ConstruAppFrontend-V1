@@ -18,7 +18,6 @@ const listAllProducts = async ({ commit }) => {
 
       products.forEach((item) => {
         item.image = `/image/${item.image}`;
-        console.log('Erro item', item);
       // item.image = `/image/originais/${item.name}.jpg`;
       });
       commit('INSERT_LIST_PRODUCTS', products);
@@ -94,7 +93,6 @@ const resetCategoryProduct = async ({ commit }) => {
   setTimeout(() => {
     commit('CLEAR_LIST_FILTER_PRODUCTS');
     commit('LOADING', false);
-    listAllProducts();
   }, 1000);
 };
 
