@@ -56,17 +56,17 @@ const listAllFilteredProducts = async ({ commit }, payload) => {
 };
 
 // //////////////////////////////////////////////////////
-const listTopSellingProducts = async ({ commit, state }) => {
+const listTopSellingProducts = ({ commit }, payload) => {
   commit('LOADING', true);
   commit('CLEAR_TOP_SELLING_PRODUCTS');
-  const productsList = state.products;
+  const productsList = payload;
   let qtd = 0;
   const products = [];
   console.log('productsList', productsList);
   productsList.filter((item) => {
     if (item.status !== 'inativo' && item.length !== 0) {
-      if (qtd <= 8) {
-        item.image = `/image/${item.image}`;
+      if (qtd <= 7) {
+        // item.image = `/image/${item.image}`;
         products.push(item);
         qtd += 1;
       }
@@ -184,6 +184,12 @@ const filterProduct = async ({ commit }, payload) => {
 };
 
 // //////////////////////////////////////////////////////
+const resetProduct = ({ commit }) => {
+  commit('LOADING', true);
+  commit('CLEAR_LIST_FILTER_PRODUCTS');
+  commit('LOADING', false);
+};
+// //////////////////////////////////////////////////////
 
 export {
   addNewProduct,
@@ -195,4 +201,5 @@ export {
   blockProduct,
   resetCategoryProduct,
   filterProduct,
+  resetProduct,
 };
