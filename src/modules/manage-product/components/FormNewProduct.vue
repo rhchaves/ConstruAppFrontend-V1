@@ -44,7 +44,7 @@
 
               <q-input
                 outlined
-                v-model="form.product_mark"
+                v-model="form.mark"
                 label="Fabricante/Marca"
                 lazy-rules
                 :rules="[ val => val !== null && val != '' && val.length >= 3 ||

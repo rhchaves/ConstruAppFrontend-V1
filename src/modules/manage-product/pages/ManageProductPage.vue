@@ -153,9 +153,9 @@ export default {
           field: 'category',
         },
         {
-          name: 'product_mark',
+          name: 'mark',
           label: 'Marca',
-          field: 'product_mark',
+          field: 'mark',
         },
         {
           name: 'price',

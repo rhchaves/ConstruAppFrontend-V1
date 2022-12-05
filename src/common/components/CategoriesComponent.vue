@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="btnAmber q-pa-xs row justify-center">
+    <div class="btnAmber q-pa-xs row justify-center ">
       <q-btn
         v-for="category in listCategories"
         :key="category.id"

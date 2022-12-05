@@ -1,4 +1,5 @@
 import HttpClient from 'src/boot/HttpClient';
+import Swal from 'sweetalert2';
 
 // //////////////////////////////////////////////////////
 const addNewProduct = async ({ commit }, payload) => {
@@ -27,7 +28,7 @@ const listAllProducts = async ({ commit }) => {
     }).finally(() => {
       commit('LOADING', false);
     });
-  }, 1000);
+  }, 600);
 };
 
 // //////////////////////////////////////////////////////
@@ -47,7 +48,7 @@ const listAllFilteredProducts = async ({ commit }, payload) => {
     }).finally(() => {
       commit('LOADING', false);
     });
-  }, 1000);
+  }, 600);
 };
 
 // //////////////////////////////////////////////////////
@@ -77,7 +78,7 @@ const updateProduct = async ({ commit }, payload, user) => {
     label: payload.label,
     description: payload.description,
     price: payload.price,
-    product_mark: payload.product_mark,
+    mark: payload.mark,
     image: payload.image,
     update_by: user,
   };
@@ -131,7 +132,42 @@ const resetCategoryProduct = async ({ commit }) => {
   setTimeout(() => {
     commit('CLEAR_LIST_FILTER_PRODUCTS');
     commit('LOADING', false);
-  }, 1000);
+  }, 600);
+};
+
+// //////////////////////////////////////////////////////
+const filterProduct = async ({ commit }, payload) => {
+  commit('LOADING', true);
+
+  commit('CLEAR_LIST_FILTER_PRODUCTS');
+
+  const filter = '?mark=&name&label=';
+  HttpClient.get(`/products${filter + payload}`).then((response) => {
+    const searchProduct = response.data.data;
+    console.log('searchProduct', searchProduct);
+    if (searchProduct.length === 0) {
+      console.log('entrou no if');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Oops...',
+        text: 'Não econtramos nenhum produto com essa descrição',
+        showConfirmButton: false,
+        timer: 4000,
+      });
+    } else {
+      console.log('caiu no else');
+
+      searchProduct.forEach((item) => {
+        item.image = `/image/${item.image}`;
+      });
+      commit('LIST_FILTER_PRODUCTS', searchProduct);
+    }
+    return response;
+  }).catch((error) => {
+    console.log('Erro na requisição da lista', error);
+  }).finally(() => {
+    commit('LOADING', false);
+  });
 };
 
 // //////////////////////////////////////////////////////
@@ -145,4 +181,5 @@ export {
   deleteProduct,
   blockProduct,
   resetCategoryProduct,
+  filterProduct,
 };

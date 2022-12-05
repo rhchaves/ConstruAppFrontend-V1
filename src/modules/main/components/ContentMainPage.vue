@@ -120,7 +120,7 @@ export default {
         console.log('entrou');
         setTimeout(() => {
           this.listTopSellingProducts();
-        }, 1000);
+        }, 700);
       }
     },
 
