@@ -14,7 +14,7 @@ const changeClient = async ({ commit }, payload) => {
 const listAllClients = async ({ commit }) => {
   commit('LOADING', true);
 
-  HttpClient.get('/client').then((response) => {
+  await HttpClient.get('/client').then((response) => {
     commit('INSERT_LIST_CLIENTS', response.data);
     console.log('LISTA DE CLIENTES AQUI', response.data);
     return response;
@@ -30,7 +30,7 @@ const deleteClient = async ({ commit }, payload) => {
 
   console.log('deleteClient', payload);
 
-  return HttpClient.delete(`/client/${payload[0].id}`).then((response) => {
+  await HttpClient.delete(`/client/${payload[0].id}`).then((response) => {
     commit('DELETE_CLIENT', payload[0]);
     return response;
   }).finally(() => {
@@ -51,7 +51,7 @@ const blockClient = async ({ commit }, payload) => {
 
   console.log('blockClient', payload);
 
-  return HttpClient.put(`/client/${payload[0].id}`, client).then((response) => {
+  await HttpClient.put(`/client/${payload[0].id}`, client).then((response) => {
     console.log('response.data', response.data);
     // commit('BLOCK_CLIENT', client);
     return response;

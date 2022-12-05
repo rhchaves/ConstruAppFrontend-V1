@@ -1,11 +1,15 @@
 <template>
   <q-page class="row justify-center items-center">
 
-    <div class="col-12 row justify-center">
+    <div
+      v-if="!getLoading"
+      class="col-12 row justify-center">
       <h3>Página de Administração</h3>
     </div>
 
-    <section class="justify-center">
+    <section class="justify-center"
+      v-if="!getLoading"
+      >
       <div class="col q-ma-xl"
         v-if="this.typeAdmin === 1">
         <q-btn
@@ -63,15 +67,30 @@
       </div>
     </section>
 
+    <LoadingComponent
+      :visible="getLoading"
+    />
+
+    <BlockPageComponent
+      v-if="getStatusUser.status === 'inativo'"
+    />
+
   </q-page>
 </template>
 
 <script>
 
+import LoadingComponent from 'src/common/components/LoadingComponent.vue';
+import BlockPageComponent from 'src/common/components/BlockPageComponent.vue';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'AdministratorPage',
+
+  components: {
+    LoadingComponent,
+    BlockPageComponent,
+  },
 
   data() {
     return {
@@ -93,7 +112,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters('administrator', ['getAdmins', 'getTypeAdmin']),
+    ...mapGetters('administrator', ['getLoading', 'getAdmins', 'getTypeAdmin', 'getStatusUser']),
     ...mapGetters('login', ['getUser']),
   },
 
@@ -109,7 +128,7 @@ export default {
             this.typeAdmin = item.type_admin;
           }
         });
-      }, 2000);
+      }, 1000);
     },
 
   },

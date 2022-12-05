@@ -39,7 +39,7 @@ const createAccountClient = async ({ commit }, payload) => {
   commit('LOADING', true);
   console.log('Print createAccountClient', payload);
 
-  return HttpClient.post('/client', payload).then((response) => {
+  await HttpClient.post('/client', payload).then((response) => {
     console.log('response.data', response.data);
 
     commit('INSERT_NEW_CLIENT', response.data);

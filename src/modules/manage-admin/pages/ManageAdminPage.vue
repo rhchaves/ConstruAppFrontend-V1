@@ -167,6 +167,7 @@ export default {
   methods: {
 
     ...mapActions('manageAdmin', ['listAllAdmins', 'deleteAdmin', 'blockAdmin']),
+    ...mapActions('administrator', ['blockSelected']),
 
     listAllAdminsEnum() {
       this.listAllAdmins();
@@ -208,7 +209,7 @@ export default {
     },
 
     confirmBlock() {
-      this.blockAdmin(this.selected);
+      this.blockSelected(this.selected);
       this.selected = [];
       this.openConfirmDialog = false;
     },

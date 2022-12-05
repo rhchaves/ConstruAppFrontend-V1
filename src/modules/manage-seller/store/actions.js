@@ -14,7 +14,7 @@ const changeSeller = async ({ commit }, payload) => {
 const listAllSellers = async ({ commit }) => {
   commit('LOADING', true);
 
-  HttpClient.get('/seller').then((response) => {
+  await HttpClient.get('/seller').then((response) => {
     commit('INSERT_LIST_SELLERS', response.data);
     console.log('LISTA DE VENDEDORES AQUI', response.data);
     return response;
@@ -30,7 +30,7 @@ const deleteSeller = async ({ commit }, payload) => {
 
   console.log('deleteSeller', payload);
 
-  return HttpClient.delete(`/seller/${payload[0].id}`).then((response) => {
+  await HttpClient.delete(`/seller/${payload[0].id}`).then((response) => {
     commit('DELETE_SELLER', payload[0]);
     return response;
   }).finally(() => {
@@ -51,7 +51,7 @@ const blockSeller = async ({ commit }, payload) => {
 
   console.log('blockSeller', payload);
 
-  return HttpClient.put(`/seller/${payload[0].id}`, seller).then((response) => {
+  await HttpClient.put(`/seller/${payload[0].id}`, seller).then((response) => {
     console.log('response.data', response.data);
     // commit('BLOCK_SELLER', seller);
     return response;

@@ -4,6 +4,10 @@
       @categoriesEmit="filterCategories"
     />
     <ContentMainPage />
+
+    <BlockPageComponent
+      v-if="getStatusUser.status === 'inativo'"
+    />
   </q-page>
 </template>
 
@@ -11,6 +15,7 @@
 
 import CategoriesComponent from 'src/common/components/CategoriesComponent.vue';
 import ContentMainPage from 'src/modules/main/components/ContentMainPage.vue';
+import BlockPageComponent from 'src/common/components/BlockPageComponent.vue';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -19,6 +24,7 @@ export default {
   components: {
     CategoriesComponent,
     ContentMainPage,
+    BlockPageComponent,
   },
 
   data() {
@@ -40,7 +46,8 @@ export default {
 
   computed: {
     ...mapGetters('deliveryAddress', ['getUserAddress']),
-    ...mapGetters('login', ['getLogado', 'getUser']),
+    ...mapGetters('login', ['getLogado', 'getUser', 'getStatusUser']),
+    ...mapGetters('administrator', ['getStatusUser']),
     ...mapGetters('shoppingCart', ['getCartList', 'getShoppingCartList']),
     ...mapGetters('manageProduct', ['getListProducts']),
 

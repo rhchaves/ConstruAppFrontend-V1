@@ -13,8 +13,8 @@ const addNewProduct = async ({ commit }, payload) => {
 // //////////////////////////////////////////////////////
 const listAllProducts = async ({ commit }) => {
   commit('LOADING', true);
-  setTimeout(() => {
-    HttpClient.get('/product').then((response) => {
+  setTimeout(async () => {
+    await HttpClient.get('/product').then((response) => {
       const products = response.data;
 
       products.forEach((item) => {
@@ -35,8 +35,8 @@ const listAllProducts = async ({ commit }) => {
 const listAllFilteredProducts = async ({ commit }, payload) => {
   commit('LOADING', true);
 
-  setTimeout(() => {
-    HttpClient.get(`/categories/${payload.id}/products`).then((response) => {
+  setTimeout(async () => {
+    await HttpClient.get(`/categories/${payload.id}/products`).then((response) => {
       const categoryProducts = response.data.categories;
       categoryProducts.forEach((item) => {
         item.image = `/image/${item.image}`;
@@ -118,7 +118,7 @@ const blockProduct = async ({ commit }, payload) => {
     product.status = 0;
   }
 
-  return HttpClient.patch(`/product/${payload[0].id}`, product).then((response) => {
+  await HttpClient.patch(`/product/${payload[0].id}`, product).then((response) => {
     console.log('response.data', response.data);
     // commit('BLOCK_PRODUCT', product);
     return response;
@@ -142,7 +142,7 @@ const filterProduct = async ({ commit }, payload) => {
   commit('CLEAR_LIST_FILTER_PRODUCTS');
 
   const filter = '?mark=&name&label=';
-  HttpClient.get(`/products${filter + payload}`).then((response) => {
+  await HttpClient.get(`/products${filter + payload}`).then((response) => {
     const searchProduct = response.data.data;
     console.log('searchProduct', searchProduct);
     if (searchProduct.length === 0) {

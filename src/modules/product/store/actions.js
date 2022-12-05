@@ -14,7 +14,7 @@ const filterProduct = async ({ commit }, payload) => {
   // commit('CLEAR_PRODUCT_PAGE');
 
   const filter = '?mark=&name&label=';
-  HttpClient.get(`/products${filter + payload}`).then((response) => {
+  await HttpClient.get(`/products${filter + payload}`).then((response) => {
     console.log('filterProduct', response.data.data);
     // commit('INSERT_PRODUCT_PAGE', response.data[13]);
     return response;
