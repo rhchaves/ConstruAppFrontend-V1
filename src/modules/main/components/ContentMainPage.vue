@@ -11,11 +11,11 @@
         :priceItem="product.price"
         :imageItem="product.image"
         @addCartItemEmit="addProduct(product)"
-        @addFavoriteItemEmit="addFavoriteProduct(product)"
-        @shareItemEmit="shareProduct(product)"
         @buyItemEmit="buyProduct(product)"
-      />
-    </section>
+        />
+      </section>
+      <!-- @addFavoriteItemEmit="addFavoriteProduct(product)" -->
+      <!-- @shareItemEmit="shareProduct(product)" -->
 
     <section class="row justify-center q-mt-xl" style="max-width: 1300px; max-height: 750px"
       v-if="getListProductsFilter.length"
@@ -28,11 +28,11 @@
         :priceItem="productFilter.price"
         :imageItem="productFilter.image"
         @addCartItemEmit="addProduct(productFilter)"
-        @addFavoriteItemEmit="addFavoriteProduct(productFilter)"
-        @shareItemEmit="shareProduct(productFilter)"
         @buyItemEmit="buyProduct(productFilter)"
-      />
-    </section>
+        />
+      </section>
+      <!-- @addFavoriteItemEmit="addFavoriteProduct(productFilter)" -->
+      <!-- @shareItemEmit="shareProduct(productFilter)" -->
 
     <ContentAlertComponent
       v-if="!getTopSellingProducts.length || !getListProductsFilter"
@@ -81,7 +81,7 @@ export default {
       'getListProductsFilter',
       'getTopSellingProducts',
     ]),
-    ...mapGetters('shoppingCart', ['getCartList']),
+    // ...mapGetters('shoppingCart', ['getCartList']),
   },
 
   methods: {
@@ -95,19 +95,19 @@ export default {
       this.listCep(this.search);
     },
 
-    addProduct(item, qtd) {
-      console.log('Clicou em Adicionar:', item, qtd);
+    addProduct(item) {
+      // console.log('Clicou em Adicionar:', item);
       this.addProductCart(item);
-      console.log('Lista do carrinho', this.getCartList);
+      // console.log('Lista do carrinho', this.getCartList);
     },
 
-    addFavoriteProduct(item) {
-      console.log('Clicou em Favoritar:', item);
-    },
+    // addFavoriteProduct(item) {
+    //   console.log('Clicou em Favoritar:', item);
+    // },
 
-    shareProduct(item) {
-      console.log('Clicou em Compartilhar:', item);
-    },
+    // shareProduct(item) {
+    //   console.log('Clicou em Compartilhar:', item);
+    // },
 
     buyProduct(item) {
       this.insertProductPage(item);

@@ -3,11 +3,13 @@ const LOADING = (state, payload) => {
 };
 
 const ADD_PRODUCT_CART = (state, payload) => {
-  state.cartProductList = payload;
+  // state.cartProductList.push(payload);
+  state.productList.push(payload);
 };
 
 const REMOVE_PRODUCT_CART = (state, payload) => {
-  state.cartProductList = state.cartProductList.filter((item) => item.id !== payload.id);
+  // state.cartProductList = state.cartProductList.filter((item) => item.id !== payload.id);
+  state.productList = state.productList.filter((item) => item.id !== payload.id);
 };
 
 const ADD_QTD_PRODUCT = (state, payload, qtd) => {
@@ -20,7 +22,8 @@ const ADD_QTD_PRODUCT = (state, payload, qtd) => {
 };
 
 const DELETE_CART = (state) => {
-  state.cartProductList = [];
+  // state.cartProductList = [];
+  state.productList = [];
 };
 
 const UPDATE_PRODUCTS_CART = (state, payload) => {

@@ -73,7 +73,7 @@
                     <q-item-section >Minhas compras</q-item-section>
                   </q-item>
                   <q-item clickable v-close-popup>
-                    <q-item-section>Alterar dados</q-item-section>
+                    <q-item-section @click="alterarDados">Alterar dados</q-item-section>
                   </q-item>
 
                   <q-separator />
@@ -91,7 +91,7 @@
 
           <!-- Carrinho -->
 
-          <div v-if="getCartList">
+          <div v-if="getShoppingCartList">
             <q-btn
               v-if="(getUserAddress.logradouro || (getUser.userType === 3 && getLogado))"
               class="q-mr-lg"
@@ -101,12 +101,12 @@
             >
               <q-badge rounded class="q-mr-sm q-mt-xs" color="red" text-color="white" floating>
                 <!-- alterar para retorno da quantidade de itens no carrinho -->
-                {{ getCartList.length }}
+                {{ getShoppingCartList.length }}
               </q-badge>
             </q-btn>
           </div>
 
-          <div v-if="!getCartList">
+          <div v-if="!getShoppingCartList">
             <q-btn
               v-if="(getUserAddress.logradouro || (getUser.userType === 3 && getLogado))"
               class="q-mr-lg"
@@ -115,7 +115,8 @@
             >
               <q-badge rounded class="q-mr-sm q-mt-xs" color="red" text-color="white" floating>
                 <!-- alterar para retorno da quantidade de itens no carrinho -->
-                {{ getCartList.length }}
+                <!-- {{ getCartList.length }} -->
+                {{ getShoppingCartList.length }}
               </q-badge>
             </q-btn>
           </div>
@@ -160,7 +161,7 @@ export default {
   computed: {
     ...mapGetters('login', ['getLogado', 'getUser']),
     ...mapGetters('deliveryAddress', ['getUserAddress']),
-    ...mapGetters('shoppingCart', ['getCartList']),
+    ...mapGetters('shoppingCart', ['getCartList', 'getShoppingCartList']),
   },
 
   // Funções
@@ -212,6 +213,9 @@ export default {
       if (!this.getLogado) {
         this.$router.push('/');
       }
+    },
+    alterarDados() {
+      this.$emit('alterarDadosEmit');
     },
   },
 };

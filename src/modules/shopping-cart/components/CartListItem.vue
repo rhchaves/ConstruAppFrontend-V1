@@ -1,6 +1,6 @@
 <template>
   <!-- <q-page> -->
-    <q-list bordered padding class="" style="max-width: 800px">
+    <q-list bordered padding class="" style="width: 800px">
       <q-item>
         <q-item-section top thumbnail class="q-ml-none">
           <img class="q-ma-md" :src="product.image">
@@ -14,14 +14,15 @@
         </q-item-section>
 
         <q-item-section >
-          <q-btn flat icon="delete" class="" v-model="product.id" @click="deleteItem()"></q-btn>
+          <q-btn flat icon="delete" class="" v-model="product.id"
+          @click="deleteItem(product.id)"></q-btn>
         </q-item-section>
-        <q-item-section class="btnAmber " >
+        <q-item-section class=" " >
 
-          <InputQtdComponent
+          <!-- <InputQtdComponent
               @addQuantityEmit="addQuantity(product.id)"
               @removeQuantityEmit="removeQuantity(product)"
-            />
+            /> -->
           <!-- <q-btn flat icon="add" class="" @click="addQuantity"></q-btn>
           <q-input
             v-model="product.quantity"
@@ -29,9 +30,18 @@
           ></q-input>
           <q-btn flat icon="remove" class="" @click="removeQuantity"></q-btn> -->
 
+          <q-input
+          v-model.number="product.quantity"
+          type="number"
+          filled
+          style="max-width: 80px"
+          />
         </q-item-section>
         <q-item-section >
-          <q-item-label v-model="product.subtotal">R$ {{ product.subtotal }}</q-item-label>
+          <!-- <q-item-label v-model="product.subtotal">
+            R$ {{ product.subtotal_value }}</q-item-label> -->
+          <q-item-label v-model="product.subtotal_value">
+            R$ {{ (product.price * product.quantity).toFixed(2) }}</q-item-label>
         </q-item-section>
       </q-item>
     </q-list>
@@ -43,14 +53,14 @@
 </template>
 
 <script>
-import InputQtdComponent from 'src/common/components/InputQtdComponent.vue';
+// import InputQtdComponent from 'src/common/components/InputQtdComponent.vue';
 import { mapActions } from 'vuex';
 
 export default {
   name: 'CartlistItem',
 
   components: {
-    InputQtdComponent,
+    // InputQtdComponent,
   },
 
   props: {
@@ -87,10 +97,12 @@ export default {
 
     ...mapActions('shoppingCart', [
       'addQtdCart',
+      'removeProductCart',
     ]),
 
-    deleteItem() {
-      console.log('Apagar Item:', this.deletedItem);
+    deleteItem(item) {
+      console.log('Apagar Item:', item);
+      this.removeProductCart(item);
       this.item = [];
     },
 

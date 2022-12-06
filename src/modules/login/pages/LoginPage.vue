@@ -50,8 +50,8 @@
           </template>
         </q-input>
 
-        <q-btn class="column items-center sizeBtn4" type="text" flat
-          @click="forgotPassword = true">Esqueci a senha</q-btn>
+        <!-- <q-btn class="column items-center sizeBtn4" type="text" flat
+          @click="forgotPassword = true">Esqueci a senha</q-btn> -->
 
         <p class="text-center q-ma-lg"
         >

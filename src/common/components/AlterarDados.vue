@@ -198,7 +198,7 @@ import { mapActions, mapGetters } from 'vuex';
 import Swal from 'sweetalert2';
 
 export default {
-  name: 'RegisterClientComponent',
+  name: 'AlterarDados',
 
   data() {
     return {

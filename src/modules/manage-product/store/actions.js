@@ -62,7 +62,6 @@ const listTopSellingProducts = ({ commit }, payload) => {
   const productsList = payload;
   let qtd = 0;
   const products = [];
-  console.log('productsList', productsList);
   productsList.filter((item) => {
     if (item.status !== 'inativo' && item.length !== 0) {
       if (qtd <= 7) {
@@ -73,7 +72,6 @@ const listTopSellingProducts = ({ commit }, payload) => {
     }
     return products;
   });
-  console.log('products', products);
   commit('TOP_SELLER_PRODUCTS', products);
   commit('LOADING', false);
 };

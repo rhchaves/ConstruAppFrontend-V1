@@ -1,29 +1,37 @@
 import HttpClient from 'src/common/boot/HttpClient';
 import Swal from 'sweetalert2';
 
-let shoppingCart = {};
+const shoppingCart = {};
 // //////////////////////////////////////////////////////
 const listProductCart = async ({ commit }, payload) => {
   commit('LOADING', true);
+  // commit('DELETE_CART');
+  console.log('payload', payload);
   setTimeout(async () => {
     const user = payload;
-    await HttpClient.get('/shopping_cart').then(async (shopping) => {
-      shopping.data.filter((item) => {
-        if (item.user_id === user.id) {
-          shoppingCart = item;
-        }
-        return shoppingCart;
-      });
-      // console.log('shoppingCart', shoppingCart);
+    let cart = {};
+    if (user.userType === 3) {
+      await HttpClient.get('/shopping_cart').then(async (shopping) => {
+        shopping.data.filter((item) => {
+          if (item.user_id === user.id) {
+            cart = item;
+          }
+          return shoppingCart;
+        });
+        console.log('shoppingCart', cart);
 
-      await HttpClient.get(`/shopping_cart/${shoppingCart.id}/items`).then((response) => {
-      // console.log('shoppingCart itens', response.data.shopping_cart_items);
-        const data = response.data.shopping_cart_items;
-        commit('ADD_PRODUCT_CART', data);
-        return response;
+        await HttpClient.get(`/shopping_cart/${cart.id}/items`).then((response) => {
+          console.log('shoppingCart itens', response.data.shopping_cart_items);
+          const data = response.data.shopping_cart_items;
+          data.forEach((item) => {
+            item.image = `/image/${item.image}`;
+          });
+          commit('ADD_PRODUCT_CART', data);
+          return response;
+        });
+        return shopping;
       });
-      return shopping;
-    });
+    }
   }, 1000);
 
   //   return response;
@@ -34,34 +42,13 @@ const listProductCart = async ({ commit }, payload) => {
 };
 
 // //////////////////////////////////////////////////////
-const deleteCart = async ({ commit }) => {
+const updateProductsCart = async ({ commit }, payload) => {
   commit('LOADING', true);
-
-  await HttpClient.delete(`/shopping_cart/${shoppingCart.id}`).then((response) => {
-    console.log('Delete shoppingCart', response);
-    commit('RESET_CART');
-    Swal.fire({
-      icon: 'success',
-      title: 'Concluído',
-      text: 'Itens removidos com sucesso',
-      showConfirmButton: false,
-      timer: 3000,
-    });
-    return response;
-  }).catch((error) => {
-    console.log('Erro na requisição', error);
-  }).finally(() => {
-    commit('LOADING', false);
-  });
-};
-
-// //////////////////////////////////////////////////////
-const updateProductsCart = async ({ commit, state }, payload) => {
-  commit('LOADING', true);
-  state.productList = [];
+  // state.productList = [];
   setTimeout(() => {
     const productList = payload;
-    const cartList = state.cartProductList;
+    const cartList = payload;
+    // const cartList = state.cartProductList;
 
     // console.log('productList no update', productList);
     // console.log('cartList no update', cartList);
@@ -82,8 +69,36 @@ const updateProductsCart = async ({ commit, state }, payload) => {
 };
 
 // //////////////////////////////////////////////////////
-const addProductCart = async ({ commit }, payload) => {
+const deleteCart = async ({ commit }) => {
   commit('LOADING', true);
+
+  // await HttpClient.delete(`/shopping_cart/${shoppingCart.id}`).then((response) => {
+  //   console.log('Delete shoppingCart', response);
+  commit('DELETE_CART');
+  Swal.fire({
+    icon: 'success',
+    title: 'Concluído',
+    text: 'Itens removidos com sucesso',
+    showConfirmButton: false,
+    timer: 3000,
+  });
+  //   return response;
+  // }).catch((error) => {
+  //   console.log('Erro na requisição', error);
+  // }).finally(() => {
+  //   commit('LOADING', false);
+  // });
+  commit('LOADING', false);
+};
+
+// //////////////////////////////////////////////////////
+const addProductCart = async ({ commit, state }, payload) => {
+  commit('LOADING', true);
+
+  const user = state.productList;
+
+  console.log('user', user);
+  console.log('payload', payload);
 
   commit('ADD_PRODUCT_CART', payload);
 
@@ -93,6 +108,8 @@ const addProductCart = async ({ commit }, payload) => {
 // //////////////////////////////////////////////////////
 const removeProductCart = async ({ commit }, payload) => {
   commit('LOADING', true);
+  console.log('entrou');
+  // await HttpClient.delete(`/shopping_cart_items/${payload}`);
 
   commit('REMOVE_PRODUCT_CART', payload);
 
