@@ -153,9 +153,9 @@ export default {
           field: 'category',
         },
         {
-          name: 'product_mark',
+          name: 'mark',
           label: 'Marca',
-          field: 'product_mark',
+          field: 'mark',
         },
         {
           name: 'price',
@@ -187,6 +187,7 @@ export default {
   methods: {
 
     ...mapActions('manageProduct', ['listAllProducts', 'deleteProduct', 'blockProduct']),
+    ...mapActions('administrator', ['blockSelected']),
 
     addNewProduct() {
       this.formType = 'save';
@@ -214,7 +215,7 @@ export default {
     },
 
     confirmBlock() {
-      this.blockProduct(this.selected);
+      this.blockSelected(this.selected);
       this.selected = [];
       this.openConfirmDialog = false;
     },

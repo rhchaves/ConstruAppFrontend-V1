@@ -12,16 +12,26 @@
       >
         <p class="text-h6 text-center center-screen size-custom-300 q-pb-lg"
         >SUA CONTA PARA TUDO DA CONSTRUAPP</p>
-        <q-input
+        <!-- <q-input
+          outlined
+          v-model="user.email"
+          type="email"
+          label="Email"
+          lazy-rules
+          bottom-slots
+          @blur="updateEmailVerification"
+          :rules="[ val => !!val || val !== null && val != '' && val.length > 5 ||
+            'Preencha o email corretamente']"
+          /> -->
+
+          <q-input
           outlined
           v-model="user.email"
           type="text"
           label="Email"
           lazy-rules
-          :rules="[ val => val !== null && val != '' && val.length > 5 ||
-          'Preencha o email corretamente']"
-        />
-
+          bottom-slots
+          />
         <q-input
           outlined
           v-model="user.password"
@@ -75,6 +85,7 @@
 <script>
 
 import { mapActions, mapGetters } from 'vuex';
+import Swal from 'sweetalert2';
 import ForgotPasswordComponent from '../components/ForgotPassawordComponent.vue';
 import RegisterClientComponent from '../components/RegisterClientComponent.vue';
 
@@ -105,29 +116,45 @@ export default {
 
   computed: {
     ...mapGetters('login', ['getLogado', 'getUser']),
+    ...mapGetters('administrator', ['getStatusUser']),
   },
 
   methods: {
 
     ...mapActions('login', ['login']),
+    ...mapActions('administrator', ['statusUser']),
+
+    updateEmailVerification() {
+      // eslint-disable-next-line
+      let reg =  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/
+      const valid = reg.test(this.user.email);
+
+      if (!valid) {
+        this.msgEmailInvalid();
+      }
+    },
 
     async loginAccount() {
-      console.log('Tentou logar');
+      console.log('Tentou logar', this.user.email);
+      // this.updateEmailVerification();
       await this.login(this.user);
 
-      // console.log(this.getLogado, this.getUser);
+      await this.statusUser(this.getUser);
 
-      if (this.getLogado) {
-        if (this.getUser.userType === this.userTypeEnum.admin) {
-          this.$router.push('administrator');
-        }
+      if (this.getStatusUser) {
+        console.log('this.getStatusUser', this.getStatusUser);
+        if (this.getLogado) {
+          if (this.getUser.userType === this.userTypeEnum.admin) {
+            this.$router.push('administrator');
+          }
 
-        if (this.getUser.userType === this.userTypeEnum.seller) {
-          this.$router.push('seller');
-        }
+          if (this.getUser.userType === this.userTypeEnum.seller) {
+            this.$router.push('seller');
+          }
 
-        if (this.getUser.userType === this.userTypeEnum.client) {
-          this.$router.push('main');
+          if (this.getUser.userType === this.userTypeEnum.client) {
+            this.$router.push('main');
+          }
         }
       }
     },
@@ -139,6 +166,36 @@ export default {
 
     createAccount() {
       this.newAccount = true;
+    },
+
+    msgEmailInvalid() {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Atenção!',
+        text: 'Preencha o Email corretamente',
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    },
+
+    msgCepNotfound() {
+      Swal.fire({
+        icon: 'error',
+        title: 'Atenção!',
+        text: `O CEP ${this.address.cep} não foi encontrado`,
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    },
+
+    msgCepFill() {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Atenção!',
+        text: 'Preencha o CEP',
+        showConfirmButton: false,
+        timer: 3000,
+      });
     },
 
   },

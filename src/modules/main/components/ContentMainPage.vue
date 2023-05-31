@@ -88,7 +88,7 @@ export default {
     ...mapActions('main', ['listCep']),
     ...mapActions('shoppingCart', ['addProductCart', 'listProductCart', 'updateProductsCart']),
     ...mapActions('product', ['insertProductPage']),
-    ...mapActions('manageProduct', ['listAllProducts', 'listTopSellingProducts']),
+    ...mapActions('manageProduct', ['listAllProducts', 'listTopSellingProducts', 'resetProduct']),
 
     onSubmit() {
       console.log('Clicou em buscar:', this.search);
@@ -116,12 +116,17 @@ export default {
     },
 
     listarProdutosPrincipais() {
-      if (!this.getTopSellingProducts.length) {
-        console.log('entrou');
-        setTimeout(() => {
-          this.listTopSellingProducts();
-        }, 1000);
-      }
+      this.resetProduct();
+      console.log('listarProdutosPrincipais');
+      // setTimeout(() => {
+      // if (!this.getTopSellingProducts.length) {
+      console.log('entrou');
+      // setTimeout(() => {
+      console.log('getListProducts', this.getListProducts);
+      this.listTopSellingProducts(this.getListProducts);
+      // }, 700);
+      // }
+      // }, 1000);
     },
 
     listarTodosProdutos() {

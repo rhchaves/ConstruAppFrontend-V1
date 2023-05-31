@@ -123,13 +123,14 @@ export default {
   methods: {
 
     ...mapActions('manageClient', ['listAllClients', 'deleteClient', 'blockClient']),
+    ...mapActions('administrator', ['blockSelected']),
 
     clientSelected(item) {
       this.selected = item;
     },
 
     confirmBlock() {
-      this.blockClient(this.selected);
+      this.blockSelected(this.selected);
       this.selected = [];
       this.openConfirmDialog = false;
     },

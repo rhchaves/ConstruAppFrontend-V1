@@ -32,6 +32,10 @@
 
     </section>
 
+    <BlockPageComponent
+      v-if="getStatusUser.status === 'inativo'"
+      title="Desculpe, seu conta está bloqueada ou ainda não foi ativada!"
+    />
   </q-page>
 </template>
 
@@ -39,6 +43,7 @@
 import { mapGetters } from 'vuex';
 import TableComponent from 'src/common/components/TableComponent.vue';
 import ContentAlertComponent from 'src/common/components/ContentAlertComponent.vue';
+import BlockPageComponent from 'src/common/components/BlockPageComponent.vue';
 
 export default {
   name: 'SellerPage',
@@ -46,6 +51,7 @@ export default {
   components: {
     TableComponent,
     ContentAlertComponent,
+    BlockPageComponent,
   },
 
   data() {
@@ -88,6 +94,8 @@ export default {
 
   computed: {
     ...mapGetters('manageAdmin', ['getListAdmins', 'getLoading']),
+    ...mapGetters('administrator', ['getStatusUser']),
+
   },
 
   methods: {

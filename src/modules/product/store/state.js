@@ -1,4 +1,4 @@
 export default {
   loading: false,
-  productPage: [],
+  productPage: {},
 };

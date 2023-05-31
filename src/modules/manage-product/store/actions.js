@@ -1,4 +1,5 @@
 import HttpClient from 'src/boot/HttpClient';
+import Swal from 'sweetalert2';
 
 // //////////////////////////////////////////////////////
 const addNewProduct = async ({ commit }, payload) => {
@@ -12,8 +13,8 @@ const addNewProduct = async ({ commit }, payload) => {
 // //////////////////////////////////////////////////////
 const listAllProducts = async ({ commit }) => {
   commit('LOADING', true);
-  setTimeout(() => {
-    HttpClient.get('/product').then((response) => {
+  setTimeout(async () => {
+    await HttpClient.get('/product').then((response) => {
       const products = response.data;
 
       products.forEach((item) => {
@@ -27,40 +28,53 @@ const listAllProducts = async ({ commit }) => {
     }).finally(() => {
       commit('LOADING', false);
     });
-  }, 1000);
+  }, 600);
 };
 
 // //////////////////////////////////////////////////////
 const listAllFilteredProducts = async ({ commit }, payload) => {
   commit('LOADING', true);
 
-  setTimeout(() => {
-    HttpClient.get(`/categories/${payload.id}/products`).then((response) => {
+  setTimeout(async () => {
+    await HttpClient.get(`/categories/${payload.id}/products`).then((response) => {
       const categoryProducts = response.data.categories;
-      categoryProducts.forEach((item) => {
-        item.image = `/image/${item.image}`;
-        // item.image = `/image/originais/${item.name}.jpg`;
+      const products = [];
+      categoryProducts.filter((item) => {
+        if (item.status !== 'inativo' && item.length !== 0) {
+          item.image = `/image/${item.image}`;
+          products.push(item);
+        }
+        return products;
       });
-      commit('LIST_FILTER_PRODUCTS', categoryProducts);
+      commit('LIST_FILTER_PRODUCTS', products);
     }).catch((error) => {
       console.log('Erro na requisição da lista', error);
     }).finally(() => {
       commit('LOADING', false);
     });
-  }, 1000);
+  }, 600);
 };
 
 // //////////////////////////////////////////////////////
-const listTopSellingProducts = async ({ commit, state }) => {
+const listTopSellingProducts = ({ commit }, payload) => {
   commit('LOADING', true);
   commit('CLEAR_TOP_SELLING_PRODUCTS');
-  const productsList = state.products;
+  const productsList = payload;
+  let qtd = 0;
+  const products = [];
+  console.log('productsList', productsList);
   productsList.filter((item) => {
-    if (item.id <= 8) {
-      commit('TOP_SELLER_PRODUCTS', item);
+    if (item.status !== 'inativo' && item.length !== 0) {
+      if (qtd <= 7) {
+        // item.image = `/image/${item.image}`;
+        products.push(item);
+        qtd += 1;
+      }
     }
-    return item;
+    return products;
   });
+  console.log('products', products);
+  commit('TOP_SELLER_PRODUCTS', products);
   commit('LOADING', false);
 };
 
@@ -77,7 +91,7 @@ const updateProduct = async ({ commit }, payload, user) => {
     label: payload.label,
     description: payload.description,
     price: payload.price,
-    product_mark: payload.product_mark,
+    mark: payload.mark,
     image: payload.image,
     update_by: user,
   };
@@ -117,7 +131,7 @@ const blockProduct = async ({ commit }, payload) => {
     product.status = 0;
   }
 
-  return HttpClient.patch(`/product/${payload[0].id}`, product).then((response) => {
+  await HttpClient.patch(`/product/${payload[0].id}`, product).then((response) => {
     console.log('response.data', response.data);
     // commit('BLOCK_PRODUCT', product);
     return response;
@@ -131,9 +145,50 @@ const resetCategoryProduct = async ({ commit }) => {
   setTimeout(() => {
     commit('CLEAR_LIST_FILTER_PRODUCTS');
     commit('LOADING', false);
-  }, 1000);
+  }, 600);
 };
 
+// //////////////////////////////////////////////////////
+const filterProduct = async ({ commit }, payload) => {
+  commit('LOADING', true);
+
+  commit('CLEAR_LIST_FILTER_PRODUCTS');
+
+  const filter = '?mark=&name&label=';
+  await HttpClient.get(`/products${filter + payload}`).then((response) => {
+    const searchProduct = response.data.data;
+    console.log('searchProduct', searchProduct);
+    if (searchProduct.length === 0) {
+      console.log('entrou no if');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Oops...',
+        text: 'Não econtramos nenhum produto com essa descrição',
+        showConfirmButton: false,
+        timer: 4000,
+      });
+    } else {
+      console.log('caiu no else');
+
+      searchProduct.forEach((item) => {
+        item.image = `/image/${item.image}`;
+      });
+      commit('LIST_FILTER_PRODUCTS', searchProduct);
+    }
+    return response;
+  }).catch((error) => {
+    console.log('Erro na requisição da lista', error);
+  }).finally(() => {
+    commit('LOADING', false);
+  });
+};
+
+// //////////////////////////////////////////////////////
+const resetProduct = ({ commit }) => {
+  commit('LOADING', true);
+  commit('CLEAR_LIST_FILTER_PRODUCTS');
+  commit('LOADING', false);
+};
 // //////////////////////////////////////////////////////
 
 export {
@@ -145,4 +200,6 @@ export {
   deleteProduct,
   blockProduct,
   resetCategoryProduct,
+  filterProduct,
+  resetProduct,
 };

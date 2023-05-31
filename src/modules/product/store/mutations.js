@@ -3,7 +3,7 @@ const LOADING = (state, payload) => {
 };
 
 const INSERT_PRODUCT_PAGE = (state, payload) => {
-  state.productPage.push(payload);
+  state.productPage = payload;
 };
 
 const CLEAR_PRODUCT_PAGE = (state) => {

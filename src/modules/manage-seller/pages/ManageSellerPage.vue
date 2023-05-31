@@ -127,6 +127,7 @@ export default {
   methods: {
 
     ...mapActions('manageSeller', ['listAllSellers', 'deleteSeller', 'blockSeller']),
+    ...mapActions('administrator', ['blockSelected']),
 
     sellerSelected(item) {
       this.selected = item;
@@ -134,7 +135,7 @@ export default {
     },
 
     confirmBlock() {
-      this.blockSeller(this.selected);
+      this.blockSelected(this.selected);
       this.selected = [];
       this.openConfirmDialog = false;
     },

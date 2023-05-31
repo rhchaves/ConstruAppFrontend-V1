@@ -25,7 +25,8 @@ const DELETE_PRODUCT = (state, payload) => {
 };
 
 const TOP_SELLER_PRODUCTS = (state, payload) => {
-  state.topSellingProducts.push(payload);
+  // state.topSellingProducts.push(payload);
+  state.topSellingProducts = payload;
 };
 
 const LIST_FILTER_PRODUCTS = (state, payload) => {

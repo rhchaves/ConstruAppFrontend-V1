@@ -71,7 +71,7 @@ export default {
         label: 'teste',
         description: 'teste',
         price: 12.32,
-        product_mark: 'teste',
+        mark: 'teste',
         image: 'teste',
         status: 'teste',
       },
